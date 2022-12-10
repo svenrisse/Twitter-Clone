@@ -61,10 +61,10 @@ model VerificationToken {
 }
 
 model Tweet {
-  id       String @id @default(cuid())
-  text     String
-  author   User   @relation(fields: [authorId], references: [id])
-  authorId String
+  id        String   @id @default(cuid())
+  text      String
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
