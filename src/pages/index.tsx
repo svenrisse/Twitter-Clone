@@ -7,8 +7,7 @@ import { trpc } from "../utils/trpc";
 import { Timeline } from "../components/Timeline";
 
 const Home: NextPage = () => {
-
-  const {data: session} = useSession()
+  const { data: session } = useSession();
 
   return (
     <>
@@ -18,7 +17,6 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <button onClick={() => signIn()}>Login</button>
       <Timeline />
     </>
   );
