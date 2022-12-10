@@ -13,10 +13,11 @@ export const tweetSchema = object({
 export function CreateTweet() {
   const [text, setText] = useState("");
   const [error, setError] = useState("");
+
   const { mutateAsync } = trpc.tweet.create.useMutation();
 
   async function handleSubmit(e) {
-    e.prevent.default();
+    e.preventDefault();
 
     try {
       await tweetSchema.parse({ text });
@@ -41,7 +42,7 @@ export function CreateTweet() {
         />
         <div className="mt-4 flex justify-end">
           <button
-            className="bg-primary rounded-md px-4 py-2 text-white"
+            className="rounded-md bg-primary px-4 py-2 text-white"
             type="submit"
           >
             Tweet
