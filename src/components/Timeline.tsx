@@ -3,9 +3,14 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import updateLocal from "dayjs/plugin/updateLocale";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { RouterOutputs, trpc } from "../utils/trpc";
+import { RouterInputs, RouterOutputs, trpc } from "../utils/trpc";
 import { CreateTweet } from "./CreateTweet";
 import { AiFillHeart } from "react-icons/ai";
+import {
+  InfiniteData,
+  QueryClient,
+  useQueryClient,
+} from "@tanstack/react-query";
 
 dayjs.extend(relativeTime);
 dayjs.extend(updateLocal);
@@ -55,13 +60,74 @@ function useScrollPosition() {
   return scrollPosition;
 }
 
+function updateCache({
+  client,
+  variables,
+  data,
+  action,
+}: {
+  client: QueryClient;
+  variables: {
+    tweetId: string;
+  };
+  data: {
+    userId: string;
+  };
+  action: "like" | "unlike";
+}) {
+  client.setQueryData(
+    [
+      ["tweet", "timeline"],
+      {
+        input: {
+          limit: 10,
+        },
+        type: "infinite",
+      },
+    ],
+    (oldData) => {
+      const newData = oldData as InfiniteData<
+        RouterOutputs["tweet"]["timeline"]
+      >;
+
+      const newTweets = newData.pages.map((page) => {
+        return {
+          tweets: page.tweets.map((tweet) => {
+            if (tweet.id === variables.tweetId) {
+              return {
+                ...tweet,
+                likes: action === "like" ? [data.userId] : [],
+              };
+            }
+            return tweet;
+          }),
+        };
+      });
+      return {
+        ...newData,
+        pages: newTweets,
+      };
+    }
+  );
+}
+
 function Tweet({
   tweet,
+  client,
 }: {
   tweet: RouterOutputs["tweet"]["timeline"]["tweets"][number];
+  client: QueryClient;
 }) {
-  const likeMutation = trpc.tweet.like.useMutation().mutateAsync;
-  const unlikeMutation = trpc.tweet.unlike.useMutation().mutateAsync;
+  const likeMutation = trpc.tweet.like.useMutation({
+    onSuccess: (data, variables) => {
+      updateCache({ client, data, variables, action: "like" });
+    },
+  }).mutateAsync;
+  const unlikeMutation = trpc.tweet.unlike.useMutation({
+    onSuccess: (data, variables) => {
+      updateCache({ client, data, variables, action: "unlike" });
+    },
+  }).mutateAsync;
 
   const hasLiked = tweet.likes.length > 0;
 
@@ -118,6 +184,7 @@ export function Timeline() {
         getNextPageParam: (lastPage) => lastPage.nextCursor,
       }
     );
+  const client = useQueryClient();
 
   const tweets = data?.pages.flatMap((page) => page.tweets) ?? [];
 
@@ -131,7 +198,7 @@ export function Timeline() {
       <CreateTweet />
       <div className="border-l-2 border-r-2 border-t-2 border-gray-500">
         {tweets.map((tweet) => {
-          return <Tweet key={tweet.id} tweet={tweet} />;
+          return <Tweet key={tweet.id} tweet={tweet} client={client} />;
         })}
         {!hasNextPage && <p>No more tweets to load</p>}
       </div>
