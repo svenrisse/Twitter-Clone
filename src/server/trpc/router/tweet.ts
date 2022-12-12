@@ -29,6 +29,8 @@ export const tweetRouter = router({
       const { prisma } = ctx;
       const { cursor, limit } = input;
 
+      const userId = ctx.session?.user?.id;
+
       const tweets = await prisma.tweet.findMany({
         take: limit + 1,
         orderBy: [
@@ -38,6 +40,14 @@ export const tweetRouter = router({
         ],
         cursor: cursor ? { id: cursor } : undefined,
         include: {
+          likes: {
+            where: {
+              userId,
+            },
+            select: {
+              userId: true,
+            },
+          },
           author: {
             select: {
               name: true,
@@ -59,5 +69,42 @@ export const tweetRouter = router({
         tweets,
         nextCursor,
       };
+    }),
+
+  like: protectedProcedure
+    .input(z.object({ tweetId: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const userId = ctx.session.user.id;
+      const { prisma } = ctx;
+
+      return prisma.like.create({
+        data: {
+          tweet: {
+            connect: {
+              id: input.tweetId,
+            },
+          },
+          user: {
+            connect: {
+              id: userId,
+            },
+          },
+        },
+      });
+    }),
+  unlike: protectedProcedure
+    .input(z.object({ tweetId: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const userId = ctx.session.user.id;
+      const { prisma } = ctx;
+
+      return prisma.like.delete({
+        where: {
+          tweetId_userId: {
+            tweetId: input.tweetId,
+            userId,
+          },
+        },
+      });
     }),
 });

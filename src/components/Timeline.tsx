@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { RouterOutputs, trpc } from "../utils/trpc";
 import { CreateTweet } from "./CreateTweet";
+import { AiFillHeart } from "react-icons/ai";
 
 dayjs.extend(relativeTime);
 dayjs.extend(updateLocal);
@@ -59,6 +60,11 @@ function Tweet({
 }: {
   tweet: RouterOutputs["tweet"]["timeline"]["tweets"][number];
 }) {
+  const likeMutation = trpc.tweet.like.useMutation().mutateAsync;
+  const unlikeMutation = trpc.tweet.unlike.useMutation().mutateAsync;
+
+  const hasLiked = tweet.likes.length > 0;
+
   return (
     <div className="mb-4 border-b-2 border-gray-500">
       <div className="flex p-2">
@@ -79,6 +85,24 @@ function Tweet({
 
           <div>{tweet.text}</div>
         </div>
+      </div>
+      <div className="mt-4 flex items-center p-2">
+        <AiFillHeart
+          color={hasLiked ? "red" : "black"}
+          size="1.5rem"
+          onClick={() => {
+            if (hasLiked) {
+              unlikeMutation({
+                tweetId: tweet.id,
+              });
+              return;
+            }
+            likeMutation({
+              tweetId: tweet.id,
+            });
+          }}
+        />
+        <span className="text-sm text-gray-500">{10}</span>
       </div>
     </div>
   );
