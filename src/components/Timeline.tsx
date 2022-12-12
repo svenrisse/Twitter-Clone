@@ -1,6 +1,30 @@
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import updateLocal from "dayjs/plugin/updateLocale";
 import Image from "next/image";
 import { RouterOutputs, trpc } from "../utils/trpc";
 import { CreateTweet } from "./CreateTweet";
+
+dayjs.extend(relativeTime);
+dayjs.extend(updateLocal);
+
+dayjs.updateLocale("en", {
+  relativeTime: {
+    future: "in %s",
+    past: "%s ago",
+    s: "1m",
+    m: "1m",
+    mm: "%dm",
+    h: "1h",
+    hh: "%dh",
+    d: "1d",
+    dd: "%dd",
+    M: "1m",
+    MM: "%dm",
+    y: "1y",
+    yy: "%dy",
+  },
+});
 
 function Tweet({
   tweet,
@@ -22,7 +46,7 @@ function Tweet({
         <div className="ml-2">
           <div className="flex">
             <p>{tweet.author.name}</p>
-            <p> - {new Date(tweet.createdAt).toISOString()}</p>
+            <p> - {dayjs(tweet.createdAt).fromNow()}</p>
           </div>
 
           <div>{tweet.text}</div>
@@ -33,14 +57,30 @@ function Tweet({
 }
 
 export function Timeline() {
-  const { data } = trpc.tweet.timeline.useQuery({ limit: 2 });
+  const { data, hasNextPage, fetchNextPage, isFetching } =
+    trpc.tweet.timeline.useInfiniteQuery(
+      { limit: 10 },
+      {
+        getNextPageParam: (lastPage) => lastPage.nextCursor,
+      }
+    );
+  console.log("data", data);
+
+  const tweets = data?.pages.flatMap((page) => page.tweets) ?? [];
   return (
     <div>
       <CreateTweet />
       <div className="border-l-2 border-r-2 border-t-2 border-gray-500">
-        {data?.tweets.map((tweet) => {
+        {tweets.map((tweet) => {
           return <Tweet key={tweet.id} tweet={tweet} />;
         })}
+
+        <button
+          onClick={() => fetchNextPage()}
+          disabled={!hasNextPage || isFetching}
+        >
+          load next
+        </button>
       </div>
     </div>
   );
