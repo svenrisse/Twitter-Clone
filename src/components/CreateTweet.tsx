@@ -14,7 +14,14 @@ export function CreateTweet() {
   const [text, setText] = useState("");
   const [error, setError] = useState("");
 
-  const { mutateAsync } = trpc.tweet.create.useMutation();
+  const utils = trpc.useContext();
+
+  const { mutateAsync } = trpc.tweet.create.useMutation({
+    onSuccess: () => {
+      setText("");
+      utils.tweet.timeline.invalidate();
+    },
+  });
 
   async function handleSubmit(e) {
     e.preventDefault();
