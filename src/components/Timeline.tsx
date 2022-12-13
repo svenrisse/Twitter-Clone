@@ -90,6 +90,7 @@ function updateCache({
       const newData = oldData as InfiniteData<
         RouterOutputs["tweet"]["timeline"]
       >;
+      const value = action === "like" ? 1 : -1;
 
       const newTweets = newData.pages.map((page) => {
         return {
@@ -98,6 +99,9 @@ function updateCache({
               return {
                 ...tweet,
                 likes: action === "like" ? [data.userId] : [],
+                _count: {
+                  likes: tweet._count.likes + value,
+                },
               };
             }
             return tweet;
@@ -169,7 +173,7 @@ function Tweet({
             });
           }}
         />
-        <span className="text-sm text-gray-500">{10}</span>
+        <span className="text-sm text-gray-500">{tweet._count.likes}</span>
       </div>
     </div>
   );
