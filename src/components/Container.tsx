@@ -5,7 +5,5 @@ export function Container({
   children: React.ReactNode;
   classNames?: string;
 }) {
-  return (
-    <div className={`max-w-xl bg-slate-200 ${classNames}`}>{children}</div>
-  );
+  return <div className={` bg-slate-200 ${classNames}`}>{children}</div>;
 }
