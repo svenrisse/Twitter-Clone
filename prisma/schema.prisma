@@ -6,13 +6,12 @@ generator client {
 }
 
 datasource db {
-  provider     = "mysql"
+  provider = "sqlite"
   // NOTE: When using postgresql, mysql or sqlserver, uncomment the @db.Text annotations in model Account below
   // Further reading:
   // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
   // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
-  url          = env("DATABASE_URL")
-  relationMode = "prisma"
+  url      = env("DATABASE_URL")
 }
 
 // Necessary for Next auth
@@ -50,6 +49,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  tweet         Tweet[]
 }
 
 model VerificationToken {
@@ -58,4 +58,13 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Tweet {
+  id        String   @id @default(cuid())
+  text      String
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
