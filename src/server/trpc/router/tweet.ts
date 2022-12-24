@@ -32,6 +32,15 @@ export const tweetRouter = router({
       const tweets = await prisma.tweet.findMany({
         take: input.limit + 1,
         orderBy: [{ createdAt: "desc" }],
+        include: {
+          author: {
+            select: {
+              name: true,
+              image: true,
+              id: true,
+            },
+          },
+        },
       });
 
       return {
