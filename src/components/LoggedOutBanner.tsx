@@ -12,9 +12,14 @@ export function LoggedOutBanner() {
         classNames="bg-transparent flex justify-between w-1/2
       "
       >
-        <p>Do not miss out</p>
+        <p className="text-center">Do not miss out</p>
         <div>
-          <button onClick={() => signIn()}>Login</button>
+          <button
+            className="px-4 py-2 text-white shadow-md"
+            onClick={() => signIn()}
+          >
+            Login
+          </button>
         </div>
       </Container>
     </div>
