@@ -19,7 +19,7 @@ export const tweetRouter = router({
       },
     });
   }),
-  list: publicProcedure
+  timeline: publicProcedure
     .input(
       z.object({
         cursor: z.string().nullish(),
@@ -30,6 +30,7 @@ export const tweetRouter = router({
       const { prisma } = ctx;
 
       const tweets = await prisma.tweet.findMany({
+        take: input.limit + 1,
         orderBy: [{ createdAt: "desc" }],
       });
 
