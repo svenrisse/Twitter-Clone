@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { object, string } from "zod";
 import { trpc } from "../utils/trpc";
 
@@ -12,12 +12,12 @@ export function CreateTweet() {
 
   const { mutateAsync } = trpc.tweet.create.useMutation();
 
-  async function handleSubmit(e) {
+  async function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
 
     try {
       await tweetSchema.parse({ text });
-    } catch (e) {
+    } catch (e: any) {
       setError(e.message);
       return;
     }
