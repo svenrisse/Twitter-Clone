@@ -32,6 +32,7 @@ export const tweetRouter = router({
       const tweets = await prisma.tweet.findMany({
         take: input.limit + 1,
         orderBy: [{ createdAt: "desc" }],
+        cursor: input.cursor ? { id: input.cursor } : undefined,
         include: {
           author: {
             select: {
@@ -43,8 +44,16 @@ export const tweetRouter = router({
         },
       });
 
+      let nextCursor: typeof input.cursor | undefined = undefined;
+
+      if (tweets.length > input.limit) {
+        const nextItem = tweets.pop() as typeof tweets[number];
+        nextCursor = nextItem.id;
+      }
+
       return {
         tweets,
+        nextCursor,
       };
     }),
 });
