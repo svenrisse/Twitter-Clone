@@ -1,6 +1,30 @@
+import dayjs from "dayjs";
 import Image from "next/image";
 import { RouterOutputs, trpc } from "../utils/trpc";
 import { CreateTweet } from "./CreateTweet";
+import relativeTime from "dayjs/plugin/relativeTime";
+import updateLocal from "dayjs/plugin/updateLocale";
+
+dayjs.extend(relativeTime);
+dayjs.extend(updateLocal);
+
+dayjs.updateLocale("end", {
+  relativeTime: {
+    future: "in %s",
+    past: "%s ago",
+    s: "1m",
+    m: "1m",
+    mm: "%d m",
+    h: "1h",
+    hh: "%d h ",
+    d: "a d",
+    dd: "%d d",
+    M: "1M",
+    MM: "%d M",
+    y: "1y",
+    yy: "%d y",
+  },
+});
 
 function Tweet({
   tweet,
@@ -25,7 +49,7 @@ function Tweet({
             <p className="font-bold">@{tweet.author.name}</p>
             <p className="text-sm text-gray-400">
               {" "}
-              - {new Date(tweet.createdAt).toISOString()}
+              - {dayjs(tweet.createdAt).fromNow()}
             </p>
           </div>
 
@@ -37,7 +61,9 @@ function Tweet({
 }
 
 export function Timeline() {
-  const { data } = trpc.tweet.timeline.useQuery({});
+  const { data } = trpc.tweet.timeline.useQuery({
+    limit: 10,
+  });
 
   return (
     <div>
