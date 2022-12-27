@@ -4,6 +4,7 @@ import { RouterOutputs, trpc } from "../utils/trpc";
 import { CreateTweet } from "./CreateTweet";
 import relativeTime from "dayjs/plugin/relativeTime";
 import updateLocal from "dayjs/plugin/updateLocale";
+import { useEffect, useState } from "react";
 
 dayjs.extend(relativeTime);
 dayjs.extend(updateLocal);
@@ -25,6 +26,33 @@ dayjs.updateLocale("end", {
     yy: "%d y",
   },
 });
+
+function useScrollPosition() {
+  const [scrollPosition, setScrollPostion] = useState(0);
+
+  function handleScroll() {
+    const height =
+      document.documentElement.scrollHeight -
+      document.documentElement.clientHeight;
+
+    const winScroll =
+      document.body.scrollTop || document.documentElement.scrollTop;
+
+    const scrolled = (winScroll / height) * 100;
+
+    setScrollPostion(scrolled);
+  }
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  return scrollPosition;
+}
 
 function Tweet({
   tweet,
@@ -61,10 +89,12 @@ function Tweet({
 }
 
 export function Timeline() {
+  const scrollPosition = useScrollPosition();
+
   const { data, hasNextPage, fetchNextPage, isFetching } =
     trpc.tweet.timeline.useInfiniteQuery(
       {
-        limit: 10,
+        limit: 20,
       },
       {
         getNextPageParam: (lastPage) => lastPage.nextCursor,
@@ -72,6 +102,13 @@ export function Timeline() {
     );
 
   const tweets = data?.pages.flatMap((page) => page.tweets) ?? [];
+
+  useEffect(() => {
+    if (scrollPosition > 90 && hasNextPage && !isFetching) {
+      fetchNextPage();
+    }
+  }, [fetchNextPage, hasNextPage, isFetching, scrollPosition]);
+
   return (
     <div>
       <CreateTweet />
@@ -80,14 +117,8 @@ export function Timeline() {
         {tweets.map((tweet) => {
           return <Tweet key={tweet.id} tweet={tweet} />;
         })}
-
-        <button
-          onClick={() => fetchNextPage()}
-          disabled={!hasNextPage || isFetching}
-        >
-          load next
-        </button>
       </div>
+      {!hasNextPage && <p>No more Tweets to load.</p>}
     </div>
   );
 }
