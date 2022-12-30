@@ -151,7 +151,16 @@ function Tweet({
         <div className="ml-2">
           <div className="flex items-center">
             <p className="font-bold">
-              <Link href={`/${tweet.author.name}`}>@{tweet.author.name}</Link>
+              <Link
+                href={{
+                  pathname: `${tweet.author.name}`,
+                  query: {
+                    id: tweet.authorId,
+                  },
+                }}
+              >
+                @{tweet.author.name}
+              </Link>
             </p>
             <p className="text-sm text-gray-400">
               {" "}
@@ -186,8 +195,10 @@ function Tweet({
 
 export function Timeline({
   where = {},
+  renderCreate,
 }: {
   where: RouterInputs["tweet"]["timeline"]["where"];
+  renderCreate: boolean;
 }) {
   const scrollPosition = useScrollPosition();
 
@@ -212,7 +223,7 @@ export function Timeline({
 
   return (
     <div>
-      <CreateTweet />
+      {renderCreate && <CreateTweet />}
 
       <div className="border-l-2 border-r-2 border-t-2 border-gray-500">
         {tweets.map((tweet) => {
