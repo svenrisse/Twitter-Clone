@@ -13,6 +13,10 @@ export const userRouter = router({
         where: {
           id,
         },
+        include: {
+          likes: true,
+          tweet: true,
+        },
       });
     }),
 });
