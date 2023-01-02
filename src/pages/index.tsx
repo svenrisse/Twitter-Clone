@@ -1,8 +1,5 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import Link from "next/link";
-
-import { trpc } from "../utils/trpc";
 import { Timeline } from "../components/Timeline";
 import Leftbar from "../components/Leftbar";
 import Rightbar from "../components/Rightbar";
@@ -18,7 +15,6 @@ const Home: NextPage = () => {
       <div className="flex justify-center">
         <Leftbar />
         <Timeline renderCreate={true} where={{}} />
-
         <Rightbar />
       </div>
     </>
