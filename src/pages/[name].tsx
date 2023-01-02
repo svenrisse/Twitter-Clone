@@ -16,7 +16,7 @@ export default function UserPage() {
   return (
     <div className="flex min-h-screen justify-center">
       <Leftbar />
-      <div className="w-1/4">
+      <div className="w-1/2">
         <div className="pt-10">
           <div className="ml-3">
             <Image
