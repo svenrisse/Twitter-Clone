@@ -1,3 +1,7 @@
 export default function Rightbar() {
-  return <div className="w-1/4">This is the rightbar</div>;
+  return (
+    <div className="fixed right-0 flex w-1/4 justify-start">
+      <div>This is the rightbar</div>
+    </div>
+  );
 }
