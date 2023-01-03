@@ -33,24 +33,24 @@ export default function Leftbar() {
         </Link>
       </div>
       <div className="flex items-center ">
-        <BsHash size={"2.5rem"} />
-        <span className="px-6">Explore</span>
+        <BsHash size={"2.5rem"} color="gray" />
+        <span className="px-6 text-gray-400">Explore</span>
       </div>
       <div className="flex items-center ">
-        <AiFillBell size={"2.5rem"} />
-        <span className="px-6">Notifications</span>
+        <AiFillBell size={"2.5rem"} color="gray" />
+        <span className="px-6 text-gray-400">Notifications</span>
       </div>
       <div className="flex items-center ">
-        <AiFillMessage size={"2.5rem"} />
-        <span className="px-6">Messages</span>
+        <AiFillMessage size={"2.5rem"} color="gray" />
+        <span className="px-6 text-gray-400">Messages</span>
       </div>
       <div className="flex items-center ">
-        <BsFillBookmarkFill size={"2.5rem"} />
-        <span className="px-6">Bookmarks</span>
+        <BsFillBookmarkFill size={"2.5rem"} color="gray" />
+        <span className="px-6 text-gray-400">Bookmarks</span>
       </div>
       <div className="flex items-center ">
-        <AiOutlineUnorderedList size={"2.5rem"} />
-        <span className="px-6">Lists</span>
+        <AiOutlineUnorderedList size={"2.5rem"} color="gray" />
+        <span className="px-6 text-gray-400">Lists</span>
       </div>
       {status === "authenticated" && (
         <div className="flex items-center ">
@@ -73,8 +73,8 @@ export default function Leftbar() {
         </div>
       )}
       <div className="flex items-center ">
-        <CiCircleMore size={"2.5rem"} />
-        <span className="px-6">More</span>
+        <CiCircleMore size={"2.5rem"} color="gray" />
+        <span className="px-6 text-gray-400">More</span>
       </div>
     </div>
   );
