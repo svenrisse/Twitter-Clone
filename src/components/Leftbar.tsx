@@ -12,7 +12,7 @@ import { CiCircleMore } from "react-icons/ci";
 export default function Leftbar() {
   return (
     <div className="fixed left-0 flex w-1/4 flex-col  justify-between space-y-4 px-12 py-16 text-lg">
-      <div>
+      <div className="w-fit">
         <Link href={"/"}>
           <AiOutlineTwitter
             color="black"
@@ -21,9 +21,13 @@ export default function Leftbar() {
           />
         </Link>
       </div>
-      <div className="flex items-center ">
-        <AiFillHome size={"2.5rem"} />
-        <span className="px-6">Home</span>
+      <div className="w-fit">
+        <Link href={"/"}>
+          <div className="group flex items-center rounded-md hover:bg-slate-300">
+            <AiFillHome size={"2.5rem"} className="group-hover:fill-cyan-500" />
+            <span className="px-6">Home</span>
+          </div>
+        </Link>
       </div>
       <div className="flex items-center ">
         <BsHash size={"2.5rem"} />
