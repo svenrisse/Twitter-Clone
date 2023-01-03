@@ -1,3 +1,4 @@
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import {
   AiFillBell,
@@ -10,6 +11,8 @@ import { BsFillBookmarkFill, BsFillPersonFill, BsHash } from "react-icons/bs";
 import { CiCircleMore } from "react-icons/ci";
 
 export default function Leftbar() {
+  const { data, status } = useSession();
+
   return (
     <div className="fixed left-0 flex w-1/4 flex-col  justify-between space-y-4 px-12 py-16 text-lg">
       <div className="w-fit">
@@ -49,10 +52,26 @@ export default function Leftbar() {
         <AiOutlineUnorderedList size={"2.5rem"} />
         <span className="px-6">Lists</span>
       </div>
-      <div className="flex items-center ">
-        <BsFillPersonFill size={"2.5rem"} />
-        <span className="px-6">Profile</span>
-      </div>
+      {status === "authenticated" && (
+        <div className="flex items-center ">
+          <Link
+            href={{
+              pathname: `${data?.user?.name}`,
+              query: {
+                id: data?.user?.id,
+              },
+            }}
+          >
+            <div className="group flex items-center rounded-md hover:bg-slate-300">
+              <BsFillPersonFill
+                size={"2.5rem"}
+                className="group-hover:fill-cyan-500"
+              />
+              <span className="px-6">Profile</span>
+            </div>
+          </Link>
+        </div>
+      )}
       <div className="flex items-center ">
         <CiCircleMore size={"2.5rem"} />
         <span className="px-6">More</span>
