@@ -24,7 +24,7 @@ export default function ProfileBar() {
   return (
     <div className="fixed bottom-6 left-14  ">
       <div
-        className="flex w-40 items-center justify-between"
+        className="flex w-40 cursor-pointer items-center justify-between rounded-xl border-2 border-black px-4 py-2"
         onClick={openModal}
       >
         <Image
@@ -32,8 +32,9 @@ export default function ProfileBar() {
           alt={`${data.user?.name} profile picture`}
           width={50}
           height={50}
+          className="rounded-full"
         />
-        <span>{data.user?.name}</span>
+        <span className="font-bold">{data.user?.name}</span>
         <BsThreeDotsVertical size={"1.5rem"} />
       </div>
       <Modal
