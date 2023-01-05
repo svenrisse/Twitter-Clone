@@ -124,11 +124,14 @@ function Tweet({
   client: QueryClient;
   input: RouterInputs["tweet"]["timeline"];
 }) {
+  const { data: session } = useSession();
+
   const likeMutation = trpc.tweet.like.useMutation({
     onSuccess: (data, variables) => {
       updateCache({ client, data, variables, input, action: "like" });
     },
   }).mutateAsync;
+
   const unlikeMutation = trpc.tweet.unlike.useMutation({
     onSuccess: (data, variables) => {
       updateCache({ client, data, variables, input, action: "unlike" });
@@ -136,6 +139,24 @@ function Tweet({
   }).mutateAsync;
 
   const hasLiked = tweet.likes.length > 0;
+
+  function handleLikeClick() {
+    if (!session) {
+      return;
+    }
+
+    if (hasLiked) {
+      unlikeMutation({
+        tweetId: tweet.id,
+      });
+      return;
+    }
+
+    likeMutation({
+      tweetId: tweet.id,
+    });
+  }
+
   return (
     <div className="mb-4 border-b-2 border-gray-500">
       <div className="flex p-2">
@@ -176,17 +197,7 @@ function Tweet({
         <AiFillHeart
           color={hasLiked ? "red" : "black"}
           size="1.5rem"
-          onClick={() => {
-            if (hasLiked) {
-              unlikeMutation({
-                tweetId: tweet.id,
-              });
-              return;
-            }
-            likeMutation({
-              tweetId: tweet.id,
-            });
-          }}
+          onClick={handleLikeClick}
         />
         <span className="text-sm text-gray-500">{tweet._count.likes}</span>
       </div>
