@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { AiFillHeart } from "react-icons/ai";
 import { QueryClient, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 const LIMIT = 10;
 dayjs.extend(relativeTime);
@@ -200,6 +201,13 @@ export function Timeline({
   where: RouterInputs["tweet"]["timeline"]["where"];
   renderCreate: boolean;
 }) {
+  // only render createTweet if logged in
+  const { data: session } = useSession();
+
+  if (!session) {
+    renderCreate = false;
+  }
+
   const scrollPosition = useScrollPosition();
 
   const { data, hasNextPage, fetchNextPage, isFetching } =
@@ -215,6 +223,7 @@ export function Timeline({
   const client = useQueryClient();
   const tweets = data?.pages.flatMap((page) => page.tweets) ?? [];
 
+  // fetch nextPage when scroll position is at 90%
   useEffect(() => {
     if (scrollPosition > 90 && hasNextPage && !isFetching) {
       fetchNextPage();
