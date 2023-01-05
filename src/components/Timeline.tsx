@@ -11,7 +11,6 @@ import { useQueryClient } from "@tanstack/react-query";
 import type { QueryClient } from "@tanstack/react-query"
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import { tweetSchema } from "../../../components/CreateTweet";
 
 const LIMIT = 10;
 
@@ -96,7 +95,7 @@ function updateCache({
       const value = action === "like" ? 1 : -1;
       const newTweets = newData.pages.map((page) => {
         return {
-          tweets: page.tweets.map((tweet: tweetSchema) => {
+          tweets: page.tweets.map((tweet) => {
             if (tweet.id === variables.tweetId) {
               return {
                 ...tweet,
