@@ -1,16 +1,20 @@
 import dayjs from "dayjs";
 import Image from "next/image";
-import { RouterInputs, RouterOutputs, trpc } from "../utils/trpc";
+import { trpc } from "../utils/trpc"
+import type { RouterInputs, RouterOutputs, } from "../utils/trpc";
 import { CreateTweet } from "./CreateTweet";
 import relativeTime from "dayjs/plugin/relativeTime";
 import updateLocal from "dayjs/plugin/updateLocale";
 import { useEffect, useState } from "react";
 import { AiFillHeart } from "react-icons/ai";
-import { QueryClient, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
+import type { QueryClient } from "@tanstack/react-query"
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import { tweetSchema } from "../../../components/CreateTweet";
 
 const LIMIT = 10;
+
 dayjs.extend(relativeTime);
 dayjs.extend(updateLocal);
 
@@ -92,7 +96,7 @@ function updateCache({
       const value = action === "like" ? 1 : -1;
       const newTweets = newData.pages.map((page) => {
         return {
-          tweets: page.tweets.map((tweet) => {
+          tweets: page.tweets.map((tweet: tweetSchema) => {
             if (tweet.id === variables.tweetId) {
               return {
                 ...tweet,
