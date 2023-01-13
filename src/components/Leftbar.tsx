@@ -10,20 +10,10 @@ import {
 import { BsFillBookmarkFill, BsFillPersonFill, BsHash } from "react-icons/bs";
 import { CiCircleMore } from "react-icons/ci";
 import ProfileBar from "./ProfileBar";
-import Modal from "react-modal";
-import { useState } from "react";
 
 export default function Leftbar() {
   const { data, status } = useSession();
-  const [modalIsOpen, setIsOpen] = useState(false);
 
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
   return (
     <div>
       <div className="fixed left-0 flex w-1/4 flex-col  justify-between space-y-4 px-12 py-16 text-lg">
