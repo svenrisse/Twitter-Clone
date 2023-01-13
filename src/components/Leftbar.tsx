@@ -2,12 +2,13 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import {
   AiFillBell,
+  AiFillHeart,
   AiFillHome,
   AiFillMessage,
   AiOutlineTwitter,
   AiOutlineUnorderedList,
 } from "react-icons/ai";
-import { BsFillBookmarkFill, BsFillPersonFill, BsHash } from "react-icons/bs";
+import { BsFillPersonFill, BsHash } from "react-icons/bs";
 import { CiCircleMore } from "react-icons/ci";
 import ProfileBar from "./ProfileBar";
 
@@ -49,9 +50,16 @@ export default function Leftbar() {
           <AiFillMessage size={"2.5rem"} color="gray" />
           <span className="px-6 text-gray-400">Messages</span>
         </div>
-        <div className="flex items-center ">
-          <BsFillBookmarkFill size={"2.5rem"} color="gray" />
-          <span className="px-6 text-gray-400">Bookmarks</span>
+        <div className="w-fit">
+          <Link href={"/liked"}>
+            <div className="group flex items-center rounded-md hover:bg-slate-300">
+              <AiFillHeart
+                size={"2.5rem"}
+                className="group-hover:fill-cyan-500"
+              />
+              <span className="px-6">Liked</span>
+            </div>
+          </Link>
         </div>
         <div className="flex items-center ">
           <AiOutlineUnorderedList size={"2.5rem"} color="gray" />
