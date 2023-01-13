@@ -14,7 +14,9 @@ const Home: NextPage = () => {
       </Head>
       <div className="flex justify-center">
         <Leftbar />
-        <Timeline renderCreate={true} where={{}} />
+        <div>
+          <Timeline renderCreate={true} where={{}} />
+        </div>
         <Rightbar />
       </div>
     </>
