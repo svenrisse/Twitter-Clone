@@ -1,14 +1,14 @@
 import dayjs from "dayjs";
 import Image from "next/image";
-import { trpc } from "../utils/trpc"
-import type { RouterInputs, RouterOutputs, } from "../utils/trpc";
+import { trpc } from "../utils/trpc";
+import type { RouterInputs, RouterOutputs } from "../utils/trpc";
 import { CreateTweet } from "./CreateTweet";
 import relativeTime from "dayjs/plugin/relativeTime";
 import updateLocal from "dayjs/plugin/updateLocale";
 import { useEffect, useState } from "react";
 import { AiFillHeart } from "react-icons/ai";
 import { useQueryClient } from "@tanstack/react-query";
-import type { QueryClient } from "@tanstack/react-query"
+import type { QueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 
@@ -129,15 +129,19 @@ function Tweet({
 }) {
   const { data: session } = useSession();
 
+  const utils = trpc.useContext();
+
   const likeMutation = trpc.tweet.like.useMutation({
     onSuccess: (data, variables) => {
       updateCache({ client, data, variables, input, action: "like" });
+      utils.user.getUser.invalidate();
     },
   }).mutateAsync;
 
   const unlikeMutation = trpc.tweet.unlike.useMutation({
     onSuccess: (data, variables) => {
       updateCache({ client, data, variables, input, action: "unlike" });
+      utils.user.getUser.invalidate();
     },
   }).mutateAsync;
 
