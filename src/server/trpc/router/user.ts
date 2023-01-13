@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { publicProcedure, router } from "../trpc";
+import { protectedProcedure, publicProcedure, router } from "../trpc";
 export const userRouter = router({
   getUser: publicProcedure
     .input(
@@ -15,6 +15,25 @@ export const userRouter = router({
         },
         include: {
           likes: true,
+          tweet: true,
+        },
+      });
+    }),
+
+  getLikes: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const { id } = input;
+
+      return await ctx.prisma.like.findMany({
+        where: {
+          id,
+        },
+        include: {
           tweet: true,
         },
       });
