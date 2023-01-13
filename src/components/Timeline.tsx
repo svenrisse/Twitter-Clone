@@ -215,9 +215,11 @@ function Tweet({
 export function Timeline({
   where = {},
   renderCreate,
+  width,
 }: {
   where: RouterInputs["tweet"]["timeline"]["where"];
   renderCreate: boolean;
+  width?: string;
 }) {
   // only render createTweet if logged in
   const { data: session } = useSession();
@@ -249,7 +251,7 @@ export function Timeline({
   }, [fetchNextPage, hasNextPage, isFetching, scrollPosition]);
 
   return (
-    <div>
+    <div className={width}>
       {renderCreate && <CreateTweet />}
 
       <div className="border-l-2 border-r-2 border-t-2 border-gray-500">
