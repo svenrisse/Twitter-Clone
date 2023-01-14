@@ -118,7 +118,7 @@ function updateCache({
     }
   );
 }
-function Tweet({
+export function Tweet({
   tweet,
   client,
   input,
