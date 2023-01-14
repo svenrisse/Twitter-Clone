@@ -23,18 +23,29 @@ export const userRouter = router({
   getLikes: protectedProcedure
     .input(
       z.object({
-        id: z.string(),
+        id: z.string().optional(),
       })
     )
     .query(async ({ ctx, input }) => {
       const { id } = input;
 
-      return await ctx.prisma.like.findMany({
+      return ctx.prisma.tweet.findMany({
         where: {
-          id,
+          likes: {
+            some: {
+              userId: id,
+            },
+          },
         },
+        orderBy: [{ createdAt: "desc" }],
         include: {
-          tweet: true,
+          author: {
+            select: {
+              name: true,
+              image: true,
+              id: true,
+            },
+          },
         },
       });
     }),
