@@ -166,7 +166,7 @@ export function Tweet({
 
   return (
     <div className="mb-4 border-b-2 border-gray-500">
-      <div className="flex p-2">
+      <div className="flex max-h-16 p-2">
         {tweet.author.image && (
           <Image
             src={tweet.author.image}
