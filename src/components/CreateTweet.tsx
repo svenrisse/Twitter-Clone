@@ -41,6 +41,8 @@ export function CreateTweet() {
         <textarea
           onChange={(e) => setText(e.target.value)}
           className="w-full p-4 shadow"
+          minLength={10}
+          maxLength={280}
         />
         <div className="mt-4 flex justify-end">
           <button
