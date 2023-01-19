@@ -24,7 +24,7 @@ export default function ProfileBar() {
   return (
     <div className="fixed bottom-6 left-14  ">
       <div
-        className="flex w-48 cursor-pointer items-center justify-between rounded-xl border-2 border-black px-4 py-2"
+        className="flex w-48 cursor-pointer items-center justify-between rounded-xl border-2 border-black bg-slate-300 px-4 py-2"
         onClick={openModal}
       >
         <Image
