@@ -19,11 +19,11 @@ export function CreateTweet() {
     },
   });
 
-  async function handleSubmit(e: React.SyntheticEvent) {
+  function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
 
     try {
-      await tweetSchema.parse({ text });
+      tweetSchema.parse({ text });
     } catch (e: any) {
       setError(e.message);
       return;
