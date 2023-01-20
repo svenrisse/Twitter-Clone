@@ -19,8 +19,8 @@ export function CreateTweet() {
     },
   });
 
-  function handleSubmit(e: React.SyntheticEvent) {
-    e.preventDefault();
+  function handleSubmit(event: React.SyntheticEvent) {
+    event.preventDefault();
 
     try {
       tweetSchema.parse({ text });
