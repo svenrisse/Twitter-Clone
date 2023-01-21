@@ -40,9 +40,11 @@ export function CreateTweet() {
       >
         <textarea
           onChange={(e) => setText(e.target.value)}
+          value={text}
           className="w-full p-4 shadow"
           minLength={10}
           maxLength={280}
+          placeholder="Say something to the world..."
         />
         <div className="mt-4 flex justify-end">
           <button
