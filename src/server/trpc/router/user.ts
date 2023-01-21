@@ -33,7 +33,9 @@ export const userRouter = router({
         where: {
           likes: {
             some: {
-              userId: id,
+              userId: {
+                contains: id,
+              },
             },
           },
         },
