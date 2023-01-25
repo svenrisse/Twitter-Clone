@@ -16,8 +16,8 @@ export default function Liked() {
   return (
     <div className="flex min-h-screen justify-center">
       <Leftbar />
-      <div>{session?.user?.id}</div>
 
+      <div>This is still Work in Progress, please come back later :) </div>
       <Rightbar />
     </div>
   );
