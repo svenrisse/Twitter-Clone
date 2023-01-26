@@ -1,4 +1,4 @@
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { Container } from "./Container";
 export function LoggedOutBanner() {
   const { data: session } = useSession();
