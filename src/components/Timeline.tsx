@@ -8,7 +8,7 @@ import updateLocal from "dayjs/plugin/updateLocale";
 import { useEffect, useState } from "react";
 import { AiFillHeart } from "react-icons/ai";
 import { useQueryClient } from "@tanstack/react-query";
-import type { QueryClient } from "@tanstack/react-query";
+import type { QueryClient, InfiniteData } from "@tanstack/react-query";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 
