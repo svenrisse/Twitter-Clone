@@ -146,8 +146,11 @@ export function Tweet({
     },
   }).mutateAsync;
 
-  const hasLiked = tweet.likes.length > 0;
+  let hasLiked = tweet.likes.length > 0;
 
+  if (!session) {
+    hasLiked = false;
+  }
   function handleLikeClick() {
     if (!session) {
       return;
@@ -251,13 +254,9 @@ export function Timeline({
     }
   }, [fetchNextPage, hasNextPage, isFetching, scrollPosition]);
 
-  if (isFetching) {
-    return <ThreeDots color="cyan" height="100" />;
-  }
   return (
     <div className={width}>
       {renderCreate && <CreateTweet />}
-
       <div className="mt-8 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400">
         {tweets.map((tweet) => {
           return (
@@ -273,6 +272,7 @@ export function Timeline({
           );
         })}
       </div>
+      {isFetching && <ThreeDots color="cyan" height="100" />}
       {!hasNextPage && <p>No more Tweets to load.</p>}
     </div>
   );
