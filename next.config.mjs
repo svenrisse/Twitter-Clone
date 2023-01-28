@@ -17,7 +17,6 @@ const config = {
     domains: [
       "cloudflare-ipfs.com",
       "cdn.discordapp.com",
-      "lh3.googleusercontent.com",
       "avatars.githubusercontent.com",
     ],
   },
