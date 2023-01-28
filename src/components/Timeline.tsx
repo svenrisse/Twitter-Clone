@@ -11,6 +11,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import type { QueryClient, InfiniteData } from "@tanstack/react-query";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import { ThreeDots } from "react-loader-spinner";
 
 const LIMIT = 10;
 
@@ -250,6 +251,9 @@ export function Timeline({
     }
   }, [fetchNextPage, hasNextPage, isFetching, scrollPosition]);
 
+  if (isFetching) {
+    return <ThreeDots color="cyan" height="100" />;
+  }
   return (
     <div className={width}>
       {renderCreate && <CreateTweet />}
