@@ -31,9 +31,9 @@ export function CreateTweet() {
 
     mutateAsync({ text });
   }
+
   return (
     <>
-      {error && JSON.stringify(error)}
       <form
         onSubmit={handleSubmit}
         className="mb-4 flex w-full flex-col rounded-md border-2 p-4"
@@ -46,7 +46,11 @@ export function CreateTweet() {
           maxLength={280}
           placeholder="Say something to the world..."
         />
-        <div className="mt-4 flex justify-end">
+        <div className="mt-4 flex justify-between">
+          <div className="font-bold text-red-400">
+            {error &&
+              "Tweet must contain at least 10 characters and less than 280 !"}
+          </div>
           <button
             type="submit"
             className="rounded-md bg-primary px-4 py-2 text-white"
