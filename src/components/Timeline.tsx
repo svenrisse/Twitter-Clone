@@ -166,7 +166,7 @@ export function Tweet({
   }
 
   return (
-    <div className="mb-4 h-fit border-b-2 border-gray-500 pb-4">
+    <div className="mb-4 h-fit border-b-2 border-slate-400 pb-4">
       <div className="flex max-h-16 p-2">
         {tweet.author.image && (
           <Image
@@ -258,7 +258,7 @@ export function Timeline({
     <div className={width}>
       {renderCreate && <CreateTweet />}
 
-      <div className="border-l-2 border-r-2 border-t-2 border-gray-500">
+      <div className="mt-8 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400">
         {tweets.map((tweet) => {
           return (
             <Tweet
