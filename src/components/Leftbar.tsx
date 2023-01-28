@@ -16,8 +16,8 @@ export default function Leftbar() {
   const { data, status } = useSession();
 
   return (
-    <div>
-      <div className="fixed left-0 flex w-1/4 flex-col  justify-between space-y-4 px-12 py-16 text-lg">
+    <div className="fixed left-0 flex w-1/4 justify-center ">
+      <div className="flex flex-col justify-between space-y-4 px-12 py-16 text-lg">
         <div className="w-fit">
           <Link href={"/"}>
             <AiOutlineTwitter
