@@ -294,7 +294,7 @@ export function Timeline({
         })}
       </div>
       {isFetching && <ThreeDots color="cyan" height="100" />}
-      {!hasNextPage && <p>No more Tweets to load.</p>}
+      {!hasNextPage && !isFetching && <p>No more Tweets to load.</p>}
     </div>
   );
 }
