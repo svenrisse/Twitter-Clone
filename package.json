@@ -52,7 +52,7 @@
     "initVersion": "6.11.3"
   },
   "prisma": {
-    "seed": "ts-node prisma/seed.ts"
+    "seed": "ts-node prisma/seed.js"
   },
   "type": "module"
 }
