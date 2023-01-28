@@ -7,6 +7,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import updateLocal from "dayjs/plugin/updateLocale";
 import { useEffect, useState } from "react";
 import { AiFillHeart } from "react-icons/ai";
+import { BsTrashFill } from "react-icons/bs";
 import { useQueryClient } from "@tanstack/react-query";
 import type { QueryClient, InfiniteData } from "@tanstack/react-query";
 import Link from "next/link";
@@ -151,6 +152,7 @@ export function Tweet({
   if (!session) {
     hasLiked = false;
   }
+
   function handleLikeClick() {
     if (!session) {
       return;
@@ -165,6 +167,17 @@ export function Tweet({
 
     likeMutation({
       tweetId: tweet.id,
+    });
+  }
+  const deleteMutation = trpc.tweet.delete.useMutation({
+    onSuccess: () => {
+      utils.tweet.timeline.invalidate();
+    },
+  }).mutateAsync;
+
+  function handleDeleteClick(id: string) {
+    deleteMutation({
+      tweetId: id,
     });
   }
 
@@ -202,6 +215,14 @@ export function Tweet({
           </div>
 
           <div>{tweet.text}</div>
+        </div>
+        <div className="ml-auto">
+          {tweet.authorId == session?.user?.id && (
+            <BsTrashFill
+              size="1.5rem"
+              onClick={() => handleDeleteClick(tweet.id)}
+            />
+          )}
         </div>
       </div>
       <div className="mt-4 flex items-center p-2">

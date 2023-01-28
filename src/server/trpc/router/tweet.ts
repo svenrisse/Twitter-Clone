@@ -73,7 +73,7 @@ export const tweetRouter = router({
       let nextCursor: typeof input.cursor | undefined = undefined;
 
       if (tweets.length > input.limit) {
-        const nextItem = tweets.pop() as typeof tweets[number];
+        const nextItem = tweets.pop() as (typeof tweets)[number];
         nextCursor = nextItem.id;
       }
 
@@ -123,6 +123,16 @@ export const tweetRouter = router({
             userId: session.user.id,
           },
         },
+      });
+    }),
+  delete: protectedProcedure
+    .input(z.object({ tweetId: z.string() }))
+    .mutation(({ ctx, input }) => {
+      const { prisma } = ctx;
+      const { tweetId } = input;
+
+      return prisma.tweet.delete({
+        where: { id: tweetId },
       });
     }),
 });
