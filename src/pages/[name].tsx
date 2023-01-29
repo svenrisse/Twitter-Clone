@@ -5,15 +5,18 @@ import Image from "next/image";
 import Leftbar from "../components/Leftbar";
 import Rightbar from "../components/Rightbar";
 import Head from "next/head";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 export default function UserPage() {
   const router = useRouter();
   const name = router.query.name as string;
   const id = router.query.id as string;
 
-  const { data } = trpc.user.getUser.useQuery({
+  const { data, isFetching } = trpc.user.getUser.useQuery({
     id: id,
   });
+
   return (
     <>
       <Head>
@@ -26,23 +29,53 @@ export default function UserPage() {
         <div className="w-1/2">
           <div className="pt-10">
             <div className="ml-3">
-              <Image
-                src={data?.image as string}
-                alt={`${data?.name} profile image`}
-                height={100}
-                width={100}
-              />
+              {isFetching ? (
+                <Skeleton
+                  height={100}
+                  width={100}
+                  duration={0.5}
+                  borderRadius={100}
+                />
+              ) : (
+                <Image
+                  src={data?.image as string}
+                  alt={`${data?.name} profile image`}
+                  height={100}
+                  width={100}
+                  className="rounded-full"
+                />
+              )}
             </div>
             <div className="pt-5">
-              <h2>@{data?.name}</h2>
+              <h2 className="font-bold">
+                @
+                {isFetching ? (
+                  <Skeleton width={50} duration={0.5} borderRadius={24} />
+                ) : (
+                  data?.name
+                )}
+              </h2>
               <div className="flex w-1/2 gap-10">
-                <span>
-                  <span className="font-bold">{data?.tweet.length}</span> Tweets
-                </span>
-                <span>
-                  <span className="font-bold">{data?.likes.length}</span> Likes
-                  given
-                </span>
+                <div className="flex w-min flex-col items-center">
+                  <span className="font-bold">
+                    {isFetching ? (
+                      <Skeleton width={40} inline={true} borderRadius={24} />
+                    ) : (
+                      data?.tweet.length
+                    )}
+                  </span>
+                  <span> Tweets</span>
+                </div>
+                <div className="flex w-min flex-col items-center">
+                  <span className="font-bold">
+                    {isFetching ? (
+                      <Skeleton width={40} inline={true} borderRadius={24} />
+                    ) : (
+                      data?.likes.length
+                    )}
+                  </span>
+                  <span> Liked </span>
+                </div>
               </div>
             </div>
           </div>
