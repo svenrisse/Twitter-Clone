@@ -35,11 +35,14 @@ export default function UserPage() {
             </div>
             <div className="pt-5">
               <h2>@{data?.name}</h2>
-              <div className="flex w-1/2 justify-between">
-                <span>0 Following</span>
-                <span>0 Followers</span>
-                <span>{data?.tweet.length} Tweets</span>
-                <span>{data?.likes.length} Likes given</span>
+              <div className="flex w-1/2 gap-10">
+                <span>
+                  <span className="font-bold">{data?.tweet.length}</span> Tweets
+                </span>
+                <span>
+                  <span className="font-bold">{data?.likes.length}</span> Likes
+                  given
+                </span>
               </div>
             </div>
           </div>
