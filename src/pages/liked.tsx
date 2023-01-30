@@ -1,4 +1,3 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import Leftbar from "../components/Leftbar";
 import Rightbar from "../components/Rightbar";
@@ -12,10 +11,9 @@ export default function Liked() {
   const { data } = trpc.user.getLikes.useQuery({
     id: session?.user?.id,
   });
-  const client = useQueryClient();
 
   const tweets = data?.map((tweet) => {
-    return <Tweet key={tweet.id} tweet={tweet} client={client} input={{}} />;
+    return <Tweet key={tweet.id} tweet={tweet} />;
   });
 
   return (
