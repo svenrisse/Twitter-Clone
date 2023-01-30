@@ -14,7 +14,10 @@ export default function Liked() {
   });
   const client = useQueryClient();
 
-  console.log(data);
+  const tweets = data?.map((tweet) => {
+    return <Tweet key={tweet.id} tweet={tweet} client={client} input={{}} />;
+  });
+
   return (
     <>
       <Head>
@@ -24,8 +27,9 @@ export default function Liked() {
       </Head>
       <div className="flex min-h-screen justify-center">
         <Leftbar />
-
-        <div>This is still Work in Progress, please come back later :) </div>
+        <div className="mt-16 w-1/2 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400">
+          {tweets}
+        </div>
         <Rightbar />
       </div>
     </>
