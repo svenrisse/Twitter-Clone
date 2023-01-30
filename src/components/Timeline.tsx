@@ -8,8 +8,6 @@ import updateLocal from "dayjs/plugin/updateLocale";
 import { useEffect, useState } from "react";
 import { AiFillHeart } from "react-icons/ai";
 import { BsTrashFill } from "react-icons/bs";
-import { useQueryClient } from "@tanstack/react-query";
-import type { QueryClient, InfiniteData } from "@tanstack/react-query";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { ThreeDots } from "react-loader-spinner";
@@ -64,86 +62,28 @@ function useScrollPosition() {
   return scrollPosition;
 }
 
-function updateCache({
-  client,
-  variables,
-  data,
-  action,
-  input,
-}: {
-  client: QueryClient;
-  variables: {
-    tweetId: string;
-  };
-  data: {
-    userId: string;
-  };
-  action: "like" | "unlike";
-  input: RouterInputs["tweet"]["timeline"];
-}) {
-  client.setQueryData(
-    [
-      ["tweet", "timeline"],
-      {
-        input,
-        type: "infinite",
-      },
-    ],
-    (oldData) => {
-      const newData = oldData as InfiniteData<
-        RouterOutputs["tweet"]["timeline"]
-      >;
-
-      const value = action === "like" ? 1 : -1;
-      const newTweets = newData.pages.map((page) => {
-        return {
-          tweets: page.tweets.map((tweet) => {
-            if (tweet.id === variables.tweetId) {
-              return {
-                ...tweet,
-                likes: action === "like" ? [data.userId] : [],
-                _count: {
-                  likes: tweet._count.likes + value,
-                },
-              };
-            }
-
-            return tweet;
-          }),
-        };
-      });
-
-      return {
-        ...newData,
-        pages: newTweets,
-      };
-    }
-  );
-}
 export function Tweet({
   tweet,
-  client,
-  input,
 }: {
   tweet: RouterOutputs["tweet"]["timeline"]["tweets"][number];
-  client: QueryClient;
-  input: RouterInputs["tweet"]["timeline"];
 }) {
   const { data: session } = useSession();
 
   const utils = trpc.useContext();
 
   const likeMutation = trpc.tweet.like.useMutation({
-    onSuccess: (data, variables) => {
-      updateCache({ client, data, variables, input, action: "like" });
+    onSuccess: () => {
+      utils.tweet.timeline.invalidate();
       utils.user.getUser.invalidate();
+      utils.user.getLikes.invalidate();
     },
   }).mutateAsync;
 
   const unlikeMutation = trpc.tweet.unlike.useMutation({
-    onSuccess: (data, variables) => {
-      updateCache({ client, data, variables, input, action: "unlike" });
+    onSuccess: () => {
+      utils.tweet.timeline.invalidate();
       utils.user.getUser.invalidate();
+      utils.user.getLikes.invalidate();
     },
   }).mutateAsync;
 
@@ -246,7 +186,6 @@ export function Timeline({
   renderCreate: boolean;
   width?: string;
 }) {
-  // only render createTweet if logged in
   const { data: session } = useSession();
 
   if (!session) {
@@ -265,7 +204,6 @@ export function Timeline({
         getNextPageParam: (lastPage) => lastPage.nextCursor,
       }
     );
-  const client = useQueryClient();
   const tweets = data?.pages.flatMap((page) => page.tweets) ?? [];
 
   // fetch nextPage when scroll position is at 90%
@@ -280,17 +218,7 @@ export function Timeline({
       {renderCreate && <CreateTweet />}
       <div className="mt-8 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400">
         {tweets.map((tweet) => {
-          return (
-            <Tweet
-              key={tweet.id}
-              tweet={tweet}
-              client={client}
-              input={{
-                where,
-                limit: LIMIT,
-              }}
-            />
-          );
+          return <Tweet key={tweet.id} tweet={tweet} />;
         })}
       </div>
       {isFetching && <ThreeDots color="cyan" height="100" />}
