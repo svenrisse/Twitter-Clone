@@ -40,7 +40,9 @@ export default function Leftbar({
             <div className="group flex items-center rounded-md hover:bg-slate-300">
               <AiFillHome
                 size={"2.5rem"}
-                className="group-hover:fill-cyan-500"
+                className={
+                  focusedHome ? "fill-cyan-500" : "group-hover:fill-cyan-500"
+                }
               />
               <span className={focusedHome ? "px-6 font-bold" : "px-6"}>
                 Home
