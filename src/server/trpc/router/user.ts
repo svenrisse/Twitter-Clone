@@ -29,7 +29,7 @@ export const userRouter = router({
     .query(async ({ ctx, input }) => {
       const { id } = input;
 
-      return ctx.prisma.tweet.findMany({
+      return await ctx.prisma.tweet.findMany({
         where: {
           likes: {
             some: {
@@ -48,6 +48,8 @@ export const userRouter = router({
               id: true,
             },
           },
+          likes: true,
+          _count: true,
         },
       });
     }),
