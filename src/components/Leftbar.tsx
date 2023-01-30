@@ -12,7 +12,15 @@ import { BsFillPersonFill, BsHash } from "react-icons/bs";
 import { CiCircleMore } from "react-icons/ci";
 import ProfileBar from "./ProfileBar";
 
-export default function Leftbar() {
+export default function Leftbar({
+  focusedHome,
+  focusedLiked,
+  focusedProfile,
+}: {
+  focusedHome?: boolean;
+  focusedLiked?: boolean;
+  focusedProfile?: boolean;
+}) {
   const { data, status } = useSession();
 
   return (
@@ -34,7 +42,9 @@ export default function Leftbar() {
                 size={"2.5rem"}
                 className="group-hover:fill-cyan-500"
               />
-              <span className="px-6">Home</span>
+              <span className={focusedHome ? "px-6 font-bold" : "px-6"}>
+                Home
+              </span>
             </div>
           </Link>
         </div>
@@ -55,9 +65,13 @@ export default function Leftbar() {
             <div className="group flex items-center rounded-md hover:bg-slate-300">
               <AiFillHeart
                 size={"2.5rem"}
-                className="group-hover:fill-cyan-500"
+                className={
+                  focusedLiked ? "fill-cyan-500" : "group-hover:fill-cyan-500"
+                }
               />
-              <span className="px-6">Liked</span>
+              <span className={focusedLiked ? "px-6 font-bold" : "px-6"}>
+                Liked
+              </span>
             </div>
           </Link>
         </div>
@@ -78,9 +92,15 @@ export default function Leftbar() {
               <div className="group flex items-center rounded-md hover:bg-slate-300">
                 <BsFillPersonFill
                   size={"2.5rem"}
-                  className="group-hover:fill-cyan-500"
+                  className={
+                    focusedProfile
+                      ? "fill-cyan-500"
+                      : "group-hover:fill-cyan-500"
+                  }
                 />
-                <span className="px-6">Profile</span>
+                <span className={focusedProfile ? "px-6 font-bold" : "px-6"}>
+                  Profile
+                </span>
               </div>
             </Link>
           </div>
