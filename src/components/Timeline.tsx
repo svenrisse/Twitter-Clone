@@ -170,6 +170,7 @@ export function Tweet({
           color={hasLiked ? "red" : "black"}
           size="1.5rem"
           onClick={handleLikeClick}
+          className="active:fill-red-900"
         />
         <span className="text-sm text-gray-500">{tweet._count.likes}</span>
       </div>
