@@ -7,6 +7,7 @@ import Rightbar from "../components/Rightbar";
 import Head from "next/head";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { useSession } from "next-auth/react";
 
 export default function UserPage() {
   const router = useRouter();
@@ -17,6 +18,8 @@ export default function UserPage() {
     id: id,
   });
 
+  const userId = useSession().data?.user?.id;
+
   return (
     <>
       <Head>
@@ -25,7 +28,7 @@ export default function UserPage() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="flex min-h-screen justify-center">
-        <Leftbar />
+        <Leftbar focusedProfile={id == userId ? true : false} />
         <div className="w-1/2">
           <div className="pt-10">
             <div className="ml-3">
