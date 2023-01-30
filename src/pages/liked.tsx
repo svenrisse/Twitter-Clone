@@ -24,7 +24,7 @@ export default function Liked() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="flex min-h-screen justify-center">
-        <Leftbar />
+        <Leftbar focusedLiked={true} />
         <div className="mt-16 h-max w-1/2 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400">
           {tweets}
         </div>
