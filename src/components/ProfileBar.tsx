@@ -22,9 +22,9 @@ export default function ProfileBar() {
   }
 
   return (
-    <div className="fixed bottom-6 left-14  ">
+    <div className="fixed top-4 left-2">
       <div
-        className="flex w-48 cursor-pointer items-center justify-between rounded-xl border-2 border-black bg-slate-300 px-4 py-2"
+        className="cursor-pointer rounded-full border-2 border-black bg-slate-400 p-1.5"
         onClick={openModal}
       >
         <Image
@@ -34,15 +34,16 @@ export default function ProfileBar() {
           height={50}
           className="rounded-full"
         />
-        <span className="px-4 font-bold">{data.user?.name}</span>
-        <BsThreeDotsVertical size={"1.5rem"} />
       </div>
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
-        className="fixed bottom-24 left-14"
+        className="fixed top-28 left-2 border-0"
       >
-        <button className="w-40 bg-cyan-500 py-2" onClick={() => signOut()}>
+        <button
+          className="w-20 rounded-xl bg-cyan-700 py-2"
+          onClick={() => signOut()}
+        >
           Logout
         </button>
       </Modal>
