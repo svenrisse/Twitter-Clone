@@ -36,7 +36,7 @@ export function CreateTweet() {
     <>
       <form
         onSubmit={handleSubmit}
-        className="mt-24 mb-4 flex w-full flex-col rounded-md border-2 p-4"
+        className="mb-4 flex w-full flex-col rounded-md border-2 p-4"
       >
         <textarea
           onChange={(e) => setText(e.target.value)}
