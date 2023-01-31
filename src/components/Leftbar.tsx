@@ -10,7 +10,6 @@ import {
 } from "react-icons/ai";
 import { BsFillPersonFill, BsHash } from "react-icons/bs";
 import { CiCircleMore } from "react-icons/ci";
-import ProfileBar from "./ProfileBar";
 
 export default function Leftbar({
   focusedHome,
@@ -112,7 +111,6 @@ export default function Leftbar({
           <span className="px-6 text-gray-400">More</span>
         </div>
       </div>
-      <ProfileBar />
     </div>
   );
 }
