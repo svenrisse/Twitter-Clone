@@ -1,15 +1,7 @@
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import {
-  AiFillBell,
-  AiFillHeart,
-  AiFillHome,
-  AiFillMessage,
-  AiOutlineTwitter,
-  AiOutlineUnorderedList,
-} from "react-icons/ai";
-import { BsFillPersonFill, BsHash } from "react-icons/bs";
-import { CiCircleMore } from "react-icons/ci";
+import { AiFillHeart, AiOutlineTwitter } from "react-icons/ai";
+import { BsFillPersonFill } from "react-icons/bs";
 
 export default function Navbar({
   focusedHome,
