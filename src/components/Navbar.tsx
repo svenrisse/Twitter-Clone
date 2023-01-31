@@ -11,7 +11,7 @@ import {
 import { BsFillPersonFill, BsHash } from "react-icons/bs";
 import { CiCircleMore } from "react-icons/ci";
 
-export default function Leftbar({
+export default function Navbar({
   focusedHome,
   focusedLiked,
   focusedProfile,

@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { Timeline } from "../components/Timeline";
 import { trpc } from "../utils/trpc";
 import Image from "next/image";
-import Leftbar from "../components/Leftbar";
+import Navbar from "../components/Navbar";
 import Rightbar from "../components/Rightbar";
 import Head from "next/head";
 import Skeleton from "react-loading-skeleton";
@@ -28,7 +28,7 @@ export default function UserPage() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="flex min-h-screen justify-center">
-        <Leftbar focusedProfile={id == userId ? true : false} />
+        <Navbar focusedProfile={id == userId ? true : false} />
         <div className="w-1/2">
           <div className="pt-10">
             <div className="ml-3">

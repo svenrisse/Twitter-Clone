@@ -1,7 +1,7 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import { Timeline } from "../components/Timeline";
-import Leftbar from "../components/Leftbar";
+import Navbar from "../components/Navbar";
 import Rightbar from "../components/Rightbar";
 import ProfileBar from "../components/ProfileBar";
 
