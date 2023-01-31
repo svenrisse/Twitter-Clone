@@ -22,7 +22,7 @@ export default function ProfileBar() {
   }
 
   return (
-    <div className="fixed top-4 left-2">
+    <div>
       <div
         className="cursor-pointer rounded-full border-2 border-black bg-slate-400 p-1.5"
         onClick={openModal}
@@ -38,7 +38,7 @@ export default function ProfileBar() {
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
-        className="fixed top-28 left-2 border-0"
+        className="fixed bottom-20 left-2 border-0"
       >
         <button
           className="w-20 rounded-xl bg-cyan-700 py-2"

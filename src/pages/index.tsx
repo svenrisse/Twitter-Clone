@@ -3,7 +3,6 @@ import Head from "next/head";
 import { Timeline } from "../components/Timeline";
 import Navbar from "../components/Navbar";
 import Rightbar from "../components/Rightbar";
-import ProfileBar from "../components/ProfileBar";
 
 const Home: NextPage = () => {
   return (
@@ -14,8 +13,8 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="flex min-h-screen justify-center bg-slate-200">
-        <ProfileBar />
         <Timeline renderCreate={true} where={{}} width="w-11/12" />
+        <Navbar focusedHome={true} />
       </div>
     </>
   );
