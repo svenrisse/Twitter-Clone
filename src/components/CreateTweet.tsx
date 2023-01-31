@@ -41,7 +41,7 @@ export function CreateTweet() {
         <textarea
           onChange={(e) => setText(e.target.value)}
           value={text}
-          className="w-full p-4 shadow"
+          className="w-full rounded-xl p-4 shadow"
           minLength={10}
           maxLength={280}
           placeholder="Say something to the world..."
