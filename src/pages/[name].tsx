@@ -32,7 +32,7 @@ export default function UserPage() {
         <h1 className="w-screen rounded-b-md bg-slate-600 py-2 text-center font-mono text-xl font-medium uppercase text-slate-200">
           {isFetching ? (
             <Skeleton
-              width={40}
+              width={60}
               duration={0.5}
               borderRadius={24}
               inline={true}
