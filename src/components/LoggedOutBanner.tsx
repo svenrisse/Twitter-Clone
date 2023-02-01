@@ -1,5 +1,4 @@
 import { signIn, useSession } from "next-auth/react";
-import { Container } from "./Container";
 export function LoggedOutBanner() {
   const { data: session } = useSession();
 
@@ -7,23 +6,18 @@ export function LoggedOutBanner() {
     return null;
   }
   return (
-    <div className="w- fixed bottom-0 flex w-full justify-center bg-slate-500 p-4">
-      <Container
-        classNames="bg-transparent flex justify-between items-center w-1/2
-      "
-      >
-        <p className="text-center text-xl font-bold">
-          Please login to get access to all features!
-        </p>
-        <div>
-          <button
-            className="w-40 rounded-full bg-cyan-500 px-4 py-2 text-xl text-white shadow-md"
-            onClick={() => signIn()}
-          >
-            Login
-          </button>
-        </div>
-      </Container>
+    <div className="fixed bottom-0 flex w-full items-center gap-3 bg-slate-600 px-2 py-2">
+      <p className="text-center font-mono text-base font-bold text-slate-200">
+        Please login to get access to all features!
+      </p>
+      <div>
+        <button
+          className="w-40 rounded-full bg-cyan-500 py-4 font-mono text-xl text-slate-600 shadow-md"
+          onClick={() => signIn()}
+        >
+          Login
+        </button>
+      </div>
     </div>
   );
 }
