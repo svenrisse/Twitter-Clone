@@ -1,7 +1,7 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import { Timeline } from "../components/Timeline";
-import Leftbar from "../components/Leftbar";
+import Navbar from "../components/Navbar";
 import Rightbar from "../components/Rightbar";
 
 const Home: NextPage = () => {
@@ -13,9 +13,8 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="flex min-h-screen justify-center bg-slate-200">
-        <Leftbar focusedHome={true} />
-        <Timeline renderCreate={true} where={{}} width="w-1/2" />
-        <Rightbar />
+        <Timeline renderCreate={true} where={{}} width="w-11/12" />
+        <Navbar focusedHome={true} />
       </div>
     </>
   );

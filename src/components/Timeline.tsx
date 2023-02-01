@@ -123,14 +123,14 @@ export function Tweet({
 
   return (
     <div className="mb-4 h-fit border-b-2 border-slate-400 pb-4">
-      <div className="flex max-h-16 p-2">
+      <div className="flex p-2">
         {tweet.author.image && (
           <Image
             src={tweet.author.image}
             alt={`${tweet.author.name} profile picture`}
             width={48}
             height={48}
-            className="rounded-full"
+            className="max-h-12 rounded-full"
           />
         )}
 
@@ -168,7 +168,7 @@ export function Tweet({
       <div className="mt-4 flex items-center p-2">
         <AiFillHeart
           color={hasLiked ? "red" : "black"}
-          size="1.5rem"
+          size="2rem"
           onClick={handleLikeClick}
           className="active:fill-red-900"
         />
