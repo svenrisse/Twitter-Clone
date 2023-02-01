@@ -24,7 +24,9 @@ export default function Liked() {
       </Head>
       <div className="flex min-h-screen flex-col items-center justify-center">
         <Navbar focusedLiked={true} />
-        <h1 className="mt-6 font-sans text-lg font-medium">Tweets you liked</h1>
+        <h1 className="w-screen rounded-b-md bg-slate-600 py-2 text-center font-mono text-xl font-medium uppercase text-slate-200">
+          Tweets you liked
+        </h1>
         <div className="mt-4 mb-20 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400">
           {tweets}
         </div>
