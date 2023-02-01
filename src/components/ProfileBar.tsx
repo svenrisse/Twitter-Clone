@@ -1,7 +1,6 @@
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useState } from "react";
-import { BsThreeDotsVertical } from "react-icons/bs";
 import Modal from "react-modal";
 
 export default function ProfileBar() {
