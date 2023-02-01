@@ -12,7 +12,7 @@ export function LoggedOutBanner() {
       </p>
       <div>
         <button
-          className="w-40 rounded-full bg-cyan-500 py-4 font-mono text-xl text-slate-600 shadow-md"
+          className="rounded-full bg-cyan-500 py-2 px-8 font-mono text-base text-slate-600 shadow-md"
           onClick={() => signIn()}
         >
           Login
