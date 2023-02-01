@@ -23,10 +23,7 @@ export default function ProfileBar() {
 
   return (
     <div>
-      <div
-        className="cursor-pointer rounded-full border-2 border-black bg-slate-400 p-1.5"
-        onClick={openModal}
-      >
+      <div className="cursor-pointer rounded-full p-1.5" onClick={openModal}>
         <Image
           src={data.user?.image as string}
           alt={`${data.user?.name} profile picture`}
