@@ -16,9 +16,9 @@ export default function Navbar({
   const { data, status } = useSession();
 
   return (
-    <div className="fixed bottom-0 flex w-screen items-center rounded-t-md bg-slate-700">
+    <div className="fixed bottom-0 flex w-screen items-center rounded-t-md bg-slate-700 py-2">
       <ProfileBar />
-      <div className="ml-auto flex justify-center gap-5 px-4 text-lg">
+      <div className="ml-auto flex justify-center gap-5 px-8 text-lg">
         <div className="w-fit">
           <Link href={"/"}>
             <div className="group flex items-center rounded-md hover:bg-slate-300">
