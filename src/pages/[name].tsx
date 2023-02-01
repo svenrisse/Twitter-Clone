@@ -30,7 +30,17 @@ export default function UserPage() {
       <div className="flex min-h-screen flex-col items-center">
         <Navbar focusedProfile={id == userId ? true : false} />
         <h1 className="w-screen rounded-b-md bg-slate-600 py-2 text-center font-mono text-xl font-medium uppercase text-slate-200">
-          {`${data?.name}'s Profile`}
+          {isFetching ? (
+            <Skeleton
+              width={40}
+              duration={0.5}
+              borderRadius={24}
+              inline={true}
+            />
+          ) : (
+            <span>{`${data?.name}`}</span>
+          )}
+          {`'s Profile`}
         </h1>
         <div className="w-11/12">
           <div className="pt-10">
