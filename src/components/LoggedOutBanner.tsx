@@ -6,7 +6,7 @@ export function LoggedOutBanner() {
     return null;
   }
   return (
-    <div className="fixed bottom-0 flex w-full items-center gap-3 bg-slate-600 px-2 py-2">
+    <div className="fixed bottom-0 flex w-full items-center justify-center gap-3 bg-slate-600 px-2 py-2">
       <p className="text-center font-mono text-base font-bold text-slate-200">
         Please login to get access to all features!
       </p>
