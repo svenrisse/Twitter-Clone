@@ -19,7 +19,7 @@ export default function Navbar({
     <div className="fixed bottom-0 flex w-screen items-center rounded-t-md bg-slate-700 py-2 lg:left-14 lg:top-24 lg:h-56 lg:w-2/12 lg:rounded-xl lg:bg-slate-200">
       <ProfileBar />
       <div className="ml-auto flex justify-center gap-5 px-8 text-lg lg:ml-0 lg:flex-col lg:items-center">
-        <div className="w-fit">
+        <div className="w-fit lg:self-start">
           <Link href={"/"}>
             <div className="group flex items-center rounded-md hover:bg-slate-300">
               <AiOutlineTwitter
@@ -28,10 +28,11 @@ export default function Navbar({
                   focusedHome ? "fill-cyan-500" : "group-hover:fill-cyan-500"
                 }
               />
+              <span>Home</span>
             </div>
           </Link>
         </div>
-        <div className="w-fit">
+        <div className="w-fit lg:self-start">
           <Link href={"/liked"}>
             <div className="group flex items-center rounded-md hover:bg-slate-300">
               <AiFillHeart
@@ -40,11 +41,12 @@ export default function Navbar({
                   focusedLiked ? "fill-cyan-500" : "group-hover:fill-cyan-500"
                 }
               />
+              <span>Liked</span>
             </div>
           </Link>
         </div>
         {status === "authenticated" && (
-          <div className="flex items-center ">
+          <div className="flex lg:self-start">
             <Link
               href={{
                 pathname: `${data?.user?.name}`,
@@ -62,6 +64,7 @@ export default function Navbar({
                       : "group-hover:fill-cyan-500"
                   }
                 />
+                <span>Profile</span>
               </div>
             </Link>
           </div>
