@@ -40,7 +40,7 @@ export default function ProfileBar() {
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
-        className="fixed bottom-20 left-2 border-0 lg:left-28 lg:bottom-24 xl:left-96"
+        className="fixed bottom-20 left-2 border-0 lg:left-28 lg:bottom-24 2xl:left-96"
       >
         <button
           className="w-20 rounded-xl bg-cyan-700 py-2"

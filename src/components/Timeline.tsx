@@ -213,7 +213,7 @@ export function Timeline({
   }, [fetchNextPage, hasNextPage, isFetching, scrollPosition]);
 
   return (
-    <div className="w-11/12 lg:w-1/2 xl:w-5/12">
+    <div className="w-11/12 lg:w-1/2 2xl:w-5/12">
       {renderCreate && <CreateTweet />}
       <div className="mt-8 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400">
         {tweets.map((tweet) => {
