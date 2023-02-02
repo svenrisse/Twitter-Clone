@@ -14,7 +14,7 @@ const Home: NextPage = () => {
       </Head>
       <div className="flex min-h-screen justify-center bg-slate-200">
         <Timeline renderCreate={true} where={{}} />
-        <Navbar focusedHome={true} />
+        <Navbar focused={"home"} />
         <Rightbar />
       </div>
     </>

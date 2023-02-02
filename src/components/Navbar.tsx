@@ -4,15 +4,7 @@ import { AiFillHeart, AiOutlineTwitter } from "react-icons/ai";
 import { BsFillPersonFill } from "react-icons/bs";
 import ProfileBar from "./ProfileBar";
 
-export default function Navbar({
-  focusedHome,
-  focusedLiked,
-  focusedProfile,
-}: {
-  focusedHome?: boolean;
-  focusedLiked?: boolean;
-  focusedProfile?: boolean;
-}) {
+export default function Navbar({ focused }: { focused?: string }) {
   const { data, status } = useSession();
 
   return (
@@ -21,11 +13,13 @@ export default function Navbar({
       <div className="ml-auto flex justify-center gap-5 px-8 text-lg lg:ml-0 lg:flex-col lg:items-center">
         <div className="w-fit lg:self-start">
           <Link href={"/"}>
-            <div className="group flex items-center rounded-md hover:bg-slate-300">
+            <div className="group flex items-center gap-5 rounded-md px-3 hover:bg-slate-300">
               <AiOutlineTwitter
                 size={"2.5rem"}
                 className={
-                  focusedHome ? "fill-cyan-500" : "group-hover:fill-cyan-500"
+                  focused == "home"
+                    ? "fill-cyan-500"
+                    : "group-hover:fill-cyan-500"
                 }
               />
               <span>Home</span>
@@ -34,11 +28,13 @@ export default function Navbar({
         </div>
         <div className="w-fit lg:self-start">
           <Link href={"/liked"}>
-            <div className="group flex items-center rounded-md hover:bg-slate-300">
+            <div className="group flex items-center gap-5 rounded-md px-3 hover:bg-slate-300">
               <AiFillHeart
                 size={"2.5rem"}
                 className={
-                  focusedLiked ? "fill-cyan-500" : "group-hover:fill-cyan-500"
+                  focused == "liked"
+                    ? "fill-cyan-500"
+                    : "group-hover:fill-cyan-500"
                 }
               />
               <span>Liked</span>
@@ -55,11 +51,11 @@ export default function Navbar({
                 },
               }}
             >
-              <div className="group flex items-center rounded-md hover:bg-slate-300">
+              <div className="group flex items-center gap-5 rounded-md px-3 hover:bg-slate-300">
                 <BsFillPersonFill
                   size={"2.5rem"}
                   className={
-                    focusedProfile
+                    focused == "profile"
                       ? "fill-cyan-500"
                       : "group-hover:fill-cyan-500"
                   }
