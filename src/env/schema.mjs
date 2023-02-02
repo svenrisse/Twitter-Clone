@@ -25,6 +25,8 @@ export const serverSchema = z.object({
   GITHUB_CLIENT_SECRET: z.string(),
   TWITTER_CLIENT_ID: z.string(),
   TWITTER_CLIENT_SECRET: z.string(),
+  SPOTIFY_CLIENT_ID: z.string(),
+  SPOTIFY_CLIENT_SECRET: z.string(),
 });
 
 /**

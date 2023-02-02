@@ -2,6 +2,8 @@ import NextAuth, { type NextAuthOptions } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
 import GithubProvider from "next-auth/providers/github";
 import TwitterProvider from "next-auth/providers/twitter";
+import SpotifyProvider from "next-auth/providers/spotify";
+
 // Prisma adapter for NextAuth, optional and can be removed
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
@@ -34,6 +36,11 @@ export const authOptions: NextAuthOptions = {
       clientSecret: env.TWITTER_CLIENT_SECRET,
       version: "2.0",
     }),
+    SpotifyProvider({
+      clientId: env.SPOTIFY_CLIENT_ID,
+      clientSecret: env.SPOTIFY_CLIENT_SECRET,
+    }),
+
     // ...add more providers here
   ],
 };
