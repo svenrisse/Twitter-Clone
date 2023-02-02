@@ -13,7 +13,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="flex min-h-screen justify-center bg-slate-200">
-        <Timeline renderCreate={true} where={{}} width="w-11/12" />
+        <Timeline renderCreate={true} where={{}} />
         <Navbar focusedHome={true} />
       </div>
     </>

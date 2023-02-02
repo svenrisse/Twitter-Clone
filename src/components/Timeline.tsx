@@ -181,11 +181,9 @@ export function Tweet({
 export function Timeline({
   where = {},
   renderCreate,
-  width,
 }: {
   where: RouterInputs["tweet"]["timeline"]["where"];
   renderCreate: boolean;
-  width?: string;
 }) {
   const { data: session } = useSession();
 
@@ -215,7 +213,7 @@ export function Timeline({
   }, [fetchNextPage, hasNextPage, isFetching, scrollPosition]);
 
   return (
-    <div className={width}>
+    <div className="w-11/12">
       {renderCreate && <CreateTweet />}
       <div className="mt-8 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400">
         {tweets.map((tweet) => {
