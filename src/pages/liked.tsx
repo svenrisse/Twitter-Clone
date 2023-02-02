@@ -4,6 +4,7 @@ import { Tweet } from "../components/Timeline";
 import { trpc } from "../utils/trpc";
 import Head from "next/head";
 import { ThreeDots } from "react-loader-spinner";
+import Rightbar from "../components/Rightbar";
 
 export default function Liked() {
   const { data: session } = useSession();
@@ -35,6 +36,7 @@ export default function Liked() {
             {tweets}
           </div>
         )}
+        <Rightbar />
       </div>
     </>
   );
