@@ -32,7 +32,7 @@ export default function Liked() {
         {isFetching ? (
           <ThreeDots color="cyan" height="100" />
         ) : (
-          <div className="mt-4 mb-20 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400">
+          <div className="mt-4 mb-20 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400 lg:w-1/2">
             {tweets}
           </div>
         )}
