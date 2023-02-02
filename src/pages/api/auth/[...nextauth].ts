@@ -32,6 +32,7 @@ export const authOptions: NextAuthOptions = {
     TwitterProvider({
       clientId: env.TWITTER_CLIENT_ID,
       clientSecret: env.TWITTER_CLIENT_SECRET,
+      version: "2.0",
     }),
     // ...add more providers here
   ],
