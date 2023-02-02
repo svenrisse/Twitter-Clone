@@ -44,7 +44,7 @@ export default function Navbar({ focused }: { focused?: string }) {
           </Link>
         </div>
         {status === "authenticated" && (
-          <div className="flex lg:self-start">
+          <div className="w-fit lg:self-start">
             <Link
               href={{
                 pathname: `${data?.user?.name}`,
