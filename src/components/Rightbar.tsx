@@ -1,6 +1,6 @@
 export default function Rightbar() {
   return (
-    <div className="fixed right-0 top-24 hidden w-1/4 justify-center lg:flex 2xl:right-32">
+    <div className="fixed right-0 top-40 hidden w-1/4 justify-center lg:flex 2xl:right-32 2xl:top-36">
       <div className="rounded-xl bg-slate-300 px-4 py-6">
         <h1 className="text-xl font-extrabold">Trends for you</h1>
         <div className="pr-20">
