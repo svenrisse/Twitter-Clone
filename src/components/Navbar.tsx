@@ -22,7 +22,7 @@ export default function Navbar({ focused }: { focused?: string }) {
                     : "group-hover:fill-cyan-500"
                 }
               />
-              <span>Home</span>
+              <span className={focused == "home" ? "font-bold" : ""}>Home</span>
             </div>
           </Link>
         </div>
@@ -37,7 +37,9 @@ export default function Navbar({ focused }: { focused?: string }) {
                     : "group-hover:fill-cyan-500"
                 }
               />
-              <span>Liked</span>
+              <span className={focused == "liked" ? "font-bold" : ""}>
+                Liked
+              </span>
             </div>
           </Link>
         </div>
@@ -60,7 +62,9 @@ export default function Navbar({ focused }: { focused?: string }) {
                       : "group-hover:fill-cyan-500"
                   }
                 />
-                <span>Profile</span>
+                <span className={focused == "profile" ? "font-bold" : ""}>
+                  Profile
+                </span>
               </div>
             </Link>
           </div>
