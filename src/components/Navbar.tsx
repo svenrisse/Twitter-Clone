@@ -26,23 +26,25 @@ export default function Navbar({ focused }: { focused?: string }) {
             </div>
           </Link>
         </div>
-        <div className="w-fit lg:self-start">
-          <Link href={"/liked"}>
-            <div className="group flex items-center gap-5 rounded-md px-3 hover:bg-slate-300">
-              <AiFillHeart
-                size={"2.5rem"}
-                className={
-                  focused == "liked"
-                    ? "fill-cyan-500"
-                    : "group-hover:fill-cyan-500"
-                }
-              />
-              <span className={focused == "liked" ? "font-bold" : ""}>
-                Liked
-              </span>
-            </div>
-          </Link>
-        </div>
+        {status === "authenticated" && (
+          <div className="w-fit lg:self-start">
+            <Link href={"/liked"}>
+              <div className="group flex items-center gap-5 rounded-md px-3 hover:bg-slate-300">
+                <AiFillHeart
+                  size={"2.5rem"}
+                  className={
+                    focused == "liked"
+                      ? "fill-cyan-500"
+                      : "group-hover:fill-cyan-500"
+                  }
+                />
+                <span className={focused == "liked" ? "font-bold" : ""}>
+                  Liked
+                </span>
+              </div>
+            </Link>
+          </div>
+        )}
         {status === "authenticated" && (
           <div className="w-fit lg:self-start">
             <Link
