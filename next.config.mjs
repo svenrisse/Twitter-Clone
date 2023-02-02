@@ -18,6 +18,7 @@ const config = {
       "cloudflare-ipfs.com",
       "cdn.discordapp.com",
       "avatars.githubusercontent.com",
+      "https://pbs.twimg.com",
     ],
   },
 };
