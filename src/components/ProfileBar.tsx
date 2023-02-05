@@ -24,7 +24,7 @@ export default function ProfileBar() {
 
   return (
     <div className="lg:fixed lg:bottom-4">
-      <div className="cursor-pointer rounded-full px-8 lg:flex lg:items-center lg:gap-2 lg:bg-slate-300 lg:py-2">
+      <div className="rounded-full px-8 lg:flex lg:items-center lg:gap-2 lg:bg-slate-300 lg:py-2">
         <Link
           href={{
             pathname: `${data.user?.name}`,
@@ -43,8 +43,8 @@ export default function ProfileBar() {
         </Link>
         <span className="hidden lg:block lg:font-bold">{data.user?.name}</span>
         <BsThreeDotsVertical
-          className="hidden lg:block"
-          size={"1.5rem"}
+          className="hidden cursor-pointer rounded-xl px-1 py-1 hover:bg-slate-400 lg:block"
+          size={"2rem"}
           onClick={openModal}
         />
       </div>
