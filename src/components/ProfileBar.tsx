@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useState } from "react";
 import Modal from "react-modal";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import Link from "next/link";
 
 export default function ProfileBar() {
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -23,19 +24,29 @@ export default function ProfileBar() {
 
   return (
     <div className="lg:fixed lg:bottom-4">
-      <div
-        className="cursor-pointer rounded-full px-8 lg:flex lg:items-center lg:gap-2 lg:bg-slate-300 lg:py-2"
-        onClick={openModal}
-      >
-        <Image
-          src={data.user?.image as string}
-          alt={`${data.user?.name} profile picture`}
-          width={50}
-          height={50}
-          className="rounded-full"
-        />
+      <div className="rounded-full px-8 lg:flex lg:items-center lg:gap-2 lg:bg-slate-300 lg:py-2">
+        <Link
+          href={{
+            pathname: `${data.user?.name}`,
+            query: {
+              id: data.user?.id,
+            },
+          }}
+        >
+          <Image
+            src={data.user?.image as string}
+            alt={`${data.user?.name} profile picture`}
+            width={50}
+            height={50}
+            className="rounded-full"
+          />
+        </Link>
         <span className="hidden lg:block lg:font-bold">{data.user?.name}</span>
-        <BsThreeDotsVertical className="hidden lg:block" size={"1.5rem"} />
+        <BsThreeDotsVertical
+          className="hidden cursor-pointer rounded-xl px-1 py-1 hover:bg-slate-400 lg:block"
+          size={"2rem"}
+          onClick={openModal}
+        />
       </div>
       <Modal
         isOpen={modalIsOpen}

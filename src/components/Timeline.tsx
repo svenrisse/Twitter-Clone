@@ -125,13 +125,22 @@ export function Tweet({
     <div className="mb-4 h-fit border-b-2 border-slate-400 pb-4">
       <div className="flex p-2">
         {tweet.author.image && (
-          <Image
-            src={tweet.author.image}
-            alt={`${tweet.author.name} profile picture`}
-            width={48}
-            height={48}
-            className="max-h-12 rounded-full"
-          />
+          <Link
+            href={{
+              pathname: `${tweet.author.name}`,
+              query: {
+                id: tweet.authorId,
+              },
+            }}
+          >
+            <Image
+              src={tweet.author.image}
+              alt={`${tweet.author.name} profile picture`}
+              width={48}
+              height={48}
+              className="max-h-12 rounded-full"
+            />
+          </Link>
         )}
 
         <div className="ml-2">
