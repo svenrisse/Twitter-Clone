@@ -1,5 +1,7 @@
 ## Twitter-Clone built in Typescript
 
+### This is still work in progress :)
+
 Check it out on: [Vercel](https://twitter-clone-pied-mu.vercel.app/)
 
 - [Create-T3-App](https://create.t3.gg/)
