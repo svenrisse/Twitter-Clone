@@ -165,7 +165,7 @@ export function Tweet({
 
           <div>{tweet.text}</div>
         </div>
-        <div className="ml-auto">
+        <div className="ml-auto cursor-pointer">
           {tweet.authorId == session?.user?.id && (
             <BsTrashFill
               size="1.5rem"
