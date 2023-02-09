@@ -168,14 +168,13 @@ export function Tweet({
 
           <div>{tweet.text}</div>
         </div>
-        <div className="ml-auto cursor-pointer"></div>
         {tweet.authorId == session?.user?.id && (
           <button
-            className={`ml-auto ${deleteIsLoading && "animate-pulse"}`}
+            className={`ml-auto px-4 ${deleteIsLoading && "animate-pulse"}`}
             disabled={deleteIsLoading}
             onClick={() => handleDeleteClick(tweet.id)}
           >
-            <BsTrashFill size="1.5rem" />
+            <BsTrashFill size="1.5rem" className="cursor-pointer" />
           </button>
         )}
       </div>
