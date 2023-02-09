@@ -173,11 +173,9 @@ export function Tweet({
           <button
             className={`ml-auto ${deleteIsLoading && "animate-pulse"}`}
             disabled={deleteIsLoading}
+            onClick={() => handleDeleteClick(tweet.id)}
           >
-            <BsTrashFill
-              size="1.5rem"
-              onClick={() => handleDeleteClick(tweet.id)}
-            />
+            <BsTrashFill size="1.5rem" />
           </button>
         )}
       </div>
