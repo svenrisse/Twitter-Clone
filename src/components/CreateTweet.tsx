@@ -53,7 +53,7 @@ export function CreateTweet() {
           </div>
           <button
             type="submit"
-            className="rounded-md bg-primary px-4 py-2 text-white"
+            className="rounded-md bg-primary px-4 py-2 text-white active:bg-blue-400"
             disabled={isLoading}
           >
             Tweet
