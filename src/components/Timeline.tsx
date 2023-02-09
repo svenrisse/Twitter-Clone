@@ -71,21 +71,23 @@ export function Tweet({
 
   const utils = trpc.useContext();
 
-  const likeMutation = trpc.tweet.like.useMutation({
-    onSuccess: () => {
-      utils.tweet.timeline.invalidate();
-      utils.user.getUser.invalidate();
-      utils.user.getLikes.invalidate();
-    },
-  }).mutateAsync;
+  const { mutateAsync: likeMutation, isLoading: likeIsLoading } =
+    trpc.tweet.like.useMutation({
+      onSuccess: () => {
+        utils.tweet.timeline.invalidate();
+        utils.user.getUser.invalidate();
+        utils.user.getLikes.invalidate();
+      },
+    });
 
-  const unlikeMutation = trpc.tweet.unlike.useMutation({
-    onSuccess: () => {
-      utils.tweet.timeline.invalidate();
-      utils.user.getUser.invalidate();
-      utils.user.getLikes.invalidate();
-    },
-  }).mutateAsync;
+  const { mutateAsync: unlikeMutation, isLoading: unlikeIsLoading } =
+    trpc.tweet.unlike.useMutation({
+      onSuccess: () => {
+        utils.tweet.timeline.invalidate();
+        utils.user.getUser.invalidate();
+        utils.user.getLikes.invalidate();
+      },
+    });
 
   let hasLiked = tweet.likes.length > 0;
 
@@ -109,11 +111,12 @@ export function Tweet({
       tweetId: tweet.id,
     });
   }
-  const deleteMutation = trpc.tweet.delete.useMutation({
-    onSuccess: () => {
-      utils.tweet.timeline.invalidate();
-    },
-  }).mutateAsync;
+  const { mutateAsync: deleteMutation, isLoading: deleteIsLoading } =
+    trpc.tweet.delete.useMutation({
+      onSuccess: () => {
+        utils.tweet.timeline.invalidate();
+      },
+    });
 
   function handleDeleteClick(id: string) {
     deleteMutation({
@@ -165,14 +168,15 @@ export function Tweet({
 
           <div>{tweet.text}</div>
         </div>
-        <div className="ml-auto cursor-pointer">
-          {tweet.authorId == session?.user?.id && (
+        <div className="ml-auto cursor-pointer"></div>
+        {tweet.authorId == session?.user?.id && (
+          <button className="ml-auto">
             <BsTrashFill
               size="1.5rem"
               onClick={() => handleDeleteClick(tweet.id)}
             />
-          )}
-        </div>
+          </button>
+        )}
       </div>
       <div className="mt-4 flex items-center p-2">
         <AiFillHeart
