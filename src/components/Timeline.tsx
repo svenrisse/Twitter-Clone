@@ -179,15 +179,20 @@ export function Tweet({
           </button>
         )}
       </div>
-      <div className="mt-4 flex items-center p-2">
+      <button
+        className="mt-4 flex items-center p-2"
+        onClick={handleLikeClick}
+        disabled={likeIsLoading || unlikeIsLoading}
+      >
         <AiFillHeart
           color={hasLiked ? "red" : "black"}
           size="2rem"
-          onClick={handleLikeClick}
-          className="active:fill-red-900"
+          className={`active:fill-red-900 ${
+            (likeIsLoading || unlikeIsLoading) && "animate-bounce"
+          }`}
         />
         <span className="text-sm text-gray-500">{tweet._count.likes}</span>
-      </div>
+      </button>
     </div>
   );
 }
