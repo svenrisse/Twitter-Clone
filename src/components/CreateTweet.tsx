@@ -12,7 +12,7 @@ export function CreateTweet() {
 
   const utils = trpc.useContext();
 
-  const { mutateAsync } = trpc.tweet.create.useMutation({
+  const { mutateAsync, isLoading } = trpc.tweet.create.useMutation({
     onSuccess: () => {
       setText("");
       utils.tweet.timeline.invalidate();
@@ -54,6 +54,7 @@ export function CreateTweet() {
           <button
             type="submit"
             className="rounded-md bg-primary px-4 py-2 text-white"
+            disabled={isLoading}
           >
             Tweet
           </button>
