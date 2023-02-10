@@ -1,7 +1,5 @@
 # High Priority
 
-- Fix: not able to delete liked tweets
-
 ---
 
 # Mid Priority
