@@ -13,3 +13,4 @@
 - Update Metadata
 - Feat: comments
 - Feat: follow
+- Feat: show likes on tweet
