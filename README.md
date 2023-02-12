@@ -1,4 +1,4 @@
-## Twitter-Clone built in Typescript
+## Twitter-Clone built in Typescript with the T3 Stack
 
 ### This is still work in progress :)
 
