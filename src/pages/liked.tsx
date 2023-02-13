@@ -2,7 +2,6 @@ import { useSession } from "next-auth/react";
 import Navbar from "../components/Navbar";
 import { Tweet } from "../components/Timeline";
 import { trpc } from "../utils/trpc";
-import Head from "next/head";
 import { ThreeDots } from "react-loader-spinner";
 import Rightbar from "../components/Rightbar";
 
