@@ -49,7 +49,7 @@ export default function Navbar({ focused }: { focused?: string }) {
           <div className="w-fit lg:self-start">
             <Link
               href={{
-                pathname: `${data?.user?.name}`,
+                pathname: `/profile/${data?.user?.name}`,
                 query: {
                   id: data?.user?.id,
                 },
