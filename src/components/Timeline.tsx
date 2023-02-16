@@ -126,72 +126,75 @@ export function Tweet({
 
   return (
     <div className="mb-4 h-fit border-b-2 border-slate-400 pb-4">
-      <div className="flex p-2">
-        {tweet.author.image && (
-          <Link
-            href={{
-              pathname: `profile/${tweet.author.name}`,
-              query: {
-                id: tweet.authorId,
-              },
-            }}
-          >
-            <Image
-              src={tweet.author.image}
-              alt={`${tweet.author.name} profile picture`}
-              width={48}
-              height={48}
-              className="max-h-12 rounded-full"
-            />
-          </Link>
-        )}
+      <Link href={`/tweet/${tweet.id}`} replace>
+        <div className="flex p-2">
+          {tweet.author.image && (
+            <Link
+              href={{
+                pathname: `/profile/${tweet.author.name}`,
+                query: {
+                  id: tweet.authorId,
+                },
+              }}
+              replace
+            >
+              <Image
+                src={tweet.author.image}
+                alt={`${tweet.author.name} profile picture`}
+                width={48}
+                height={48}
+                className="max-h-12 rounded-full"
+              />
+            </Link>
+          )}
 
-        <div className="ml-2">
-          <div className="flex items-center">
-            <p className="font-bold">
-              <Link
-                href={{
-                  pathname: `profile/${tweet.author.name}`,
-                  query: {
-                    id: tweet.authorId,
-                  },
-                }}
-              >
-                @{tweet.author.name}
-              </Link>
-            </p>
-            <p className="text-sm text-gray-400">
-              {" "}
-              - {dayjs(tweet.createdAt).fromNow()}
-            </p>
+          <div className="ml-2">
+            <div className="flex items-center">
+              <p className="font-bold">
+                <Link
+                  href={{
+                    pathname: `/profile/${tweet.author.name}`,
+                    query: {
+                      id: tweet.authorId,
+                    },
+                  }}
+                >
+                  @{tweet.author.name}
+                </Link>
+              </p>
+              <p className="text-sm text-gray-400">
+                {" "}
+                - {dayjs(tweet.createdAt).fromNow()}
+              </p>
+            </div>
+
+            <div>{tweet.text}</div>
           </div>
-
-          <div>{tweet.text}</div>
+          {tweet.authorId == session?.user?.id && (
+            <button
+              className={`ml-auto px-4 ${deleteIsLoading && "animate-pulse"}`}
+              disabled={deleteIsLoading}
+              onClick={() => handleDeleteClick(tweet.id)}
+            >
+              <BsTrashFill size="1.5rem" className="cursor-pointer" />
+            </button>
+          )}
         </div>
-        {tweet.authorId == session?.user?.id && (
-          <button
-            className={`ml-auto px-4 ${deleteIsLoading && "animate-pulse"}`}
-            disabled={deleteIsLoading}
-            onClick={() => handleDeleteClick(tweet.id)}
-          >
-            <BsTrashFill size="1.5rem" className="cursor-pointer" />
-          </button>
-        )}
-      </div>
-      <button
-        className="mt-4 flex items-center p-2"
-        onClick={handleLikeClick}
-        disabled={likeIsLoading || unlikeIsLoading}
-      >
-        <AiFillHeart
-          color={hasLiked ? "red" : "black"}
-          size="2rem"
-          className={`active:fill-red-900 ${
-            (likeIsLoading || unlikeIsLoading) && "animate-bounce"
-          }`}
-        />
-        <span className="text-sm text-gray-500">{tweet._count.likes}</span>
-      </button>
+        <button
+          className="mt-4 flex items-center p-2"
+          onClick={handleLikeClick}
+          disabled={likeIsLoading || unlikeIsLoading}
+        >
+          <AiFillHeart
+            color={hasLiked ? "red" : "black"}
+            size="2rem"
+            className={`active:fill-red-900 ${
+              (likeIsLoading || unlikeIsLoading) && "animate-bounce"
+            }`}
+          />
+          <span className="text-sm text-gray-500">{tweet._count.likes}</span>
+        </button>
+      </Link>
     </div>
   );
 }
