@@ -27,7 +27,7 @@ export default function ProfileBar() {
       <div className="rounded-full px-8 lg:flex lg:items-center lg:gap-2 lg:bg-slate-300 lg:py-2">
         <Link
           href={{
-            pathname: `${data.user?.name}`,
+            pathname: `/profile/${data.user?.name}`,
             query: {
               id: data.user?.id,
             },
