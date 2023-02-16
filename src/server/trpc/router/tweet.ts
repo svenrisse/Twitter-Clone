@@ -135,4 +135,20 @@ export const tweetRouter = router({
         where: { id: tweetId },
       });
     }),
+  getUnique: publicProcedure
+    .input(
+      z.object({
+        tweetId: z.string().nullish(),
+      })
+    )
+    .query(({ ctx, input }) => {
+      const { prisma } = ctx;
+      const { tweetId } = input;
+
+      return prisma.tweet.findUnique({
+        where: {
+          id: tweetId,
+        },
+      });
+    }),
 });
