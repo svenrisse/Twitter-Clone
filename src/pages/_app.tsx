@@ -6,6 +6,7 @@ import "../styles/globals.css";
 import { Container } from "../components/Container";
 import { LoggedOutBanner } from "../components/LoggedOutBanner";
 import Head from "next/head";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -26,6 +27,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
           </main>
         </Container>
         <LoggedOutBanner />
+        <ReactQueryDevtools />
       </SessionProvider>
     </>
   );
