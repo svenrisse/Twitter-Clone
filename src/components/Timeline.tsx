@@ -130,7 +130,7 @@ export function Tweet({
         {tweet.author.image && (
           <Link
             href={{
-              pathname: `${tweet.author.name}`,
+              pathname: `profile/${tweet.author.name}`,
               query: {
                 id: tweet.authorId,
               },
@@ -151,7 +151,7 @@ export function Tweet({
             <p className="font-bold">
               <Link
                 href={{
-                  pathname: `${tweet.author.name}`,
+                  pathname: `profile/${tweet.author.name}`,
                   query: {
                     id: tweet.authorId,
                   },

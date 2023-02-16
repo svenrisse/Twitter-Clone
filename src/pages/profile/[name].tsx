@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
-import { Timeline } from "../components/Timeline";
-import { trpc } from "../utils/trpc";
+import { Timeline } from "../../components/Timeline";
+import { trpc } from "../../utils/trpc";
 import Image from "next/image";
-import Navbar from "../components/Navbar";
-import Rightbar from "../components/Rightbar";
+import Navbar from "../../components/Navbar";
+import Rightbar from "../../components/Rightbar";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useSession } from "next-auth/react";
