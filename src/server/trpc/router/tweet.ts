@@ -138,16 +138,20 @@ export const tweetRouter = router({
   getUnique: publicProcedure
     .input(
       z.object({
-        tweetId: z.string().nullish(),
+        tweetId: z.string(),
       })
     )
     .query(({ ctx, input }) => {
-      const { prisma } = ctx;
       const { tweetId } = input;
 
-      return prisma.tweet.findUnique({
+      return ctx.prisma.tweet.findUnique({
         where: {
           id: tweetId,
+        },
+        include: {
+          likes: true,
+          _count: true,
+          author: true,
         },
       });
     }),
