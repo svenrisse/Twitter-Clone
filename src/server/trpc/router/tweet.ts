@@ -4,11 +4,9 @@ import { z } from "zod";
 
 export const tweetRouter = router({
   create: protectedProcedure.input(tweetSchema).mutation(({ ctx, input }) => {
-    const { prisma, session } = ctx;
+    const userId = ctx.session.user.id;
 
-    const userId = session.user.id;
-
-    return prisma.tweet.create({
+    return ctx.prisma.tweet.create({
       data: {
         text: input.text,
         author: {
@@ -37,11 +35,10 @@ export const tweetRouter = router({
       })
     )
     .query(async ({ ctx, input }) => {
-      const { prisma, session } = ctx;
       const { where } = input;
-      const userId = session?.user?.id;
+      const userId = ctx.session?.user?.id;
 
-      const tweets = await prisma.tweet.findMany({
+      const tweets = await ctx.prisma.tweet.findMany({
         take: input.limit + 1,
         where,
         orderBy: [{ createdAt: "desc" }],
@@ -90,9 +87,8 @@ export const tweetRouter = router({
     )
     .mutation(({ ctx, input }) => {
       const userId = ctx.session.user.id;
-      const { prisma } = ctx;
 
-      return prisma.like.create({
+      return ctx.prisma.like.create({
         data: {
           tweet: {
             connect: {
@@ -114,13 +110,11 @@ export const tweetRouter = router({
       })
     )
     .mutation(({ ctx, input }) => {
-      const { prisma, session } = ctx;
-
-      return prisma.like.delete({
+      return ctx.prisma.like.delete({
         where: {
           tweetId_userId: {
             tweetId: input.tweetId,
-            userId: session.user.id,
+            userId: ctx.session.user.id,
           },
         },
       });
@@ -128,11 +122,8 @@ export const tweetRouter = router({
   delete: protectedProcedure
     .input(z.object({ tweetId: z.string() }))
     .mutation(({ ctx, input }) => {
-      const { prisma } = ctx;
-      const { tweetId } = input;
-
-      return prisma.tweet.delete({
-        where: { id: tweetId },
+      return ctx.prisma.tweet.delete({
+        where: { id: input.tweetId },
       });
     }),
   getUnique: publicProcedure
@@ -142,11 +133,9 @@ export const tweetRouter = router({
       })
     )
     .query(({ ctx, input }) => {
-      const { tweetId } = input;
-
       return ctx.prisma.tweet.findUnique({
         where: {
-          id: tweetId,
+          id: input.tweetId,
         },
         include: {
           likes: true,
