@@ -18,7 +18,7 @@ export default function TweetPage() {
       <Rightbar />
       <div className="flex min-h-screen flex-col items-center">
         <h1 className="w-screen rounded-b-md bg-slate-600 py-2 text-center font-mono text-xl font-medium uppercase text-slate-200">
-          Tweets you liked
+          Tweet
         </h1>
         {isFetching ? (
           <ThreeDots color="cyan" height="100" />
