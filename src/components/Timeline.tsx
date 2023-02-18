@@ -182,7 +182,11 @@ export function Tweet({
         </div>
         <button
           className="mt-4 flex items-center p-2"
-          onClick={handleLikeClick}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            handleLikeClick();
+          }}
           disabled={likeIsLoading || unlikeIsLoading}
         >
           <AiFillHeart
