@@ -125,7 +125,7 @@ export function Tweet({
   }
 
   return (
-    <div className="mb-4 h-fit border-b-2 border-slate-400 pb-4">
+    <div className="h-fit rounded-b-md border-b-2 border-slate-400 pb-4">
       <Link href={`/tweet/${tweet.id}`} replace>
         <div className="flex p-2">
           {tweet.author.image && (
