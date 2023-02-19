@@ -1,5 +1,6 @@
 # High Priority
 
+- fix: delete button prevent default event
 ---
 
 # Mid Priority
