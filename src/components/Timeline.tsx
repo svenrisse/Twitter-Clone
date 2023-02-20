@@ -120,6 +120,7 @@ export function Tweet({
     trpc.tweet.delete.useMutation({
       onSuccess: () => {
         utils.tweet.timeline.invalidate();
+        utils.tweet.getUnique.invalidate();
       },
     });
 
@@ -198,9 +199,8 @@ export function Tweet({
           <AiFillHeart
             color={hasLiked ? "red" : "black"}
             size="2rem"
-            className={`active:fill-red-900 ${
-              (likeIsLoading || unlikeIsLoading) && "animate-bounce"
-            }`}
+            className={`active:fill-red-900 ${(likeIsLoading || unlikeIsLoading) && "animate-bounce"
+              }`}
           />
           <span className="text-sm text-gray-500">{tweet._count.likes}</span>
         </button>
