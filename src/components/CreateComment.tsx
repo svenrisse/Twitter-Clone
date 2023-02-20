@@ -31,7 +31,7 @@ export default function CreateComment(props: Props) {
     <>
       <form
         onSubmit={handleSubmit}
-        className="mb-4 flex flex-col rounded-md border-2 p-4"
+        className="mb-4 flex flex-col rounded-md border-2 p-4 2xl:w-5/12"
       >
         <textarea
           onChange={(e) => setText(e.target.value)}
