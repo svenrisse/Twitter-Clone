@@ -144,4 +144,30 @@ export const tweetRouter = router({
         },
       });
     }),
+  comment: protectedProcedure
+    .input(
+      z.object({
+        tweetId: z.string(),
+        text: z.string(),
+      })
+    )
+    .mutation(({ ctx, input }) => {
+      const userId = ctx.session.user.id;
+
+      return ctx.prisma.comment.create({
+        data: {
+          text: input.text,
+          tweet: {
+            connect: {
+              id: input.tweetId,
+            },
+          },
+          user: {
+            connect: {
+              id: userId,
+            },
+          },
+        },
+      });
+    }),
 });
