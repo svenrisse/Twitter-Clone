@@ -77,6 +77,7 @@ export function Tweet({
         utils.tweet.timeline.invalidate();
         utils.user.getUser.invalidate();
         utils.user.getLikes.invalidate();
+        utils.tweet.getUnique.invalidate();
       },
     });
 
@@ -86,6 +87,7 @@ export function Tweet({
         utils.tweet.timeline.invalidate();
         utils.user.getUser.invalidate();
         utils.user.getLikes.invalidate();
+        utils.tweet.getUnique.invalidate();
       },
     });
 
@@ -95,7 +97,10 @@ export function Tweet({
     hasLiked = false;
   }
 
-  function handleLikeClick() {
+  function handleLikeClick(e: React.SyntheticEvent) {
+    e.preventDefault();
+    e.stopPropagation();
+
     if (!session) {
       return;
     }
@@ -183,9 +188,7 @@ export function Tweet({
         <button
           className="mt-4 flex items-center p-2"
           onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            handleLikeClick();
+            handleLikeClick(e);
           }}
           disabled={likeIsLoading || unlikeIsLoading}
         >
