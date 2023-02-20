@@ -2,11 +2,15 @@ import { useState } from "react";
 import { trpc } from "../utils/trpc";
 import { tweetSchema } from "./CreateTweet";
 
-export default function CreateComment() {
+type Props = {
+  tweetId: string;
+};
+
+export default function CreateComment(props: Props) {
   const [text, setText] = useState("");
   const [error, setError] = useState("");
 
-  const { mutateAsync, isLoading } = trpc.tweet.create.useMutation({
+  const { mutateAsync, isLoading } = trpc.tweet.comment.useMutation({
     onSuccess: () => {
       setText("");
     },
@@ -20,7 +24,7 @@ export default function CreateComment() {
       return;
     }
 
-    mutateAsync({ text });
+    mutateAsync({ text: text, tweetId: props.tweetId });
   }
   return (
     <>
@@ -34,7 +38,7 @@ export default function CreateComment() {
           className="w-full rounded-xl p-4 shadow"
           minLength={10}
           maxLength={280}
-          placeholder="Say something to the world..."
+          placeholder={props.tweetId}
         />
         <div className="mt-4 flex justify-between">
           <div className="font-bold text-red-400">

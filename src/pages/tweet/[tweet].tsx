@@ -28,8 +28,7 @@ export default function TweetPage() {
             {data && <Tweet tweet={data} />}
           </div>
         )}
-
-        <CreateComment />
+        <CreateComment tweetId={id} />
       </div>
     </>
   );
