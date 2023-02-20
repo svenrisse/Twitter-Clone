@@ -35,7 +35,7 @@ export function CreateTweet() {
   return (
     <>
       <form
-        onSubmit={handleSubmit}
+        onSubmit={(e) => handleSubmit(e)}
         className="mb-4 flex w-full flex-col rounded-md border-2 p-4"
       >
         <textarea
