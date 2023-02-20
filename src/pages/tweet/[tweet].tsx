@@ -4,6 +4,7 @@ import Rightbar from "../../components/Rightbar";
 import { Tweet } from "../../components/Timeline";
 import { trpc } from "../../utils/trpc";
 import { ThreeDots } from "react-loader-spinner";
+import CreateComment from "../../components/CreateComment";
 
 export default function TweetPage() {
   const id = useRouter().asPath.split("/")[2] as string;
@@ -27,6 +28,8 @@ export default function TweetPage() {
             {data && <Tweet tweet={data} />}
           </div>
         )}
+
+        <CreateComment />
       </div>
     </>
   );
