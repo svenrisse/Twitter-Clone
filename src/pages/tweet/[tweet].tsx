@@ -7,11 +7,16 @@ import { ThreeDots } from "react-loader-spinner";
 import CreateComment from "../../components/CreateComment";
 
 export default function TweetPage() {
-  const id = useRouter().asPath.split("/")[2] as string;
+  const router = useRouter();
+  const id = router.asPath.split("/")[2] as string;
 
   const { data, isFetching } = trpc.tweet.getUnique.useQuery({
     tweetId: id,
   });
+
+  if (!data && !isFetching) {
+    router.push("/");
+  }
 
   return (
     <>
