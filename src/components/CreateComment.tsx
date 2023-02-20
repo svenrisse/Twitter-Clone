@@ -16,7 +16,8 @@ export default function CreateComment(props: Props) {
     },
   });
 
-  function handleSubmit() {
+  function handleSubmit(event: React.SyntheticEvent) {
+    event.preventDefault();
     try {
       tweetSchema.parse({ text });
     } catch (e: any) {
@@ -24,7 +25,7 @@ export default function CreateComment(props: Props) {
       return;
     }
 
-    mutateAsync({ text: text, tweetId: props.tweetId });
+    mutateAsync({ tweetId: props.tweetId, text: text });
   }
   return (
     <>
@@ -38,16 +39,16 @@ export default function CreateComment(props: Props) {
           className="w-full rounded-xl p-4 shadow"
           minLength={10}
           maxLength={280}
-          placeholder={props.tweetId}
+          placeholder="Comment what you think about this Tweet..."
         />
         <div className="mt-4 flex justify-between">
           <div className="font-bold text-red-400">
             {error &&
-              "Tweet must contain at least 10 characters and less than 280 !"}
+              "Comment must contain at least 10 characters and less than 280 !"}
           </div>
           <button
             type="submit"
-            className="h-12 w-20 rounded-md bg-primary px-4 py-2 font-bold text-white active:bg-blue-600"
+            className="h-12 w-32 rounded-md bg-primary px-4 py-2 font-bold text-white active:bg-blue-600"
             disabled={isLoading}
           >
             {isLoading ? (
@@ -74,7 +75,7 @@ export default function CreateComment(props: Props) {
                 </svg>
               </div>
             ) : (
-              "Tweet"
+              "Comment"
             )}
           </button>
         </div>
