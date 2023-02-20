@@ -123,7 +123,10 @@ export function Tweet({
       },
     });
 
-  function handleDeleteClick(id: string) {
+  function handleDeleteClick(id: string, e: React.SyntheticEvent) {
+    e.preventDefault();
+    e.stopPropagation();
+
     deleteMutation({
       tweetId: id,
     });
@@ -179,7 +182,7 @@ export function Tweet({
             <button
               className={`ml-auto px-4 ${deleteIsLoading && "animate-pulse"}`}
               disabled={deleteIsLoading}
-              onClick={() => handleDeleteClick(tweet.id)}
+              onClick={(e) => handleDeleteClick(tweet.id, e)}
             >
               <BsTrashFill size="1.5rem" className="cursor-pointer" />
             </button>
