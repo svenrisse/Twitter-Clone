@@ -89,6 +89,7 @@ model Like {
 
 model Comment {
   id        String   @id @default(cuid())
+  text      String
   tweet     Tweet    @relation(fields: [tweetId], references: [id], onDelete: Cascade)
   tweetId   String
   user      User     @relation(fields: [userId], references: [id])
