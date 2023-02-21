@@ -129,12 +129,18 @@ export const tweetRouter = router({
       })
     )
     .query(async ({ ctx, input }) => {
+      const userId = ctx.session?.user?.id;
+
       return await ctx.prisma.tweet.findUnique({
         where: {
           id: input.tweetId,
         },
         include: {
-          likes: true,
+          likes: {
+            where: {
+              userId,
+            },
+          },
           _count: true,
           author: true,
         },
