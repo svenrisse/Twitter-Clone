@@ -59,11 +59,7 @@ export const tweetRouter = router({
               userId: true,
             },
           },
-          _count: {
-            select: {
-              likes: true,
-            },
-          },
+          _count: true,
         },
       });
 
@@ -132,8 +128,8 @@ export const tweetRouter = router({
         tweetId: z.string(),
       })
     )
-    .query(({ ctx, input }) => {
-      return ctx.prisma.tweet.findUnique({
+    .query(async ({ ctx, input }) => {
+      return await ctx.prisma.tweet.findUnique({
         where: {
           id: input.tweetId,
         },
