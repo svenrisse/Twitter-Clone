@@ -70,8 +70,10 @@ export function Tweet({
   const { data: session } = useSession();
   const utils = trpc.useContext();
 
-  const [like, setLike] = useState(tweet._count.likes);
-  const [likeStatus, setLikeStatus] = useState(tweet.likes.length > 0);
+  const [like, setLike] = useState({
+    count: tweet.likes.length,
+    status: tweet._count.likes > 0 && session,
+  });
 
   const { mutateAsync: likeMutation, isLoading: likeIsLoading } =
     trpc.tweet.like.useMutation({
@@ -95,20 +97,24 @@ export function Tweet({
       return;
     }
 
-    if (likeStatus) {
+    if (like.status) {
       unlikeMutation({
         tweetId: tweet.id,
       });
-      setLike(like - 1);
-      setLikeStatus(false);
+      setLike({
+        count: like.count - 1,
+        status: false,
+      });
       return;
     }
 
     likeMutation({
       tweetId: tweet.id,
     });
-    setLike(like + 1);
-    setLikeStatus(true);
+    setLike({
+      count: like.count + 1,
+      status: true,
+    });
   }
 
   const { mutateAsync: deleteMutation, isLoading: deleteIsLoading } =
@@ -192,13 +198,13 @@ export function Tweet({
           disabled={likeIsLoading || unlikeIsLoading}
         >
           <AiFillHeart
-            color={likeStatus ? "red" : "black"}
+            color={like.status ? "red" : "black"}
             size="2rem"
             className={`active:fill-red-900 ${
               (likeIsLoading || unlikeIsLoading) && "animate-bounce"
             }`}
           />
-          <span className="text-sm text-gray-500">{like}</span>
+          <span className="text-sm text-gray-500">{like.count}</span>
         </button>
       </Link>
     </div>
