@@ -68,34 +68,24 @@ export function Tweet({
   tweet: RouterOutputs["tweet"]["timeline"]["tweets"][number];
 }) {
   const { data: session } = useSession();
-
   const utils = trpc.useContext();
+
+  const [like, setLike] = useState(tweet._count.likes);
+  const [likeStatus, setLikeStatus] = useState(tweet.likes.length > 0);
 
   const { mutateAsync: likeMutation, isLoading: likeIsLoading } =
     trpc.tweet.like.useMutation({
       onSuccess: () => {
-        utils.tweet.timeline.invalidate();
-        utils.user.getUser.invalidate();
         utils.user.getLikes.invalidate();
-        utils.tweet.getUnique.invalidate();
       },
     });
 
   const { mutateAsync: unlikeMutation, isLoading: unlikeIsLoading } =
     trpc.tweet.unlike.useMutation({
       onSuccess: () => {
-        utils.tweet.timeline.invalidate();
-        utils.user.getUser.invalidate();
         utils.user.getLikes.invalidate();
-        utils.tweet.getUnique.invalidate();
       },
     });
-
-  let hasLiked = tweet.likes.length > 0;
-
-  if (!session) {
-    hasLiked = false;
-  }
 
   function handleLikeClick(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -105,17 +95,22 @@ export function Tweet({
       return;
     }
 
-    if (hasLiked) {
+    if (likeStatus) {
       unlikeMutation({
         tweetId: tweet.id,
       });
+      setLike(like - 1);
+      setLikeStatus(false);
       return;
     }
 
     likeMutation({
       tweetId: tweet.id,
     });
+    setLike(like + 1);
+    setLikeStatus(true);
   }
+
   const { mutateAsync: deleteMutation, isLoading: deleteIsLoading } =
     trpc.tweet.delete.useMutation({
       onSuccess: () => {
@@ -197,12 +192,13 @@ export function Tweet({
           disabled={likeIsLoading || unlikeIsLoading}
         >
           <AiFillHeart
-            color={hasLiked ? "red" : "black"}
+            color={likeStatus ? "red" : "black"}
             size="2rem"
-            className={`active:fill-red-900 ${(likeIsLoading || unlikeIsLoading) && "animate-bounce"
-              }`}
+            className={`active:fill-red-900 ${
+              (likeIsLoading || unlikeIsLoading) && "animate-bounce"
+            }`}
           />
-          <span className="text-sm text-gray-500">{tweet._count.likes}</span>
+          <span className="text-sm text-gray-500">{like}</span>
         </button>
       </Link>
     </div>
