@@ -71,8 +71,8 @@ export function Tweet({
   const utils = trpc.useContext();
 
   const [like, setLike] = useState({
-    count: tweet.likes.length,
-    status: tweet._count.likes > 0 && session,
+    count: tweet._count.likes,
+    status: tweet.likes.length > 0,
   });
 
   const { mutateAsync: likeMutation, isLoading: likeIsLoading } =
@@ -198,7 +198,7 @@ export function Tweet({
           disabled={likeIsLoading || unlikeIsLoading}
         >
           <AiFillHeart
-            color={like.status ? "red" : "black"}
+            color={session && like.status ? "red" : "black"}
             size="2rem"
             className={`active:fill-red-900 ${
               (likeIsLoading || unlikeIsLoading) && "animate-bounce"
