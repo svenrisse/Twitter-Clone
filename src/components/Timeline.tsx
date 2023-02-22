@@ -68,32 +68,34 @@ export function Tweet({
   tweet: RouterOutputs["tweet"]["timeline"]["tweets"][number];
 }) {
   const { data: session } = useSession();
-  const utils = trpc.useContext();
 
-  const [like, setLike] = useState({
-    count: tweet._count.likes,
-    status: tweet.likes.length > 0,
-  });
+  const utils = trpc.useContext();
 
   const { mutateAsync: likeMutation, isLoading: likeIsLoading } =
     trpc.tweet.like.useMutation({
       onSuccess: () => {
+        utils.tweet.timeline.invalidate();
+        utils.user.getUser.invalidate();
         utils.user.getLikes.invalidate();
-        utils.user.getUser.invalidate({
-          id: session?.user?.id as string,
-        });
+        utils.tweet.getUnique.invalidate();
       },
     });
 
   const { mutateAsync: unlikeMutation, isLoading: unlikeIsLoading } =
     trpc.tweet.unlike.useMutation({
       onSuccess: () => {
+        utils.tweet.timeline.invalidate();
+        utils.user.getUser.invalidate();
         utils.user.getLikes.invalidate();
-        utils.user.getUser.invalidate({
-          id: session?.user?.id as string,
-        });
+        utils.tweet.getUnique.invalidate();
       },
     });
+
+  let hasLiked = tweet.likes.length > 0;
+
+  if (!session) {
+    hasLiked = false;
+  }
 
   function handleLikeClick(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -103,13 +105,9 @@ export function Tweet({
       return;
     }
 
-    if (like.status) {
+    if (hasLiked) {
       unlikeMutation({
         tweetId: tweet.id,
-      });
-      setLike({
-        count: like.count - 1,
-        status: false,
       });
       return;
     }
@@ -117,20 +115,12 @@ export function Tweet({
     likeMutation({
       tweetId: tweet.id,
     });
-    setLike({
-      count: like.count + 1,
-      status: true,
-    });
   }
-
   const { mutateAsync: deleteMutation, isLoading: deleteIsLoading } =
     trpc.tweet.delete.useMutation({
       onSuccess: () => {
         utils.tweet.timeline.invalidate();
         utils.tweet.getUnique.invalidate();
-        utils.user.getUser.invalidate({
-          id: session?.user?.id as string,
-        });
       },
     });
 
@@ -207,13 +197,13 @@ export function Tweet({
           disabled={likeIsLoading || unlikeIsLoading}
         >
           <AiFillHeart
-            color={session && like.status ? "red" : "black"}
+            color={hasLiked ? "red" : "black"}
             size="2rem"
             className={`active:fill-red-900 ${
               (likeIsLoading || unlikeIsLoading) && "animate-bounce"
             }`}
           />
-          <span className="text-sm text-gray-500">{like.count}</span>
+          <span className="text-sm text-gray-500">{tweet._count.likes}</span>
         </button>
       </Link>
     </div>
