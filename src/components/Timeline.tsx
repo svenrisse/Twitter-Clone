@@ -75,7 +75,6 @@ export function Tweet({
     trpc.tweet.like.useMutation({
       onSuccess: () => {
         utils.tweet.timeline.invalidate();
-        utils.user.getUser.invalidate();
         utils.user.getLikes.invalidate();
         utils.tweet.getUnique.invalidate();
       },
@@ -85,7 +84,6 @@ export function Tweet({
     trpc.tweet.unlike.useMutation({
       onSuccess: () => {
         utils.tweet.timeline.invalidate();
-        utils.user.getUser.invalidate();
         utils.user.getLikes.invalidate();
         utils.tweet.getUnique.invalidate();
       },
