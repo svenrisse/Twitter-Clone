@@ -52,6 +52,7 @@ model User {
   sessions      Session[]
   tweet         Tweet[]
   likes         Like[]
+  comments      Comment[]
 }
 
 model VerificationToken {
@@ -63,14 +64,14 @@ model VerificationToken {
 }
 
 model Tweet {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   text      String
-  author    User     @relation(fields: [authorId], references: [id])
+  author    User      @relation(fields: [authorId], references: [id])
   authorId  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   likes     Like[]
-  isComment Boolean  @default(false)
+  comments  Comment[]
 }
 
 model Like {
@@ -84,4 +85,15 @@ model Like {
   updatedAt DateTime @updatedAt
 
   @@unique([tweetId, userId])
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  text      String
+  tweet     Tweet    @relation(fields: [tweetId], references: [id], onDelete: Cascade)
+  tweetId   String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
