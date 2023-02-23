@@ -70,17 +70,9 @@ model Tweet {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
   likes           Like[]
-  originalTweetId String
-  originalTweet   Tweet    @relation("comments", fields: [originalTweetId], references: [id])
+  originalTweetId String?  @default(cuid())
+  originalTweet   Tweet?   @relation("comments", fields: [originalTweetId], references: [id])
   comments        Tweet[]  @relation("comments")
-}
-
-model Larry {
-  id        Int     @id @default(autoincrement())
-  name      String?
-  teacherId Int?
-  teacher   Larry?  @relation("TeacherStudents", fields: [teacherId], references: [id])
-  students  Larry[] @relation("TeacherStudents")
 }
 
 model Like {
