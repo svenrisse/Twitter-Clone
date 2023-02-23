@@ -1,6 +1,7 @@
 import { tweetSchema } from "../../../components/CreateTweet";
 import { protectedProcedure, publicProcedure, router } from "../trpc";
 import { z } from "zod";
+import { connect } from "http2";
 
 export const tweetRouter = router({
   create: protectedProcedure.input(tweetSchema).mutation(({ ctx, input }) => {
@@ -141,6 +142,7 @@ export const tweetRouter = router({
               userId,
             },
           },
+          comments: true,
           _count: true,
           author: true,
         },
@@ -156,18 +158,22 @@ export const tweetRouter = router({
     .mutation(({ ctx, input }) => {
       const userId = ctx.session.user.id;
 
-      return ctx.prisma.comment.create({
+      return ctx.prisma.tweet.update({
+        where: {
+          id: input.tweetId,
+        },
         data: {
-          text: input.text,
-          tweet: {
-            connect: {
-              id: input.tweetId,
-            },
-          },
-          user: {
-            connect: {
-              id: userId,
-            },
+          comments: {
+            create: [
+              {
+                text: input.text,
+                author: {
+                  connect: {
+                    id: userId,
+                  },
+                },
+              },
+            ],
           },
         },
       });
