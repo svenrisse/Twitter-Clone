@@ -6,7 +6,8 @@ import { CreateTweet } from "./CreateTweet";
 import relativeTime from "dayjs/plugin/relativeTime";
 import updateLocal from "dayjs/plugin/updateLocale";
 import { useEffect, useState } from "react";
-import { AiFillHeart } from "react-icons/ai";
+import { AiFillHeart, AiOutlineComment } from "react-icons/ai";
+import { FaRegCommentDots } from "react-icons/fa";
 import { BsTrashFill } from "react-icons/bs";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
@@ -187,22 +188,32 @@ export function Tweet({
             </button>
           )}
         </div>
-        <button
-          className="mt-4 flex items-center p-2"
-          onClick={(e) => {
-            handleLikeClick(e);
-          }}
-          disabled={likeIsLoading || unlikeIsLoading}
-        >
-          <AiFillHeart
-            color={hasLiked ? "red" : "black"}
-            size="2rem"
-            className={`active:fill-red-900 ${
-              (likeIsLoading || unlikeIsLoading) && "animate-bounce"
-            }`}
-          />
-          <span className="text-sm text-gray-500">{tweet._count.likes}</span>
-        </button>
+        <div className="mt-4 flex">
+          <button
+            className="flex items-center p-2"
+            onClick={(e) => {
+              handleLikeClick(e);
+            }}
+            disabled={likeIsLoading || unlikeIsLoading}
+          >
+            <AiFillHeart
+              color={hasLiked ? "red" : "black"}
+              size="2rem"
+              className={`active:fill-red-900 ${
+                (likeIsLoading || unlikeIsLoading) && "animate-bounce"
+              }`}
+            />
+            <span className="px-1 text-sm text-gray-500">
+              {tweet._count.likes}
+            </span>
+          </button>
+          <button className="flex items-center p-2">
+            <FaRegCommentDots size="1.5rem" />
+            <span className="px-1 text-sm text-gray-500">
+              {tweet._count.comments}
+            </span>
+          </button>
+        </div>
       </Link>
     </div>
   );
