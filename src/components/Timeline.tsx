@@ -6,7 +6,7 @@ import { CreateTweet } from "./CreateTweet";
 import relativeTime from "dayjs/plugin/relativeTime";
 import updateLocal from "dayjs/plugin/updateLocale";
 import { useEffect, useState } from "react";
-import { AiFillHeart, AiOutlineComment } from "react-icons/ai";
+import { AiFillHeart } from "react-icons/ai";
 import { FaRegCommentDots } from "react-icons/fa";
 import { BsTrashFill } from "react-icons/bs";
 import Link from "next/link";
