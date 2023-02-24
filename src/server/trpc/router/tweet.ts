@@ -1,7 +1,6 @@
 import { tweetSchema } from "../../../components/CreateTweet";
 import { protectedProcedure, publicProcedure, router } from "../trpc";
 import { z } from "zod";
-import { connect } from "http2";
 
 export const tweetRouter = router({
   create: protectedProcedure.input(tweetSchema).mutation(({ ctx, input }) => {
