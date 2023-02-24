@@ -40,9 +40,11 @@ export default function TweetPage() {
 
             <CreateComment tweetId={id} />
 
-            <div className="mt-12 mb-20 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400 lg:w-5/12 2xl:w-4/12">
-              {comments}
-            </div>
+            {comments !== undefined && comments?.length > 0 && (
+              <div className="mt-12 mb-20 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400 lg:w-5/12 2xl:w-4/12">
+                {comments}
+              </div>
+            )}
           </>
         )}
       </div>
