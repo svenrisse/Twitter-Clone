@@ -18,6 +18,10 @@ export default function TweetPage() {
     router.push("/");
   }
 
+  const comments = data?.comments.map((comment) => {
+    return <Tweet tweet={comment} key={comment.id} />;
+  });
+
   return (
     <>
       <Navbar />
@@ -35,6 +39,7 @@ export default function TweetPage() {
             </div>
 
             <CreateComment tweetId={id} />
+            {comments}
           </>
         )}
       </div>
