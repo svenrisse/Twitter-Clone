@@ -145,7 +145,26 @@ export const tweetRouter = router({
               userId,
             },
           },
-          comments: true,
+          comments: {
+            include: {
+              author: {
+                select: {
+                  name: true,
+                  image: true,
+                  id: true,
+                },
+              },
+              _count: true,
+              likes: {
+                where: {
+                  userId,
+                },
+                select: {
+                  userId: true,
+                },
+              },
+            },
+          },
           _count: true,
           author: true,
         },
