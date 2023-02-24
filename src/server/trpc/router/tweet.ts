@@ -36,12 +36,16 @@ export const tweetRouter = router({
       })
     )
     .query(async ({ ctx, input }) => {
-      const { where } = input;
       const userId = ctx.session?.user?.id;
 
       const tweets = await ctx.prisma.tweet.findMany({
         take: input.limit + 1,
-        where,
+        where: {
+          author: input.where?.author,
+          AND: {
+            originalTweet: null,
+          },
+        },
         orderBy: [{ createdAt: "desc" }],
         cursor: input.cursor ? { id: input.cursor } : undefined,
         include: {
