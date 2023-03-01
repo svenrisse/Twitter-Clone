@@ -10,7 +10,7 @@ export default function TweetPage() {
   const router = useRouter();
   const id = router.asPath.split("/")[2] as string;
 
-  const { data, isFetching } = trpc.tweet.getUnique.useQuery({
+  const { data, isFetching, isInitialLoading } = trpc.tweet.getUnique.useQuery({
     tweetId: id,
   });
 
@@ -30,7 +30,7 @@ export default function TweetPage() {
         <h1 className="w-screen rounded-b-md bg-slate-600 py-2 text-center font-mono text-xl font-medium uppercase text-slate-200">
           Tweet
         </h1>
-        {isFetching ? (
+        {isInitialLoading ? (
           <ThreeDots color="cyan" height="100" />
         ) : (
           <>
