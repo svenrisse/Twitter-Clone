@@ -13,7 +13,7 @@ export default function UserPage() {
   const name = router.query.name as string;
   const id = router.query.id as string;
 
-  const { data, isFetching, isInitialLoading } = trpc.user.getUser.useQuery({
+  const { data, isInitialLoading } = trpc.user.getUser.useQuery({
     id: id,
   });
 
