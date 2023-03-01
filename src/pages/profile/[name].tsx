@@ -13,7 +13,7 @@ export default function UserPage() {
   const name = router.query.name as string;
   const id = router.query.id as string;
 
-  const { data, isFetching } = trpc.user.getUser.useQuery({
+  const { data, isFetching, isInitialLoading } = trpc.user.getUser.useQuery({
     id: id,
   });
 
@@ -25,7 +25,7 @@ export default function UserPage() {
       <Rightbar />
       <div className="flex min-h-screen w-screen flex-col items-center">
         <h1 className="w-screen rounded-b-md bg-slate-600 py-2 text-center font-mono text-xl font-medium uppercase text-slate-200">
-          {isFetching ? (
+          {isInitialLoading ? (
             <Skeleton
               width={60}
               duration={0.5}
@@ -40,7 +40,7 @@ export default function UserPage() {
         <div className="flex w-11/12 flex-col items-center">
           <div className="pt-10">
             <div className="ml-3">
-              {isFetching ? (
+              {isInitialLoading ? (
                 <Skeleton
                   height={100}
                   width={100}
@@ -60,7 +60,7 @@ export default function UserPage() {
             <div className="pt-5">
               <h2 className="font-bold">
                 @
-                {isFetching ? (
+                {isInitialLoading ? (
                   <Skeleton width={50} duration={0.5} borderRadius={24} />
                 ) : (
                   data?.name
@@ -69,7 +69,7 @@ export default function UserPage() {
               <div className="flex w-1/2 gap-10">
                 <div className="flex w-min flex-col items-center">
                   <span className="font-bold">
-                    {isFetching ? (
+                    {isInitialLoading ? (
                       <Skeleton width={40} inline={true} borderRadius={24} />
                     ) : (
                       data?.tweet.length
@@ -79,7 +79,7 @@ export default function UserPage() {
                 </div>
                 <div className="flex w-min flex-col items-center">
                   <span className="font-bold">
-                    {isFetching ? (
+                    {isInitialLoading ? (
                       <Skeleton width={40} inline={true} borderRadius={24} />
                     ) : (
                       data?.likes.length

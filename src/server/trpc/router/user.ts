@@ -38,6 +38,9 @@ export const userRouter = router({
               },
             },
           },
+          AND: {
+            originalTweet: null,
+          },
         },
         orderBy: [{ createdAt: "desc" }],
         include: {
