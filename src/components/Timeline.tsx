@@ -12,6 +12,7 @@ import { BsTrashFill } from "react-icons/bs";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { ThreeDots } from "react-loader-spinner";
+import { TailSpin } from "react-loader-spinner";
 
 const LIMIT = 10;
 
@@ -203,9 +204,13 @@ export function Tweet({
                 (likeIsLoading || unlikeIsLoading) && "animate-bounce"
               }`}
             />
-            <span className="px-1 text-sm text-gray-500">
-              {tweet._count.likes}
-            </span>
+            {likeIsLoading || unlikeIsLoading ? (
+              <TailSpin height="25" width="15" color="gray" />
+            ) : (
+              <span className="px-1 text-sm text-gray-500">
+                {tweet._count.likes}
+              </span>
+            )}
           </button>
           <button className="flex items-center p-2">
             <FaRegCommentDots size="1.5rem" />
