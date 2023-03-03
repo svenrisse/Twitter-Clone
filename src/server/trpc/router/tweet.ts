@@ -146,6 +146,7 @@ export const tweetRouter = router({
             },
           },
           comments: {
+            orderBy: [{ createdAt: "desc" }],
             include: {
               author: {
                 select: {
