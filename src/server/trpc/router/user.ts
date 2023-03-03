@@ -15,7 +15,12 @@ export const userRouter = router({
         },
         include: {
           likes: true,
-          tweet: true,
+          tweet: {
+            where: {
+              originalTweet: null,
+            },
+          },
+          _count: true,
         },
       });
     }),
