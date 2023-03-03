@@ -19,6 +19,11 @@ export default function UserPage() {
 
   const userId = useSession().data?.user?.id;
 
+  const countComments =
+    (data?._count.tweet as number) - (data?.tweet.length as number);
+
+  const countTweets = data?.tweet.length as number;
+
   return (
     <>
       <Navbar focused={id == userId ? "profile" : ""} />
@@ -38,7 +43,7 @@ export default function UserPage() {
           {`'s Profile`}
         </h1>
         <div className="flex w-11/12 flex-col items-center">
-          <div className="pt-10">
+          <div className="flex flex-col items-center pt-10 text-center">
             <div className="ml-3">
               {isInitialLoading ? (
                 <Skeleton
@@ -57,7 +62,7 @@ export default function UserPage() {
                 />
               )}
             </div>
-            <div className="pt-5">
+            <div className="pt-4">
               <h2 className="font-bold">
                 @
                 {isInitialLoading ? (
@@ -66,27 +71,32 @@ export default function UserPage() {
                   data?.name
                 )}
               </h2>
-              <div className="flex w-1/2 gap-10">
+              <div className="flex w-1/2 gap-10 pt-5">
                 <div className="flex w-min flex-col items-center">
                   <span className="font-bold">
                     {isInitialLoading ? (
                       <Skeleton width={40} inline={true} borderRadius={24} />
                     ) : (
-                      data?.tweet.length
+                      countTweets
                     )}
                   </span>
-                  <span>Tweets</span>
+                  <span>
+                    {countTweets > 1 || countTweets < 1 ? "Tweets" : "Tweet"}
+                  </span>
                 </div>
                 <div className="flex w-min flex-col items-center">
                   <span className="font-bold">
                     {isInitialLoading ? (
                       <Skeleton width={40} inline={true} borderRadius={24} />
                     ) : (
-                      (data?._count.tweet as number) -
-                      (data?.tweet.length as number)
+                      countComments
                     )}
                   </span>
-                  <span>Comments</span>
+                  <span>
+                    {countComments > 1 || countComments < 1
+                      ? "Comments"
+                      : "Comment"}
+                  </span>
                 </div>
                 <div className="flex w-min flex-col items-center">
                   <span className="font-bold">
