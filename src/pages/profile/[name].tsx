@@ -75,7 +75,18 @@ export default function UserPage() {
                       data?.tweet.length
                     )}
                   </span>
-                  <span> Tweets</span>
+                  <span>Tweets</span>
+                </div>
+                <div className="flex w-min flex-col items-center">
+                  <span className="font-bold">
+                    {isInitialLoading ? (
+                      <Skeleton width={40} inline={true} borderRadius={24} />
+                    ) : (
+                      (data?._count.tweet as number) -
+                      (data?.tweet.length as number)
+                    )}
+                  </span>
+                  <span>Comments</span>
                 </div>
                 <div className="flex w-min flex-col items-center">
                   <span className="font-bold">
@@ -85,7 +96,7 @@ export default function UserPage() {
                       data?.likes.length
                     )}
                   </span>
-                  <span> Liked </span>
+                  <span>Liked</span>
                 </div>
               </div>
             </div>
