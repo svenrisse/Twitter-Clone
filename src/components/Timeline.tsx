@@ -269,7 +269,6 @@ export function Timeline({
       <div className="flex justify-center">
         {isFetching && <ThreeDots color="cyan" height="100" />}
       </div>
-      {!hasNextPage && !isFetching && <p>No more Tweets to load.</p>}
     </div>
   );
 }
