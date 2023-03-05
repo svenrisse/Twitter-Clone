@@ -185,7 +185,11 @@ export function Tweet({
               disabled={deleteIsLoading}
               onClick={(e) => handleDeleteClick(tweet.id, e)}
             >
-              <BsTrashFill size="1.5rem" className="cursor-pointer" />
+              {deleteIsLoading ? (
+                <TailSpin height="1.5rem" width="1.5rem" color="gray" />
+              ) : (
+                <BsTrashFill size="1.5rem" className="cursor-pointer" />
+              )}
             </button>
           )}
         </div>
