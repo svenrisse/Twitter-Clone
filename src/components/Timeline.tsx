@@ -197,20 +197,21 @@ export function Tweet({
             }}
             disabled={likeIsLoading || unlikeIsLoading}
           >
-            <AiFillHeart
-              color={hasLiked ? "red" : "black"}
-              size="2rem"
-              className={`active:fill-red-900 ${
-                (likeIsLoading || unlikeIsLoading) && "animate-bounce"
-              }`}
-            />
             {likeIsLoading || unlikeIsLoading ? (
-              <TailSpin height="25" width="15" color="gray" />
+              <TailSpin height="2rem" width="2rem" color="gray" />
             ) : (
-              <span className="px-1 text-sm text-gray-500">
-                {tweet._count.likes}
-              </span>
+              <AiFillHeart
+                color={hasLiked ? "red" : "black"}
+                size="2rem"
+                className={`active:fill-red-900 ${
+                  (likeIsLoading || unlikeIsLoading) && "animate-bounce"
+                }`}
+              />
             )}
+
+            <span className="px-1 text-sm text-gray-500">
+              {tweet._count.likes}
+            </span>
           </button>
           <button className="flex items-center p-2">
             <FaRegCommentDots size="1.5rem" />
