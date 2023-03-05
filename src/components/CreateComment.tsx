@@ -10,9 +10,12 @@ export default function CreateComment(props: Props) {
   const [text, setText] = useState("");
   const [error, setError] = useState("");
 
+  const utils = trpc.useContext();
+
   const { mutateAsync, isLoading } = trpc.tweet.comment.useMutation({
     onSuccess: () => {
       setText("");
+      utils.tweet.getUnique.invalidate();
     },
   });
 
