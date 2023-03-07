@@ -40,10 +40,14 @@ export default function TweetPage() {
           <ThreeDots color="cyan" height="100" />
         ) : (
           <>
-            <div className="mt-12 mb-6 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400 lg:w-1/2 2xl:w-5/12">
-              {dataOriginal && <Tweet tweet={dataOriginal} />}
-            </div>
-            <AiOutlineArrowDown size="1.5rem" />
+            {dataOriginal && (
+              <>
+                <div className="mt-12 mb-6 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400 lg:w-1/2 2xl:w-5/12">
+                  <Tweet tweet={dataOriginal} />
+                </div>
+                <AiOutlineArrowDown size="1.5rem" />
+              </>
+            )}
             <div className="mt-6 mb-12 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400 lg:w-1/2 2xl:w-5/12">
               {data && <Tweet tweet={data} />}
             </div>
