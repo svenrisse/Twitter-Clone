@@ -14,6 +14,11 @@ export default function TweetPage() {
     tweetId: id,
   });
 
+  const { data: dataOriginal } = trpc.tweet.getUnique.useQuery(
+    { tweetId: data?.originalTweetId as string },
+    { enabled: typeof data?.originalTweetId === "string" }
+  );
+
   if (!data && !isFetching) {
     router.push("/");
   }
@@ -34,6 +39,9 @@ export default function TweetPage() {
           <ThreeDots color="cyan" height="100" />
         ) : (
           <>
+            <div className="mt-12 mb-12 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400 lg:w-1/2 2xl:w-5/12">
+              {dataOriginal && <Tweet tweet={dataOriginal} />}
+            </div>
             <div className="mt-12 mb-12 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400 lg:w-1/2 2xl:w-5/12">
               {data && <Tweet tweet={data} />}
             </div>
