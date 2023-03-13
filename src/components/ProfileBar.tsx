@@ -3,7 +3,6 @@ import Image from "next/image";
 import { useState } from "react";
 import Modal from "react-modal";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import Link from "next/link";
 
 export default function ProfileBar() {
   const [modalIsOpen, setIsOpen] = useState(false);
