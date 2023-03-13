@@ -24,28 +24,23 @@ export default function ProfileBar() {
 
   return (
     <div className="lg:fixed lg:bottom-4">
-      <div className="rounded-full px-8 lg:flex lg:items-center lg:gap-2 lg:bg-slate-300 lg:py-2">
-        <Link
-          href={{
-            pathname: `/profile/${data.user?.name}`,
-            query: {
-              id: data.user?.id,
-            },
-          }}
-        >
-          <Image
-            src={data.user?.image as string}
-            alt={`${data.user?.name} profile picture`}
-            width={50}
-            height={50}
-            className="rounded-full"
-          />
-        </Link>
-        <span className="hidden lg:block lg:font-bold">{data.user?.name}</span>
+      <div
+        onClick={openModal}
+        className="w-40 cursor-pointer rounded-full lg:flex lg:items-center lg:justify-around lg:gap-2 lg:bg-slate-300 lg:py-2"
+      >
+        <Image
+          src={data.user?.image as string}
+          alt={`${data.user?.name} profile picture`}
+          width={30}
+          height={30}
+          className="ml-4 rounded-full lg:ml-2"
+        />
+        <span className="hidden text-xs lg:block lg:font-semibold">
+          {data.user?.name}
+        </span>
         <BsThreeDotsVertical
-          className="hidden cursor-pointer rounded-xl px-1 py-1 hover:bg-slate-400 lg:block"
-          size={"2rem"}
-          onClick={openModal}
+          className="hidden cursor-pointer rounded-xl py-1 hover:bg-slate-400 lg:mr-2 lg:block"
+          size={"1.5rem"}
         />
       </div>
       <Modal
