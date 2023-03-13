@@ -25,20 +25,21 @@ export default function ProfileBar() {
     <div className="lg:fixed lg:bottom-4">
       <div
         onClick={openModal}
-        className="w-40 cursor-pointer rounded-full lg:flex lg:items-center lg:justify-around lg:gap-2 lg:bg-slate-300 lg:py-2"
+        className="lg:justify- w-40 cursor-pointer rounded-full lg:flex lg:items-center lg:gap-2 lg:bg-slate-300 lg:py-2"
       >
         <Image
           src={data.user?.image as string}
           alt={`${data.user?.name} profile picture`}
-          width={30}
-          height={30}
-          className="ml-4 rounded-full lg:ml-2"
+          width={0}
+          height={0}
+          sizes="100vw"
+          className="ml-4 w-8 rounded-full md:w-12 lg:ml-2"
         />
-        <span className="hidden text-xs lg:block lg:font-semibold">
+        <span className="hidden text-center text-xs lg:block lg:font-semibold">
           {data.user?.name}
         </span>
         <BsThreeDotsVertical
-          className="hidden cursor-pointer rounded-xl py-1 hover:bg-slate-400 lg:mr-2 lg:block"
+          className="hidden rounded-xl py-1 lg:mr-2 lg:block"
           size={"1.5rem"}
         />
       </div>
