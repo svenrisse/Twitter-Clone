@@ -27,7 +27,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
           </main>
         </Container>
         <LoggedOutBanner />
-        <ReactQueryDevtools />
+        <ReactQueryDevtools position="top-right" />
       </SessionProvider>
     </>
   );
