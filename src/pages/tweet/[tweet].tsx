@@ -71,7 +71,7 @@ export default function TweetPage() {
             <div className="mt-6 mb-6 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400 lg:w-1/2 2xl:w-5/12">
               {data && <Tweet tweet={data} />}
             </div>
-            <div className="ml-5 mb-6 self-start md:ml-12">
+            <div className="ml-5 mb-6 self-start md:ml-12 lg:ml-0 lg:w-5/12 lg:self-center xl:ml-12 xl:w-5/12">
               <h2 className="mb-1 text-sm text-slate-500">Liked by:</h2>
               <div className="flex gap-1">{likeImages}</div>
             </div>
