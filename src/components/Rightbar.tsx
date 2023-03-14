@@ -1,7 +1,7 @@
 export default function Rightbar() {
   return (
-    <div className="fixed top-28 right-10 hidden w-2/12 justify-center lg:flex 2xl:right-32 2xl:top-36">
-      <div className="rounded-xl bg-slate-300 px-4 py-6">
+    <div className="fixed top-28 right-10 hidden w-2/12 justify-center lg:flex 2xl:right-32 2xl:top-36 2xl:w-3/12">
+      <div className="rounded-xl bg-slate-300 px-4 py-6 2xl:px-8">
         <h1 className="py-4 text-xl font-extrabold">Trends for you</h1>
         <div className="pr-10">
           <div className="py-2">
