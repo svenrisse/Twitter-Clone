@@ -201,4 +201,20 @@ export const tweetRouter = router({
         },
       });
     }),
+  uniqueLikes: publicProcedure
+    .input(
+      z.object({
+        tweetId: z.string(),
+      })
+    )
+    .query(({ ctx, input }) => {
+      return ctx.prisma.tweet.findUnique({
+        where: {
+          id: input.tweetId,
+        },
+        include: {
+          likes: true,
+        },
+      });
+    }),
 });
