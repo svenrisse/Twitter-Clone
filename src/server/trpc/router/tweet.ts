@@ -213,7 +213,11 @@ export const tweetRouter = router({
           id: input.tweetId,
         },
         include: {
-          likes: true,
+          likes: {
+            include: {
+              user: true,
+            },
+          },
         },
       });
     }),
