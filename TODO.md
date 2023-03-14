@@ -11,5 +11,4 @@
 # Low Priority
 
 - Feat: follow
-- Feat: show likes on tweet
 - Feat: add hashtags
