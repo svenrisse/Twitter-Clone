@@ -20,6 +20,10 @@ export default function TweetPage() {
     { enabled: typeof data?.originalTweetId === "string" }
   );
 
+  const { data: dataLikes } = trpc.tweet.uniqueLikes.useQuery({
+    tweetId: id,
+  });
+
   if (!data && !isFetching) {
     router.push("/");
   }
