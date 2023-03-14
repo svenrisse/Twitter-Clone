@@ -208,16 +208,12 @@ export const tweetRouter = router({
       })
     )
     .query(({ ctx, input }) => {
-      return ctx.prisma.tweet.findUnique({
+      return ctx.prisma.like.findMany({
         where: {
-          id: input.tweetId,
+          tweetId: input.tweetId,
         },
         include: {
-          likes: {
-            include: {
-              user: true,
-            },
-          },
+          user: true,
         },
       });
     }),
