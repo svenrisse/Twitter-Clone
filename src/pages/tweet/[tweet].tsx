@@ -7,6 +7,7 @@ import { ThreeDots } from "react-loader-spinner";
 import CreateComment from "../../components/CreateComment";
 import { AiOutlineArrowDown } from "react-icons/ai";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function TweetPage() {
   const router = useRouter();
@@ -36,15 +37,25 @@ export default function TweetPage() {
   const likeImages = dataLikes?.likes.map((like) => {
     if (like.user.name && like.user.image)
       return (
-        <Image
-          src={like.user.image}
-          alt={`${like.user.name} profile picture`}
-          key={like.userId}
-          width={30}
-          height={30}
-          className="rounded-xl"
-          title={like.user.name}
-        />
+        <Link
+          href={{
+            pathname: `/profile/${like.user.name}`,
+            query: {
+              id: like.userId,
+            },
+          }}
+          replace
+        >
+          <Image
+            src={like.user.image}
+            alt={`${like.user.name} profile picture`}
+            key={like.userId}
+            width={30}
+            height={30}
+            className="rounded-xl"
+            title={like.user.name}
+          />
+        </Link>
       );
   });
 
