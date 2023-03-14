@@ -6,6 +6,7 @@ import { trpc } from "../../utils/trpc";
 import { ThreeDots } from "react-loader-spinner";
 import CreateComment from "../../components/CreateComment";
 import { AiOutlineArrowDown } from "react-icons/ai";
+import Image from "next/image";
 
 export default function TweetPage() {
   const router = useRouter();
@@ -32,6 +33,21 @@ export default function TweetPage() {
     return <Tweet tweet={comment} key={comment.id} />;
   });
 
+  const likeImages = dataLikes?.likes.map((like) => {
+    if (like.user.name && like.user.image)
+      return (
+        <Image
+          src={like.user.image}
+          alt={`${like.user.name} profile picture`}
+          key={like.userId}
+          width={30}
+          height={30}
+          className="rounded-xl"
+          title={like.user.name}
+        />
+      );
+  });
+
   return (
     <>
       <Navbar />
@@ -55,6 +71,7 @@ export default function TweetPage() {
             <div className="mt-6 mb-12 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400 lg:w-1/2 2xl:w-5/12">
               {data && <Tweet tweet={data} />}
             </div>
+            {likeImages}
 
             <CreateComment tweetId={id} />
 
