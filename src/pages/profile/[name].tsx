@@ -147,6 +147,26 @@ export default function UserPage() {
                   </span>
                   <span>Liked</span>
                 </div>
+                <div className="flex w-min flex-col items-center">
+                  <span className="font-bold">
+                    {isInitialLoading ? (
+                      <Skeleton width={40} inline={true} borderRadius={24} />
+                    ) : (
+                      data?._count.followers
+                    )}
+                  </span>
+                  <span>Followers</span>
+                </div>
+                <div className="flex w-min flex-col items-center">
+                  <span className="font-bold">
+                    {isInitialLoading ? (
+                      <Skeleton width={40} inline={true} borderRadius={24} />
+                    ) : (
+                      data?._count.follows
+                    )}
+                  </span>
+                  <span>Follows</span>
+                </div>
               </div>
             </div>
           </div>
