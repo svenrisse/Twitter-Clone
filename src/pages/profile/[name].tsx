@@ -154,7 +154,9 @@ export default function UserPage() {
           <div className="mt-3">
             <button
               onClick={(e) => handleFollowClick(e)}
-              className="h-12 w-28 rounded-md bg-primary px-4 py-2 font-bold text-white active:bg-blue-600"
+              className={`h-12 w-28 rounded-md bg-primary px-4 py-2 font-bold text-white active:bg-blue-600 ${
+                hasFollow && "hover:bg-red-500"
+              }`}
               disabled={followLoading || unfollowLoading}
             >
               {followLoading || unfollowLoading ? (
@@ -181,7 +183,7 @@ export default function UserPage() {
                   </svg>
                 </div>
               ) : (
-                <div>{hasFollow ? "Unfollow" : "Follow"}</div>
+                <div>{hasFollow ? "Following" : "Follow"}</div>
               )}
             </button>
           </div>
