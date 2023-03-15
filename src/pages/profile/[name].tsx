@@ -7,7 +7,6 @@ import Rightbar from "../../components/Rightbar";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useSession } from "next-auth/react";
-import { TailSpin } from "react-loader-spinner";
 
 export default function UserPage() {
   const router = useRouter();
