@@ -92,4 +92,20 @@ export const userRouter = router({
         },
       });
     }),
+  unfollow: protectedProcedure
+    .input(
+      z.object({
+        userId: z.string(),
+      })
+    )
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.follow.delete({
+        where: {
+          followerId_originalUserId: {
+            followerId: input.userId,
+            originalUserId: ctx.session.user.id,
+          },
+        },
+      });
+    }),
 });
