@@ -14,6 +14,7 @@ export default function UserPage() {
   const id = router.query.id as string;
   const userId = useSession().data?.user?.id;
   const { data: session } = useSession();
+  const utils = trpc.useContext();
 
   const { data, isInitialLoading } = trpc.user.getUser.useQuery({
     id: id,
@@ -24,7 +25,17 @@ export default function UserPage() {
       ? true
       : false;
 
-  const { mutateAsync: followMutation } = trpc.user.follow.useMutation({});
+  const { mutateAsync: followMutation } = trpc.user.follow.useMutation({
+    onSuccess: () => {
+      utils.user.getUser.invalidate();
+    },
+  });
+
+  const { mutateAsync: unfollowMutation } = trpc.user.unfollow.useMutation({
+    onSuccess: () => {
+      utils.user.getUser.invalidate();
+    },
+  });
 
   function handleFollowClick(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -34,7 +45,9 @@ export default function UserPage() {
     }
 
     if (hasFollow) {
-      alert("Already following!");
+      unfollowMutation({
+        userId: data.id,
+      });
       return;
     }
 
@@ -136,8 +149,11 @@ export default function UserPage() {
             </div>
           </div>
           <div>
-            <button onClick={(e) => handleFollowClick(e)}>
-              Follow/Unfollow
+            <button
+              onClick={(e) => handleFollowClick(e)}
+              className="h-12 w-28 rounded-md bg-primary px-4 py-2 font-bold text-white active:bg-blue-600"
+            >
+              {hasFollow ? "Follow" : "Unfollow"}
             </button>
           </div>
           <Timeline
