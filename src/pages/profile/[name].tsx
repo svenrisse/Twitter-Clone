@@ -42,7 +42,7 @@ export default function UserPage() {
   function handleFollowClick(e: React.SyntheticEvent) {
     e.preventDefault();
 
-    if (!session || !data?.id) {
+    if (!session || !data?.id || data.id === userId) {
       return;
     }
 
