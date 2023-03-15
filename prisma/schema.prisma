@@ -52,6 +52,8 @@ model User {
   sessions      Session[]
   tweet         Tweet[]
   likes         Like[]
+  follows       Follow[]  @relation("follows")
+  followers     Follow[]  @relation("original")
 }
 
 model VerificationToken {
@@ -76,14 +78,25 @@ model Tweet {
 }
 
 model Like {
-  id      String @id @default(cuid())
-  tweet   Tweet  @relation(fields: [tweetId], references: [id], onDelete: Cascade)
-  tweetId String
-  user    User   @relation(fields: [userId], references: [id])
-  userId  String
-
+  id        String   @id @default(cuid())
+  tweet     Tweet    @relation(fields: [tweetId], references: [id], onDelete: Cascade)
+  tweetId   String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@unique([tweetId, userId])
+}
+
+model Follow {
+  id             String   @id @default(cuid())
+  follower       User     @relation("follows", fields: [followerId], references: [id], onDelete: Cascade)
+  followerId     String
+  originalUser   User     @relation("original", fields: [originalUserId], references: [id], onDelete: Cascade)
+  originalUserId String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@unique([followerId, originalUserId])
 }
