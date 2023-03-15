@@ -61,4 +61,28 @@ export const userRouter = router({
         },
       });
     }),
+  follow: protectedProcedure
+    .input(
+      z.object({
+        userId: z.string(),
+      })
+    )
+    .mutation(({ ctx, input }) => {
+      const user = ctx.session.user.id;
+
+      return ctx.prisma.follow.create({
+        data: {
+          follower: {
+            connect: {
+              id: user,
+            },
+          },
+          originalUser: {
+            connect: {
+              id: input.userId,
+            },
+          },
+        },
+      });
+    }),
 });
