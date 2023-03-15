@@ -20,7 +20,7 @@ export default function UserPage() {
   });
 
   const hasFollow =
-    typeof data?.follows.length === "number" && data.follows.length > 0
+    typeof data?.followers.length === "number" && data.followers.length > 0
       ? true
       : false;
 

@@ -52,8 +52,8 @@ model User {
   sessions      Session[]
   tweet         Tweet[]
   likes         Like[]
-  follows       Follow[]  @relation("follows")
-  followers     Follow[]  @relation("original")
+  followers     Follow[]  @relation("follows")
+  follows       Follow[]  @relation("original")
 }
 
 model VerificationToken {

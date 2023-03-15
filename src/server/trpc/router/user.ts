@@ -17,9 +17,9 @@ export const userRouter = router({
         },
         include: {
           likes: true,
-          follows: {
+          followers: {
             where: {
-              followerId: userId,
+              originalUserId: userId,
             },
           },
           tweet: {
@@ -81,12 +81,12 @@ export const userRouter = router({
         data: {
           follower: {
             connect: {
-              id: user,
+              id: input.userId,
             },
           },
           originalUser: {
             connect: {
-              id: input.userId,
+              id: user,
             },
           },
         },
