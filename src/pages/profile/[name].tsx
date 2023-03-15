@@ -12,12 +12,26 @@ export default function UserPage() {
   const router = useRouter();
   const name = router.query.name as string;
   const id = router.query.id as string;
+  const userId = useSession().data?.user?.id;
+  const { data: session } = useSession();
 
   const { data, isInitialLoading } = trpc.user.getUser.useQuery({
     id: id,
   });
 
-  const userId = useSession().data?.user?.id;
+  const { mutateAsync: followMutation } = trpc.user.follow.useMutation({});
+
+  function handleFollowClick(e: React.SyntheticEvent) {
+    e.preventDefault();
+
+    if (!session || !data?.id) {
+      return;
+    }
+
+    followMutation({
+      userId: data.id,
+    });
+  }
 
   const countComments =
     (data?._count.tweet as number) - (data?.tweet.length as number);
@@ -110,6 +124,11 @@ export default function UserPage() {
                 </div>
               </div>
             </div>
+          </div>
+          <div>
+            <button onClick={(e) => handleFollowClick(e)}>
+              Follow/Unfollow
+            </button>
           </div>
           <Timeline
             where={{
