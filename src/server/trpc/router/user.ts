@@ -9,12 +9,19 @@ export const userRouter = router({
     )
     .query(async ({ ctx, input }) => {
       const { id } = input;
+      const userId = ctx.session?.user?.id;
+
       return await ctx.prisma.user.findUnique({
         where: {
           id,
         },
         include: {
           likes: true,
+          follows: {
+            where: {
+              followerId: userId,
+            },
+          },
           tweet: {
             where: {
               originalTweet: null,
