@@ -19,12 +19,22 @@ export default function UserPage() {
     id: id,
   });
 
+  const hasFollow =
+    typeof data?.follows.length === "number" && data.follows.length > 0
+      ? true
+      : false;
+
   const { mutateAsync: followMutation } = trpc.user.follow.useMutation({});
 
   function handleFollowClick(e: React.SyntheticEvent) {
     e.preventDefault();
 
     if (!session || !data?.id) {
+      return;
+    }
+
+    if (hasFollow) {
+      alert("Already following!");
       return;
     }
 
