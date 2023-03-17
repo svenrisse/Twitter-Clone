@@ -1,7 +1,7 @@
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { AiFillHeart, AiOutlineTwitter } from "react-icons/ai";
-import { BsFillPersonFill } from "react-icons/bs";
+import { BsFillPersonFill, BsPlusCircleFill } from "react-icons/bs";
 import ProfileBar from "./ProfileBar";
 
 export default function Navbar({ focused }: { focused?: string }) {
@@ -67,6 +67,23 @@ export default function Navbar({ focused }: { focused?: string }) {
                   />
                   <span className={`${focused && "font-bold"} hidden md:block`}>
                     Profile
+                  </span>
+                </div>
+              </Link>
+            </div>
+            <div className="w-fit lg:self-start">
+              <Link href="/">
+                <div className="group flex items-center gap-5 rounded-md px-3 hover:bg-slate-300">
+                  <BsPlusCircleFill
+                    size={"2.5rem"}
+                    className={
+                      focused == "followed"
+                        ? "fill-cyan-500"
+                        : "group-hover:fill-cyan-500"
+                    }
+                  />
+                  <span className={`${focused && "font-bold"} hidden md:block`}>
+                    Followed
                   </span>
                 </div>
               </Link>
