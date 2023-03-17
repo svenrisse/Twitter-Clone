@@ -68,6 +68,30 @@ export const userRouter = router({
         },
       });
     }),
+  followTweets: protectedProcedure
+    .input(
+      z.object({
+        id: z.string().optional(),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      return await ctx.prisma.tweet.findMany({
+        where: {
+          author: {
+            followers: {
+              some: {
+                originalUserId: input.id,
+              },
+            },
+          },
+          AND: {
+            originalTweet: null,
+          },
+        },
+        orderBy: [{ createdAt: "desc" }],
+      });
+    }),
+
   follow: protectedProcedure
     .input(
       z.object({
