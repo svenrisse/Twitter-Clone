@@ -202,6 +202,7 @@ export function Tweet({
               handleLikeClick(e);
             }}
             disabled={likeIsLoading || unlikeIsLoading}
+            title={!session?.user ? "Please login to like" : ""}
           >
             {likeIsLoading || unlikeIsLoading ? (
               <TailSpin height="2rem" width="2rem" color="gray" />
