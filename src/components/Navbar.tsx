@@ -72,7 +72,7 @@ export default function Navbar({ focused }: { focused?: string }) {
               </Link>
             </div>
             <div className="w-fit lg:self-start">
-              <Link href="/">
+              <Link href="/followed">
                 <div className="group flex items-center gap-5 rounded-md px-3 hover:bg-slate-300">
                   <BsPlusCircleFill
                     size={"2.5rem"}
