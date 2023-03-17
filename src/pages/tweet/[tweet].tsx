@@ -8,10 +8,12 @@ import CreateComment from "../../components/CreateComment";
 import { AiOutlineArrowDown } from "react-icons/ai";
 import Image from "next/image";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 export default function TweetPage() {
   const router = useRouter();
   const id = router.asPath.split("/")[2] as string;
+  const { data: session } = useSession();
 
   const { data, isFetching, isInitialLoading } = trpc.tweet.getUnique.useQuery({
     tweetId: id,
@@ -88,7 +90,7 @@ export default function TweetPage() {
                 <div className="flex gap-1">{likeImages}</div>
               </div>
             )}
-            <CreateComment tweetId={id} />
+            {session?.user && <CreateComment tweetId={id} />}
 
             {comments !== undefined && comments?.length > 0 && (
               <div className="mt-12 mb-20 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400 lg:w-5/12 2xl:w-4/12">
