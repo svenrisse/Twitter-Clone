@@ -170,7 +170,7 @@ export default function UserPage() {
               </div>
             </div>
           </div>
-          {data?.id !== userId && (
+          {data?.id !== userId && session?.user && (
             <div className="mt-3">
               <button
                 onClick={(e) => handleFollowClick(e)}
