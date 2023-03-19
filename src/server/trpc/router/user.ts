@@ -19,7 +19,7 @@ export const userRouter = router({
           likes: true,
           followers: {
             where: {
-              originalUserId: userId,
+              followingUserId: userId,
             },
           },
           tweet: {
@@ -80,7 +80,7 @@ export const userRouter = router({
           author: {
             followers: {
               some: {
-                originalUserId: input.id,
+                followingUserId: input.id,
               },
             },
           },
@@ -103,12 +103,12 @@ export const userRouter = router({
 
       return ctx.prisma.follow.create({
         data: {
-          follower: {
+          followedUser: {
             connect: {
               id: input.userId,
             },
           },
-          originalUser: {
+          followingUser: {
             connect: {
               id: user,
             },
@@ -125,9 +125,9 @@ export const userRouter = router({
     .mutation(({ ctx, input }) => {
       return ctx.prisma.follow.delete({
         where: {
-          followerId_originalUserId: {
-            followerId: input.userId,
-            originalUserId: ctx.session.user.id,
+          followedUserId_followingUserId: {
+            followedUserId: input.userId,
+            followingUserId: ctx.session.user.id,
           },
         },
       });
