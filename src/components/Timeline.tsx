@@ -154,9 +154,10 @@ export function Tweet({
               <Image
                 src={tweet.author.image}
                 alt={`${tweet.author.name} profile picture`}
-                width={48}
-                height={48}
-                className="max-h-12 rounded-full"
+                width={0}
+                height={0}
+                sizes="100vw"
+                className="h-12 w-12 rounded-full"
               />
             </Link>
           )}
@@ -181,7 +182,7 @@ export function Tweet({
               </p>
             </div>
 
-            <div>{tweet.text}</div>
+            <div className="w-64 break-words">{tweet.text}</div>
           </div>
           {tweet.authorId == session?.user?.id && (
             <button
@@ -212,8 +213,9 @@ export function Tweet({
               <AiFillHeart
                 color={hasLiked ? "red" : "black"}
                 size="2rem"
-                className={`active:fill-red-900 ${(likeIsLoading || unlikeIsLoading) && "animate-bounce"
-                  }`}
+                className={`active:fill-red-900 ${
+                  (likeIsLoading || unlikeIsLoading) && "animate-bounce"
+                }`}
               />
             )}
 
