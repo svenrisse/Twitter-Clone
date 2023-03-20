@@ -10,6 +10,5 @@
 
 # Low Priority
 
-- Feat: follow
 - Feat: add hashtags
 - Feat: links on profile page
