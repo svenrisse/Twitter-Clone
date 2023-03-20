@@ -89,6 +89,17 @@ export const userRouter = router({
           },
         },
         orderBy: [{ createdAt: "desc" }],
+        include: {
+          author: {
+            select: {
+              name: true,
+              image: true,
+              id: true,
+            },
+          },
+          likes: true,
+          _count: true,
+        },
       });
     }),
 
