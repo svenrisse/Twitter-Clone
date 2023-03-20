@@ -5,6 +5,7 @@
 # Mid Priority
 
 - Style: breakpoints around laptop
+- render msg if no data on liked, followed, profile pages
 
 ---
 
