@@ -12,6 +12,10 @@ export default function Followed() {
     id: session?.user?.id,
   });
 
+  const tweets = data?.map((tweet) => {
+    return <Tweet key={tweet.id} tweet={tweet} />;
+  });
+
   return (
     <>
       <Navbar focused="followed" />
@@ -23,7 +27,9 @@ export default function Followed() {
         {isInitialLoading ? (
           <ThreeDots color="cyan" height="100" />
         ) : (
-          <div className="mt-12 mb-20 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400 lg:w-1/2 2xl:w-5/12"></div>
+          <div className="mt-12 mb-20 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400 lg:w-1/2 2xl:w-5/12">
+            {tweets}
+          </div>
         )}
       </div>
     </>
