@@ -63,7 +63,11 @@ export const userRouter = router({
               id: true,
             },
           },
-          likes: true,
+          likes: {
+            where: {
+              userId: ctx.session.user.id,
+            },
+          },
           _count: true,
         },
       });
@@ -97,7 +101,11 @@ export const userRouter = router({
               id: true,
             },
           },
-          likes: true,
+          likes: {
+            where: {
+              userId: ctx.session.user.id,
+            },
+          },
           _count: true,
         },
       });
