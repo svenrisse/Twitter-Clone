@@ -7,6 +7,7 @@ import Rightbar from "../../components/Rightbar";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useSession } from "next-auth/react";
+import { useState } from "react";
 
 export default function UserPage() {
   const router = useRouter();
@@ -63,6 +64,8 @@ export default function UserPage() {
 
   const countTweets = data?.tweet.length as number;
 
+  const [active, setActive] = useState("tweets");
+
   return (
     <>
       <Navbar focused={id == userId ? "profile" : ""} />
@@ -110,8 +113,13 @@ export default function UserPage() {
                   data?.name
                 )}
               </h2>
-              <div className="flex w-1/2 gap-6 pt-5 md:gap-10">
-                <div className="flex w-min flex-col items-center">
+              <div className="flex w-fit pt-5">
+                <div
+                  className={`${
+                    active === "tweets" && "bg-slate-400"
+                  } flex w-16 cursor-pointer flex-col items-center rounded-xl p-2`}
+                  onClick={() => setActive("tweets")}
+                >
                   <span className="font-bold md:text-lg">
                     {isInitialLoading ? (
                       <Skeleton width={40} inline={true} borderRadius={24} />
@@ -123,7 +131,12 @@ export default function UserPage() {
                     {countTweets > 1 || countTweets < 1 ? "Tweets" : "Tweet"}
                   </span>
                 </div>
-                <div className="flex w-min flex-col items-center">
+                <div
+                  className={`${
+                    active === "comments" && "bg-slate-400"
+                  } flex w-16 cursor-pointer flex-col  items-center rounded-xl p-2`}
+                  onClick={() => setActive("comments")}
+                >
                   <span className="font-bold md:text-lg">
                     {isInitialLoading ? (
                       <Skeleton width={40} inline={true} borderRadius={24} />
@@ -137,7 +150,12 @@ export default function UserPage() {
                       : "Comment"}
                   </span>
                 </div>
-                <div className="flex w-min flex-col items-center">
+                <div
+                  className={`${
+                    active === "likes" && "bg-slate-400"
+                  } flex w-16 cursor-pointer flex-col items-center rounded-xl p-2`}
+                  onClick={() => setActive("likes")}
+                >
                   <span className="font-bold md:text-lg">
                     {isInitialLoading ? (
                       <Skeleton width={40} inline={true} borderRadius={24} />
@@ -149,7 +167,12 @@ export default function UserPage() {
                     Liked
                   </span>
                 </div>
-                <div className="flex w-min flex-col items-center">
+                <div
+                  className={`${
+                    active === "followers" && "bg-slate-400"
+                  } flex w-16 cursor-pointer flex-col items-center rounded-xl p-2`}
+                  onClick={() => setActive("followers")}
+                >
                   <span className="font-bold md:text-lg">
                     {isInitialLoading ? (
                       <Skeleton width={40} inline={true} borderRadius={24} />
@@ -161,7 +184,12 @@ export default function UserPage() {
                     Followers
                   </span>
                 </div>
-                <div className="flex w-min flex-col items-center">
+                <div
+                  className={`${
+                    active === "follows" && "bg-slate-400"
+                  } flex w-16 cursor-pointer flex-col items-center rounded-xl p-2`}
+                  onClick={() => setActive("follows")}
+                >
                   <span className="font-bold md:text-lg">
                     {isInitialLoading ? (
                       <Skeleton width={40} inline={true} borderRadius={24} />
@@ -214,14 +242,17 @@ export default function UserPage() {
               </button>
             </div>
           )}
-          <Timeline
-            where={{
-              author: {
-                name,
-              },
-            }}
-            renderCreate={false}
-          />
+          {active === "tweets" && (
+            <Timeline
+              where={{
+                author: {
+                  name,
+                },
+              }}
+              renderCreate={false}
+            />
+          )}
+          {active === "comments"}
         </div>
       </div>
     </>
