@@ -110,62 +110,68 @@ export default function UserPage() {
                   data?.name
                 )}
               </h2>
-              <div className="flex w-1/2 gap-10 pt-5">
+              <div className="flex w-1/2 gap-6 pt-5 md:gap-10">
                 <div className="flex w-min flex-col items-center">
-                  <span className="font-bold">
+                  <span className="font-bold md:text-lg">
                     {isInitialLoading ? (
                       <Skeleton width={40} inline={true} borderRadius={24} />
                     ) : (
                       countTweets
                     )}
                   </span>
-                  <span>
+                  <span className="text-xs text-gray-600 md:text-lg">
                     {countTweets > 1 || countTweets < 1 ? "Tweets" : "Tweet"}
                   </span>
                 </div>
                 <div className="flex w-min flex-col items-center">
-                  <span className="font-bold">
+                  <span className="font-bold md:text-lg">
                     {isInitialLoading ? (
                       <Skeleton width={40} inline={true} borderRadius={24} />
                     ) : (
                       countComments
                     )}
                   </span>
-                  <span>
+                  <span className="text-xs text-gray-600 md:text-lg">
                     {countComments > 1 || countComments < 1
                       ? "Comments"
                       : "Comment"}
                   </span>
                 </div>
                 <div className="flex w-min flex-col items-center">
-                  <span className="font-bold">
+                  <span className="font-bold md:text-lg">
                     {isInitialLoading ? (
                       <Skeleton width={40} inline={true} borderRadius={24} />
                     ) : (
                       data?.likes.length
                     )}
                   </span>
-                  <span>Liked</span>
+                  <span className="text-xs text-gray-600 md:text-lg">
+                    Liked
+                  </span>
                 </div>
                 <div className="flex w-min flex-col items-center">
-                  <span className="font-bold">
+                  <span className="font-bold md:text-lg">
                     {isInitialLoading ? (
                       <Skeleton width={40} inline={true} borderRadius={24} />
                     ) : (
                       data?._count.followers
                     )}
                   </span>
-                  <span>Followers</span>
+                  <span className="text-xs text-gray-600 md:text-lg">
+                    Followers
+                  </span>
                 </div>
                 <div className="flex w-min flex-col items-center">
-                  <span className="font-bold">
+                  <span className="font-bold md:text-lg">
                     {isInitialLoading ? (
                       <Skeleton width={40} inline={true} borderRadius={24} />
                     ) : (
                       data?._count.follows
                     )}
                   </span>
-                  <span>Follows</span>
+                  <span className="text-xs text-gray-600 md:text-lg">
+                    Follows
+                  </span>
                 </div>
               </div>
             </div>
