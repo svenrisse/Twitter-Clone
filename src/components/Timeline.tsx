@@ -77,9 +77,10 @@ export function Tweet({
     trpc.tweet.like.useMutation({
       onSuccess: () => {
         utils.tweet.timeline.invalidate();
-        utils.user.getLikes.invalidate();
         utils.tweet.getUnique.invalidate();
         utils.tweet.uniqueLikes.invalidate();
+        utils.user.getLikes.invalidate();
+        utils.user.followTweets.invalidate();
       },
     });
 
@@ -87,9 +88,10 @@ export function Tweet({
     trpc.tweet.unlike.useMutation({
       onSuccess: () => {
         utils.tweet.timeline.invalidate();
-        utils.user.getLikes.invalidate();
         utils.tweet.getUnique.invalidate();
         utils.tweet.uniqueLikes.invalidate();
+        utils.user.getLikes.invalidate();
+        utils.user.followTweets.invalidate();
       },
     });
 
@@ -210,9 +212,8 @@ export function Tweet({
               <AiFillHeart
                 color={hasLiked ? "red" : "black"}
                 size="2rem"
-                className={`active:fill-red-900 ${
-                  (likeIsLoading || unlikeIsLoading) && "animate-bounce"
-                }`}
+                className={`active:fill-red-900 ${(likeIsLoading || unlikeIsLoading) && "animate-bounce"
+                  }`}
               />
             )}
 
