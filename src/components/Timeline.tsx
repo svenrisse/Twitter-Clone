@@ -182,7 +182,7 @@ export function Tweet({
               </p>
             </div>
 
-            <div className="w-64 break-words">{tweet.text}</div>
+            <div className="w-64 break-words md:w-fit">{tweet.text}</div>
           </div>
           {tweet.authorId == session?.user?.id && (
             <button
