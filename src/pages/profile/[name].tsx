@@ -59,9 +59,6 @@ export default function UserPage() {
     });
   }
 
-  const countComments =
-    (data?._count.tweet as number) - (data?.tweet.length as number);
-
   const countTweets = data?.tweet.length as number;
 
   const [active, setActive] = useState("tweets");
@@ -142,7 +139,7 @@ export default function UserPage() {
                       {isInitialLoading ? (
                         <Skeleton width={40} inline={true} borderRadius={24} />
                       ) : (
-                        countComments
+                        data?._count.tweet - data?.tweet.length
                       )}
                     </span>
                     <span className="text-xs text-gray-600 md:text-lg">
