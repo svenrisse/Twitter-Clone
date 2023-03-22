@@ -23,10 +23,6 @@ export default function UserPage() {
     id: id,
   });
 
-  const { data: likedData } = trpc.user.getLikes.useQuery({
-    id: id,
-  });
-
   const { mutateAsync: followMutation, isLoading: followLoading } =
     trpc.user.follow.useMutation({
       onSuccess: () => {
@@ -69,8 +65,8 @@ export default function UserPage() {
     });
   }
 
-  const likedTweets = likedData?.map((tweet) => {
-    return <Tweet key={tweet.id} tweet={tweet} />;
+  const likedTweets = data?.likes.map((like) => {
+    return <Tweet key={like.tweet.id} tweet={like.tweet} />;
   });
 
   return (
