@@ -17,6 +17,7 @@ export const userRouter = router({
         },
         include: {
           likes: {
+            orderBy: [{ createdAt: "desc" }],
             include: {
               tweet: {
                 include: {
