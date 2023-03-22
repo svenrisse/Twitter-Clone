@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { Timeline } from "../../components/Timeline";
+import { Timeline, Tweet } from "../../components/Timeline";
 import { trpc } from "../../utils/trpc";
 import Image from "next/image";
 import Navbar from "../../components/Navbar";
@@ -20,6 +20,10 @@ export default function UserPage() {
   const [active, setActive] = useState("tweets");
 
   const { data, isInitialLoading } = trpc.user.getUser.useQuery({
+    id: id,
+  });
+
+  const { data: likedData } = trpc.user.getLikes.useQuery({
     id: id,
   });
 
@@ -64,6 +68,10 @@ export default function UserPage() {
       userId: data.id,
     });
   }
+
+  const likedTweets = likedData?.map((tweet) => {
+    return <Tweet key={tweet.id} tweet={tweet} />;
+  });
 
   return (
     <>
@@ -257,6 +265,11 @@ export default function UserPage() {
               </>
             )}
             {active === "comments"}
+            {active === "likes" && (
+              <div className="mt-12 mb-20 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400 lg:w-1/2 2xl:w-5/12">
+                {likedTweets}
+              </div>
+            )}
           </div>
         </div>
       )}
