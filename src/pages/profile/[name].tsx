@@ -17,9 +17,15 @@ export default function UserPage() {
   const { data: session } = useSession();
   const utils = trpc.useContext();
 
+  const [active, setActive] = useState("tweets");
+
   const { data, isInitialLoading } = trpc.user.getUser.useQuery({
     id: id,
   });
+
+  const countComments = data && data?._count.tweet - data?.tweet.length;
+
+  const countTweets = data?.tweet.length;
 
   const hasFollow =
     typeof data?.followers.length === "number" && data.followers.length > 0
@@ -58,10 +64,6 @@ export default function UserPage() {
       userId: data.id,
     });
   }
-
-  const countTweets = data?.tweet.length as number;
-
-  const [active, setActive] = useState("tweets");
 
   return (
     <>
@@ -126,7 +128,9 @@ export default function UserPage() {
                       )}
                     </span>
                     <span className="text-xs text-gray-600 md:text-lg">
-                      {countTweets > 1 || countTweets < 1 ? "Tweets" : "Tweet"}
+                      {countTweets && (countTweets > 1 || countTweets < 1)
+                        ? "Tweets"
+                        : "Tweet"}
                     </span>
                   </div>
                   <div
@@ -143,7 +147,7 @@ export default function UserPage() {
                       )}
                     </span>
                     <span className="text-xs text-gray-600 md:text-lg">
-                      {countComments > 1 || countComments < 1
+                      {countComments && (countComments > 1 || countComments < 1)
                         ? "Comments"
                         : "Comment"}
                     </span>
