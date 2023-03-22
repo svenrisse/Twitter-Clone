@@ -280,6 +280,9 @@ export function Timeline({
       <div className="flex justify-center">
         {isFetching && <ThreeDots color="cyan" height="100" />}
       </div>
+      <span className="flex justify-center pt-4 text-gray-600">
+        {!isFetching && tweets.length === 0 && "This user has no Tweets yet"}
+      </span>
     </div>
   );
 }
