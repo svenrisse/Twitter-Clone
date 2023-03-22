@@ -16,7 +16,27 @@ export const userRouter = router({
           id,
         },
         include: {
-          likes: true,
+          likes: {
+            include: {
+              tweet: {
+                include: {
+                  likes: {
+                    where: {
+                      userId: ctx.session?.user?.id,
+                    },
+                  },
+                  _count: true,
+                  author: {
+                    select: {
+                      name: true,
+                      image: true,
+                      id: true,
+                    },
+                  },
+                },
+              },
+            },
+          },
           followers: {
             where: {
               followingUserId: userId,
