@@ -37,9 +37,9 @@ export default function UserPage() {
       },
     });
 
-  const countComments = data && data?._count.tweet - data?.tweet.length;
+  const countComments = data?.tweet.length;
 
-  const countTweets = data?.tweet.length;
+  const countTweets = data && data?._count.tweet - data.tweet.length;
 
   const hasFollow =
     typeof data?.followers.length === "number" && data.followers.length > 0
@@ -151,7 +151,7 @@ export default function UserPage() {
                       {isInitialLoading ? (
                         <Skeleton width={40} inline={true} borderRadius={24} />
                       ) : (
-                        data?._count.tweet - data?.tweet.length
+                        countComments
                       )}
                     </span>
                     <span className="text-xs text-gray-600 md:text-lg">
