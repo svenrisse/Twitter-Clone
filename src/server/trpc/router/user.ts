@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { number, z } from "zod";
 import { protectedProcedure, publicProcedure, router } from "../trpc";
 export const userRouter = router({
   getUser: publicProcedure
@@ -45,7 +45,7 @@ export const userRouter = router({
           },
           tweet: {
             where: {
-              originalTweet: null,
+              NOT: [{ originalTweet: null }],
             },
           },
           _count: true,
