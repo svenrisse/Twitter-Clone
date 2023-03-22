@@ -1,4 +1,4 @@
-import { number, z } from "zod";
+import { z } from "zod";
 import { protectedProcedure, publicProcedure, router } from "../trpc";
 export const userRouter = router({
   getUser: publicProcedure
