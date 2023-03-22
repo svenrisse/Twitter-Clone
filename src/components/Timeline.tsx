@@ -125,6 +125,8 @@ export function Tweet({
       onSuccess: () => {
         utils.tweet.timeline.invalidate();
         utils.tweet.getUnique.invalidate();
+        utils.user.getUser.invalidate();
+        utils.user.getLikes.invalidate();
       },
     });
 
