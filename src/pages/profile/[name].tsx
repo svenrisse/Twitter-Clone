@@ -23,15 +23,6 @@ export default function UserPage() {
     id: id,
   });
 
-  const countComments = data && data?._count.tweet - data?.tweet.length;
-
-  const countTweets = data?.tweet.length;
-
-  const hasFollow =
-    typeof data?.followers.length === "number" && data.followers.length > 0
-      ? true
-      : false;
-
   const { mutateAsync: followMutation, isLoading: followLoading } =
     trpc.user.follow.useMutation({
       onSuccess: () => {
@@ -45,6 +36,15 @@ export default function UserPage() {
         utils.user.getUser.invalidate();
       },
     });
+
+  const countComments = data && data?._count.tweet - data?.tweet.length;
+
+  const countTweets = data?.tweet.length;
+
+  const hasFollow =
+    typeof data?.followers.length === "number" && data.followers.length > 0
+      ? true
+      : false;
 
   function handleFollowClick(e: React.SyntheticEvent) {
     e.preventDefault();
