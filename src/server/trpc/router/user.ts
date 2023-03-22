@@ -47,6 +47,21 @@ export const userRouter = router({
             where: {
               NOT: [{ originalTweet: null }],
             },
+            include: {
+              likes: {
+                where: {
+                  userId: ctx.session?.user?.id,
+                },
+              },
+              _count: true,
+              author: {
+                select: {
+                  name: true,
+                  image: true,
+                  id: true,
+                },
+              },
+            },
           },
           _count: true,
         },
