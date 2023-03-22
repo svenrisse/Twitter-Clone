@@ -65,6 +65,10 @@ export default function UserPage() {
     });
   }
 
+  const comments = data?.tweet.map((tweet) => {
+    return <Tweet key={tweet.id} tweet={tweet} />;
+  });
+
   const likedTweets = data?.likes.map((like) => {
     return <Tweet key={like.tweet.id} tweet={like.tweet} />;
   });
@@ -260,7 +264,11 @@ export default function UserPage() {
                 />
               </>
             )}
-            {active === "comments"}
+            {active === "comments" && (
+              <div className="mt-12 mb-20 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400 lg:w-1/2 2xl:w-5/12">
+                {comments}
+              </div>
+            )}
             {active === "likes" && (
               <div className="mt-12 mb-20 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400 lg:w-1/2 2xl:w-5/12">
                 {likedTweets}
