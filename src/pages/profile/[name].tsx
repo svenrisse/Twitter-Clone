@@ -8,6 +8,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
+import User from "../../components/User";
 
 export default function UserPage() {
   const router = useRouter();
@@ -48,7 +49,7 @@ export default function UserPage() {
 
   const hasFollow =
     typeof userData?.followers.length === "number" &&
-    userData.followers.length > 0
+      userData.followers.length > 0
       ? true
       : false;
 
@@ -77,6 +78,14 @@ export default function UserPage() {
 
   const likedTweets = userData?.likes.map((like) => {
     return <Tweet key={like.tweet.id} tweet={like.tweet} />;
+  });
+
+  const follows = followerData?.follows.map((follow) => {
+    return <User key={follow.id} user={follow} />;
+  });
+
+  const followers = followerData?.followers.map((follower) => {
+    return <User key={follower.id} user={follower} />;
   });
 
   return (
@@ -129,9 +138,8 @@ export default function UserPage() {
                 </h2>
                 <div className="flex w-fit pt-5">
                   <div
-                    className={`${
-                      active === "tweets" && "bg-slate-400"
-                    } flex w-16 cursor-pointer flex-col items-center rounded-xl p-2`}
+                    className={`${active === "tweets" && "bg-slate-400"
+                      } flex w-16 cursor-pointer flex-col items-center rounded-xl p-2`}
                     onClick={() => setActive("tweets")}
                   >
                     <span className="font-bold md:text-lg">
@@ -148,9 +156,8 @@ export default function UserPage() {
                     </span>
                   </div>
                   <div
-                    className={`${
-                      active === "comments" && "bg-slate-400"
-                    } flex w-16 cursor-pointer flex-col  items-center rounded-xl p-2`}
+                    className={`${active === "comments" && "bg-slate-400"
+                      } flex w-16 cursor-pointer flex-col  items-center rounded-xl p-2`}
                     onClick={() => setActive("comments")}
                   >
                     <span className="font-bold md:text-lg">
@@ -167,9 +174,8 @@ export default function UserPage() {
                     </span>
                   </div>
                   <div
-                    className={`${
-                      active === "likes" && "bg-slate-400"
-                    } flex w-16 cursor-pointer flex-col items-center rounded-xl p-2`}
+                    className={`${active === "likes" && "bg-slate-400"
+                      } flex w-16 cursor-pointer flex-col items-center rounded-xl p-2`}
                     onClick={() => setActive("likes")}
                   >
                     <span className="font-bold md:text-lg">
@@ -184,9 +190,8 @@ export default function UserPage() {
                     </span>
                   </div>
                   <div
-                    className={`${
-                      active === "followers" && "bg-slate-400"
-                    } flex w-16 cursor-pointer flex-col items-center rounded-xl p-2`}
+                    className={`${active === "followers" && "bg-slate-400"
+                      } flex w-16 cursor-pointer flex-col items-center rounded-xl p-2`}
                     onClick={() => setActive("followers")}
                   >
                     <span className="font-bold md:text-lg">
@@ -201,9 +206,8 @@ export default function UserPage() {
                     </span>
                   </div>
                   <div
-                    className={`${
-                      active === "follows" && "bg-slate-400"
-                    } flex w-16 cursor-pointer flex-col items-center rounded-xl p-2`}
+                    className={`${active === "follows" && "bg-slate-400"
+                      } flex w-16 cursor-pointer flex-col items-center rounded-xl p-2`}
                     onClick={() => setActive("follows")}
                   >
                     <span className="font-bold md:text-lg">
@@ -224,9 +228,8 @@ export default function UserPage() {
               <div className="mt-3">
                 <button
                   onClick={(e) => handleFollowClick(e)}
-                  className={`h-12 w-28 rounded-md bg-primary px-4 py-2 font-bold text-white active:bg-blue-600 ${
-                    hasFollow && "hover:bg-red-500"
-                  }`}
+                  className={`h-12 w-28 rounded-md bg-primary px-4 py-2 font-bold text-white active:bg-blue-600 ${hasFollow && "hover:bg-red-500"
+                    }`}
                   disabled={followLoading || unfollowLoading}
                 >
                   {followLoading || unfollowLoading ? (
@@ -278,6 +281,16 @@ export default function UserPage() {
             {active === "likes" && (
               <div className="mt-12 mb-20 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400 lg:w-1/2 2xl:w-5/12">
                 {likedTweets}
+              </div>
+            )}
+            {active === "follows" && (
+              <div className="mt-12 mb-20 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400 lg:w-1/2 2xl:w-5/12">
+                {follows}
+              </div>
+            )}
+            {active === "followers" && (
+              <div className="mt-12 mb-20 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400 lg:w-1/2 2xl:w-5/12">
+                {follows}
               </div>
             )}
           </div>
