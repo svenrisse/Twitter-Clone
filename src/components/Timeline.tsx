@@ -79,6 +79,7 @@ export function Tweet({
         utils.tweet.timeline.invalidate();
         utils.tweet.getUnique.invalidate();
         utils.tweet.uniqueLikes.invalidate();
+        utils.user.getUser.invalidate();
         utils.user.getLikes.invalidate();
         utils.user.followTweets.invalidate();
       },
@@ -90,6 +91,7 @@ export function Tweet({
         utils.tweet.timeline.invalidate();
         utils.tweet.getUnique.invalidate();
         utils.tweet.uniqueLikes.invalidate();
+        utils.user.getUser.invalidate();
         utils.user.getLikes.invalidate();
         utils.user.followTweets.invalidate();
       },
