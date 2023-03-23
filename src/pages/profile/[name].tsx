@@ -19,7 +19,11 @@ export default function UserPage() {
 
   const [active, setActive] = useState("tweets");
 
-  const { data, isInitialLoading } = trpc.user.getUser.useQuery({
+  const { data: userData, isInitialLoading } = trpc.user.getUser.useQuery({
+    id: id,
+  });
+
+  const { data: followerData } = trpc.user.getFollows.useQuery({
     id: id,
   });
 
@@ -37,39 +41,41 @@ export default function UserPage() {
       },
     });
 
-  const countComments = data?.tweet.length;
+  const countComments = userData?.tweet.length;
 
-  const countTweets = data && data?._count.tweet - data.tweet.length;
+  const countTweets =
+    userData && userData?._count.tweet - userData.tweet.length;
 
   const hasFollow =
-    typeof data?.followers.length === "number" && data.followers.length > 0
+    typeof userData?.followers.length === "number" &&
+    userData.followers.length > 0
       ? true
       : false;
 
   function handleFollowClick(e: React.SyntheticEvent) {
     e.preventDefault();
 
-    if (!session || !data?.id || data.id === userId) {
+    if (!session || !userData?.id || userData.id === userId) {
       return;
     }
 
     if (hasFollow) {
       unfollowMutation({
-        userId: data.id,
+        userId: userData.id,
       });
       return;
     }
 
     followMutation({
-      userId: data.id,
+      userId: userData.id,
     });
   }
 
-  const comments = data?.tweet.map((tweet) => {
+  const comments = userData?.tweet.map((tweet) => {
     return <Tweet key={tweet.id} tweet={tweet} />;
   });
 
-  const likedTweets = data?.likes.map((like) => {
+  const likedTweets = userData?.likes.map((like) => {
     return <Tweet key={like.tweet.id} tweet={like.tweet} />;
   });
 
@@ -77,7 +83,7 @@ export default function UserPage() {
     <>
       <Navbar focused={id == userId ? "profile" : ""} />
       <Rightbar />
-      {data && (
+      {userData && (
         <div className="flex min-h-screen w-screen flex-col items-center">
           <h1 className="w-screen rounded-b-md bg-slate-600 py-2 text-center font-mono text-xl font-medium uppercase text-slate-200">
             {isInitialLoading ? (
@@ -88,7 +94,7 @@ export default function UserPage() {
                 inline={true}
               />
             ) : (
-              <span>{`${data?.name}`}</span>
+              <span>{`${userData?.name}`}</span>
             )}
             {`'s Profile`}
           </h1>
@@ -104,8 +110,8 @@ export default function UserPage() {
                   />
                 ) : (
                   <Image
-                    src={data?.image as string}
-                    alt={`${data?.name} profile image`}
+                    src={userData?.image as string}
+                    alt={`${userData?.name} profile image`}
                     height={100}
                     width={100}
                     className="rounded-full"
@@ -118,7 +124,7 @@ export default function UserPage() {
                   {isInitialLoading ? (
                     <Skeleton width={50} duration={0.5} borderRadius={24} />
                   ) : (
-                    data?.name
+                    userData?.name
                   )}
                 </h2>
                 <div className="flex w-fit pt-5">
@@ -170,7 +176,7 @@ export default function UserPage() {
                       {isInitialLoading ? (
                         <Skeleton width={40} inline={true} borderRadius={24} />
                       ) : (
-                        data?.likes.length
+                        userData?.likes.length
                       )}
                     </span>
                     <span className="text-xs text-gray-600 md:text-lg">
@@ -187,7 +193,7 @@ export default function UserPage() {
                       {isInitialLoading ? (
                         <Skeleton width={40} inline={true} borderRadius={24} />
                       ) : (
-                        data?._count.followers
+                        userData?._count.followers
                       )}
                     </span>
                     <span className="text-xs text-gray-600 md:text-lg">
@@ -204,7 +210,7 @@ export default function UserPage() {
                       {isInitialLoading ? (
                         <Skeleton width={40} inline={true} borderRadius={24} />
                       ) : (
-                        data?._count.follows
+                        userData?._count.follows
                       )}
                     </span>
                     <span className="text-xs text-gray-600 md:text-lg">
@@ -214,7 +220,7 @@ export default function UserPage() {
                 </div>
               </div>
             </div>
-            {data?.id !== userId && session?.user && (
+            {userData?.id !== userId && session?.user && (
               <div className="mt-3">
                 <button
                   onClick={(e) => handleFollowClick(e)}
