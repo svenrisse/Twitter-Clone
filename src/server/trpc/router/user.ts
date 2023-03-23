@@ -68,6 +68,27 @@ export const userRouter = router({
       });
     }),
 
+  getFollows: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input }) => {
+      return await ctx.prisma.user.findUnique({
+        where: {
+          id: input.id,
+        },
+        include: {
+          follows: {
+            include: {
+              followedUser: true,
+            },
+          },
+          followers: {
+            include: {
+              followingUser: true,
+            },
+          },
+        },
+      });
+    }),
   getLikes: protectedProcedure
     .input(
       z.object({
