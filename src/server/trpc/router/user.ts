@@ -79,6 +79,14 @@ export const userRouter = router({
             },
           },
         },
+        include: {
+          tweet: {
+            where: {
+              NOT: [{ originalTweet: null }],
+            },
+          },
+          _count: true,
+        },
       });
       const followers = await ctx.prisma.user.findMany({
         where: {
@@ -87,6 +95,14 @@ export const userRouter = router({
               followedUserId: input.id,
             },
           },
+        },
+        include: {
+          tweet: {
+            where: {
+              NOT: [{ originalTweet: null }],
+            },
+          },
+          _count: true,
         },
       });
 
