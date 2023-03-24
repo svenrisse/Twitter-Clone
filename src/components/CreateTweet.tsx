@@ -42,8 +42,8 @@ export function CreateTweet() {
           onChange={(e) => setText(e.target.value)}
           value={text}
           className="w-full rounded-xl p-4 shadow"
-          minLength={10}
-          maxLength={280}
+          minLength={3}
+          maxLength={120}
           placeholder="Say something to the world..."
         />
         <div className="mt-4 flex justify-between">
