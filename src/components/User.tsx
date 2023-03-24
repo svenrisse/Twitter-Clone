@@ -7,6 +7,8 @@ export default function User({
 }: {
   user: RouterOutputs["user"]["getFollows"]["follows"][number];
 }) {
+  const countTweets = user._count.tweet - user.tweet.length;
+
   return (
     <div className="h-fit rounded-b-md border-b-2 border-slate-400 pb-4">
       <Link
@@ -17,7 +19,7 @@ export default function User({
           },
         }}
       >
-        <div className="p-2">
+        <div className="flex p-2">
           <Image
             src={user.image as string}
             alt={`${user.name} picture`}
@@ -26,6 +28,51 @@ export default function User({
             sizes="100vw"
             className="h-12 w-12 rounded-full"
           />
+          <div className="px-2">
+            <span className="font-bold">@{user.name}</span>
+            <div className="flex gap-2">
+              <div className="flex flex-col items-center">
+                <span className="text-sm font-semibold">
+                  {user._count.followers}
+                </span>
+                <span className="text-xs text-gray-600 md:text-lg">
+                  {user._count.followers === 1 ? "Follower" : "Followers"}
+                </span>
+              </div>
+              <div className="flex flex-col items-center">
+                <span className="text-sm font-semibold">
+                  {user._count.follows}
+                </span>
+                <span className="text-xs text-gray-600 md:text-lg">
+                  Follows
+                </span>
+              </div>
+              <div className="flex flex-col items-center">
+                <span className="text-sm font-semibold"> {countTweets}</span>
+                <span className="text-xs text-gray-600 md:text-lg">
+                  {countTweets === 1 ? "Tweet" : "Tweets"}
+                </span>
+              </div>
+              <div className="flex flex-col items-center">
+                <span className="text-sm font-semibold">
+                  {user._count.tweet - countTweets}
+                </span>
+                <span className="text-xs text-gray-600 md:text-lg">
+                  {user._count.tweet - countTweets === 1
+                    ? "Comment"
+                    : "Comments"}
+                </span>
+              </div>
+              <div className="flex flex-col items-center">
+                <span className="text-sm font-semibold">
+                  {user._count.likes}
+                </span>
+                <span className="text-xs text-gray-600 md:text-lg">
+                  {user._count.likes === 1 ? "Like" : "Likes"}
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </Link>
     </div>
