@@ -3,7 +3,7 @@ import { object, string } from "zod";
 import { trpc } from "../utils/trpc";
 
 export const tweetSchema = object({
-  text: string({ required_error: "Text is required" }).min(10).max(280),
+  text: string({ required_error: "Text is required" }).min(3).max(120),
 });
 
 export function CreateTweet() {
