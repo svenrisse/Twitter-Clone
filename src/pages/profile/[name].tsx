@@ -267,38 +267,40 @@ export default function UserPage() {
                 </button>
               </div>
             )}
-            {active === "tweets" && (
-              <>
-                <Timeline
-                  where={{
-                    author: {
-                      name,
-                    },
-                  }}
-                  renderCreate={false}
-                />
-              </>
-            )}
-            {active === "comments" && (
-              <div className="mt-12 mb-20 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400 lg:w-1/2 2xl:w-5/12">
-                {comments}
-              </div>
-            )}
-            {active === "likes" && (
-              <div className="mt-12 mb-20 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400 lg:w-1/2 2xl:w-5/12">
-                {likedTweets}
-              </div>
-            )}
-            {active === "follows" && (
-              <div className="mt-12 mb-20 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400 lg:w-1/2 2xl:w-5/12">
-                {follows}
-              </div>
-            )}
-            {active === "followers" && (
-              <div className="mt-12 mb-20 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400 lg:w-1/2 2xl:w-5/12">
-                {followers}
-              </div>
-            )}
+            <div className="flex w-screen justify-center">
+              {active === "tweets" && (
+                <>
+                  <Timeline
+                    where={{
+                      author: {
+                        name,
+                      },
+                    }}
+                    renderCreate={false}
+                  />
+                </>
+              )}
+              {active === "comments" && (
+                <div className="mt-12 mb-20 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400 lg:w-1/2 2xl:w-5/12">
+                  {comments}
+                </div>
+              )}
+              {active === "likes" && (
+                <div className="mt-12 mb-20 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400 lg:w-1/2 2xl:w-5/12">
+                  {likedTweets}
+                </div>
+              )}
+              {active === "follows" && (
+                <div className="mt-12 mb-20 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400 lg:w-1/2 2xl:w-5/12">
+                  {follows}
+                </div>
+              )}
+              {active === "followers" && (
+                <div className="mt-12 mb-20 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400 lg:w-1/2 2xl:w-5/12">
+                  {followers}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}
