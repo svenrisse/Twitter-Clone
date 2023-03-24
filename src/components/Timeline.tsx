@@ -155,14 +155,16 @@ export function Tweet({
               }}
               replace
             >
-              <Image
-                src={tweet.author.image}
-                alt={`${tweet.author.name} profile picture`}
-                width={0}
-                height={0}
-                sizes="100vw"
-                className="h-12 w-12 rounded-full"
-              />
+              <div className="h-12 w-12">
+                <Image
+                  src={tweet.author.image}
+                  alt={`${tweet.author.name} profile picture`}
+                  width={0}
+                  height={0}
+                  sizes="100vw"
+                  className="min-h-full min-w-full rounded-full"
+                />
+              </div>
             </Link>
           )}
 
@@ -186,11 +188,11 @@ export function Tweet({
               </p>
             </div>
 
-            <div className="w-64 break-words md:w-fit">{tweet.text}</div>
+            <div className="w-60 break-words md:w-fit">{tweet.text}</div>
           </div>
           {tweet.authorId == session?.user?.id && (
             <button
-              className={`ml-auto px-4 ${deleteIsLoading && "animate-pulse"}`}
+              className="ml-auto pr-4"
               disabled={deleteIsLoading}
               onClick={(e) => handleDeleteClick(tweet.id, e)}
             >
