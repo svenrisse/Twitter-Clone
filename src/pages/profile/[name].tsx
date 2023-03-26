@@ -49,7 +49,7 @@ export default function UserPage() {
 
   const hasFollow =
     typeof userData?.followers.length === "number" &&
-    userData.followers.length > 0
+      userData.followers.length > 0
       ? true
       : false;
 
@@ -72,9 +72,14 @@ export default function UserPage() {
     });
   }
 
-  const comments = userData?.tweet.map((tweet) => {
-    return <Tweet key={tweet.id} tweet={tweet} />;
-  });
+  const comments =
+    countComments && countComments > 0 ? (
+      userData?.tweet.map((tweet) => {
+        return <Tweet key={tweet.id} tweet={tweet} />;
+      })
+    ) : (
+      <span>This user has no Comments yet!</span>
+    );
 
   const likedTweets = userData?.likes.map((like) => {
     return <Tweet key={like.tweet.id} tweet={like.tweet} />;
@@ -138,9 +143,8 @@ export default function UserPage() {
                 </h2>
                 <div className="flex pt-5 md:gap-2">
                   <div
-                    className={`${
-                      active === "tweets" && "bg-slate-400"
-                    } flex w-16 cursor-pointer flex-col items-center rounded-xl p-2 md:w-28`}
+                    className={`${active === "tweets" && "bg-slate-400"
+                      } flex w-16 cursor-pointer flex-col items-center rounded-xl p-2 md:w-28`}
                     onClick={() => setActive("tweets")}
                   >
                     <span className="font-bold md:text-lg">
@@ -157,9 +161,8 @@ export default function UserPage() {
                     </span>
                   </div>
                   <div
-                    className={`${
-                      active === "comments" && "bg-slate-400"
-                    } flex w-16 cursor-pointer flex-col  items-center rounded-xl p-2 md:w-28`}
+                    className={`${active === "comments" && "bg-slate-400"
+                      } flex w-16 cursor-pointer flex-col  items-center rounded-xl p-2 md:w-28`}
                     onClick={() => setActive("comments")}
                   >
                     <span className="font-bold md:text-lg">
@@ -176,9 +179,8 @@ export default function UserPage() {
                     </span>
                   </div>
                   <div
-                    className={`${
-                      active === "likes" && "bg-slate-400"
-                    } flex w-16 cursor-pointer flex-col items-center rounded-xl p-2 md:w-28`}
+                    className={`${active === "likes" && "bg-slate-400"
+                      } flex w-16 cursor-pointer flex-col items-center rounded-xl p-2 md:w-28`}
                     onClick={() => setActive("likes")}
                   >
                     <span className="font-bold md:text-lg">
@@ -193,9 +195,8 @@ export default function UserPage() {
                     </span>
                   </div>
                   <div
-                    className={`${
-                      active === "followers" && "bg-slate-400"
-                    } flex w-16 cursor-pointer flex-col items-center rounded-xl p-2 md:w-28`}
+                    className={`${active === "followers" && "bg-slate-400"
+                      } flex w-16 cursor-pointer flex-col items-center rounded-xl p-2 md:w-28`}
                     onClick={() => setActive("followers")}
                   >
                     <span className="font-bold md:text-lg">
@@ -210,9 +211,8 @@ export default function UserPage() {
                     </span>
                   </div>
                   <div
-                    className={`${
-                      active === "follows" && "bg-slate-400"
-                    } flex w-16 cursor-pointer flex-col items-center rounded-xl p-2 md:w-28`}
+                    className={`${active === "follows" && "bg-slate-400"
+                      } flex w-16 cursor-pointer flex-col items-center rounded-xl p-2 md:w-28`}
                     onClick={() => setActive("follows")}
                   >
                     <span className="font-bold md:text-lg">
@@ -233,9 +233,8 @@ export default function UserPage() {
               <div className="mt-3">
                 <button
                   onClick={(e) => handleFollowClick(e)}
-                  className={`h-12 w-28 rounded-md bg-primary px-4 py-2 font-bold text-white active:bg-blue-600 ${
-                    hasFollow && "hover:bg-red-500"
-                  }`}
+                  className={`h-12 w-28 rounded-md bg-primary px-4 py-2 font-bold text-white active:bg-blue-600 ${hasFollow && "hover:bg-red-500"
+                    }`}
                   disabled={followLoading || unfollowLoading}
                 >
                   {followLoading || unfollowLoading ? (
@@ -281,9 +280,17 @@ export default function UserPage() {
                 </>
               )}
               {active === "comments" && (
-                <div className="mt-12 mb-20 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400 lg:w-1/2 2xl:w-5/12">
-                  {comments}
-                </div>
+                <>
+                  {countComments && countComments > 1 ? (
+                    <div className="mt-12 mb-20 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400 lg:w-1/2 2xl:w-5/12">
+                      {comments}
+                    </div>
+                  ) : (
+                    <span className="flex justify-center pt-12 text-gray-600">
+                      This user has no comments yet!
+                    </span>
+                  )}
+                </>
               )}
               {active === "likes" && (
                 <div className="mt-12 mb-20 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400 lg:w-1/2 2xl:w-5/12">
