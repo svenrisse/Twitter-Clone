@@ -8,8 +8,7 @@ export default function Navbar({ focused }: { focused?: string }) {
   const { data, status } = useSession();
 
   return (
-    <div className="fixed bottom-0 flex w-screen items-center rounded-t-md bg-slate-700 py-2 lg:left-14 lg:top-40 lg:h-56 lg:w-2/12 lg:rounded-xl lg:bg-slate-200 2xl:top-36 2xl:left-72 2xl:w-16">
-      <ProfileBar />
+    <div className="fixed bottom-0 flex w-screen items-center rounded-t-md bg-slate-700 py-2 lg:left-20 lg:top-40 lg:h-56 lg:w-2/12 lg:flex-col lg:rounded-xl lg:bg-slate-200 2xl:top-36 2xl:left-72 2xl:w-16">
       <div className="ml-auto flex justify-center px-4 text-lg md:gap-5 lg:ml-0 lg:mb-auto lg:flex-col lg:items-center 2xl:text-xl">
         <div className="w-fit lg:self-start">
           <Link href={"/"}>
@@ -91,6 +90,7 @@ export default function Navbar({ focused }: { focused?: string }) {
           </>
         )}
       </div>
+      <ProfileBar />
     </div>
   );
 }
