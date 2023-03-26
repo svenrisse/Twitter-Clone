@@ -22,7 +22,7 @@ export default function ProfileBar() {
   }
 
   return (
-    <div className="lg:fixed lg:bottom-4">
+    <div className="fixed lg:bottom-4">
       <div
         onClick={openModal}
         className="w-10 cursor-pointer rounded-full lg:flex lg:w-40 lg:items-center lg:gap-2 lg:bg-slate-300 lg:py-2"
@@ -46,14 +46,23 @@ export default function ProfileBar() {
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
-        className="fixed bottom-20 left-2 border-0 lg:left-28 lg:bottom-24 2xl:left-96"
+        className="fixed inset-x-0 top-1/2 mx-auto flex w-2/3 flex-col items-center rounded-lg border-0 bg-slate-300 py-8 lg:left-28 lg:bottom-24 2xl:left-96"
       >
-        <button
-          className="w-20 rounded-xl bg-cyan-700 py-2"
-          onClick={() => signOut()}
-        >
-          Logout
-        </button>
+        <h2 className="mb-5 font-bold">Do you want to logout?</h2>
+        <div>
+          <button
+            className="mr-5 w-20 rounded-xl bg-cyan-700 py-2 font-bold text-white"
+            onClick={() => closeModal()}
+          >
+            Cancel
+          </button>
+          <button
+            className="w-20 rounded-xl bg-red-500 py-2 font-bold text-white"
+            onClick={() => signOut()}
+          >
+            Logout
+          </button>
+        </div>
       </Modal>
     </div>
   );
