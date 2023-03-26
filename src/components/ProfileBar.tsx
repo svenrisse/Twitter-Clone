@@ -46,18 +46,18 @@ export default function ProfileBar() {
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
-        className="fixed inset-x-0 top-1/2 mx-auto flex w-2/3 flex-col items-center rounded-lg border-0 bg-slate-300 py-8 lg:left-28 lg:bottom-24 2xl:left-96"
+        className="fixed inset-x-0 top-1/2 mx-auto flex w-2/3 flex-col items-center rounded-lg border-0 bg-slate-300 py-8 md:w-5/12 lg:w-1/3 lg:py-12 xl:w-1/4 2xl:w-1/6"
       >
-        <h2 className="mb-5 font-bold">Do you want to logout?</h2>
+        <h2 className="mb-5 text-lg font-bold">Do you want to logout?</h2>
         <div>
           <button
-            className="mr-5 w-20 rounded-xl bg-cyan-700 py-2 font-bold text-white"
+            className="mr-5 w-20 rounded-xl bg-cyan-700 py-2 font-bold text-white active:bg-cyan-600"
             onClick={() => closeModal()}
           >
             Cancel
           </button>
           <button
-            className="w-20 rounded-xl bg-red-500 py-2 font-bold text-white"
+            className="w-20 rounded-xl bg-red-500 py-2 font-bold text-white active:bg-red-400"
             onClick={() => signOut()}
           >
             Logout
