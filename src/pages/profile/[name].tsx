@@ -293,9 +293,17 @@ export default function UserPage() {
                 </>
               )}
               {active === "likes" && (
-                <div className="mt-12 mb-20 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400 lg:w-1/2 2xl:w-5/12">
-                  {likedTweets}
-                </div>
+                <>
+                  {userData._count.likes > 1 ? (
+                    <div className="mt-12 mb-20 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400 lg:w-1/2 2xl:w-5/12">
+                      {likedTweets}
+                    </div>
+                  ) : (
+                    <span className="flex justify-center pt-12 text-gray-600">
+                      This user has not liked any Tweets yet!
+                    </span>
+                  )}
+                </>
               )}
               {active === "follows" && (
                 <div className="mt-12 mb-20 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400 lg:w-1/2 2xl:w-5/12">
