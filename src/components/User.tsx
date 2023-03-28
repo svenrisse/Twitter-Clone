@@ -30,7 +30,7 @@ export default function User({
           />
           <div className="px-2">
             <span className="font-bold">@{user.name}</span>
-            <div className="flex gap-2">
+            <div className="flex gap-3 py-2">
               <div className="flex flex-col items-center">
                 <span className="text-sm font-semibold">
                   {user._count.followers}
