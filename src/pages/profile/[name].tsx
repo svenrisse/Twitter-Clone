@@ -1,14 +1,14 @@
 import { useRouter } from "next/router";
-import { Timeline, Tweet } from "../../components/Timeline";
-import { trpc } from "../../utils/trpc";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
+import { useState } from "react";
+import { trpc } from "../../utils/trpc";
+import { Timeline, Tweet } from "../../components/Timeline";
 import Navbar from "../../components/Navbar";
 import Rightbar from "../../components/Rightbar";
+import User from "../../components/User";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { useSession } from "next-auth/react";
-import { useState } from "react";
-import User from "../../components/User";
 
 export default function UserPage() {
   const router = useRouter();
@@ -49,7 +49,7 @@ export default function UserPage() {
 
   const hasFollow =
     typeof userData?.followers.length === "number" &&
-    userData.followers.length > 0
+      userData.followers.length > 0
       ? true
       : false;
 
@@ -132,7 +132,7 @@ export default function UserPage() {
                   />
                 )}
               </div>
-              <div className=" pt-4">
+              <div className="pt-4">
                 <h2 className="font-bold">
                   @
                   {isInitialLoading ? (
@@ -143,9 +143,8 @@ export default function UserPage() {
                 </h2>
                 <div className="flex pt-5 md:gap-2">
                   <div
-                    className={`${
-                      active === "tweets" && "bg-slate-400"
-                    } flex w-16 cursor-pointer flex-col items-center rounded-xl p-2 md:w-28`}
+                    className={`${active === "tweets" && "bg-slate-400"
+                      } flex w-16 cursor-pointer flex-col items-center rounded-xl p-2 md:w-28`}
                     onClick={() => setActive("tweets")}
                   >
                     <span className="font-bold md:text-lg">
@@ -162,9 +161,8 @@ export default function UserPage() {
                     </span>
                   </div>
                   <div
-                    className={`${
-                      active === "comments" && "bg-slate-400"
-                    } flex w-16 cursor-pointer flex-col  items-center rounded-xl p-2 md:w-28`}
+                    className={`${active === "comments" && "bg-slate-400"
+                      } flex w-16 cursor-pointer flex-col  items-center rounded-xl p-2 md:w-28`}
                     onClick={() => setActive("comments")}
                   >
                     <span className="font-bold md:text-lg">
@@ -181,9 +179,8 @@ export default function UserPage() {
                     </span>
                   </div>
                   <div
-                    className={`${
-                      active === "likes" && "bg-slate-400"
-                    } flex w-16 cursor-pointer flex-col items-center rounded-xl p-2 md:w-28`}
+                    className={`${active === "likes" && "bg-slate-400"
+                      } flex w-16 cursor-pointer flex-col items-center rounded-xl p-2 md:w-28`}
                     onClick={() => setActive("likes")}
                   >
                     <span className="font-bold md:text-lg">
@@ -198,9 +195,8 @@ export default function UserPage() {
                     </span>
                   </div>
                   <div
-                    className={`${
-                      active === "followers" && "bg-slate-400"
-                    } flex w-16 cursor-pointer flex-col items-center rounded-xl p-2 md:w-28`}
+                    className={`${active === "followers" && "bg-slate-400"
+                      } flex w-16 cursor-pointer flex-col items-center rounded-xl p-2 md:w-28`}
                     onClick={() => setActive("followers")}
                   >
                     <span className="font-bold md:text-lg">
@@ -215,9 +211,8 @@ export default function UserPage() {
                     </span>
                   </div>
                   <div
-                    className={`${
-                      active === "follows" && "bg-slate-400"
-                    } flex w-16 cursor-pointer flex-col items-center rounded-xl p-2 md:w-28`}
+                    className={`${active === "follows" && "bg-slate-400"
+                      } flex w-16 cursor-pointer flex-col items-center rounded-xl p-2 md:w-28`}
                     onClick={() => setActive("follows")}
                   >
                     <span className="font-bold md:text-lg">
@@ -238,9 +233,8 @@ export default function UserPage() {
               <div className="mt-3">
                 <button
                   onClick={(e) => handleFollowClick(e)}
-                  className={`h-12 w-28 rounded-md bg-primary px-4 py-2 font-bold text-white active:bg-blue-600 ${
-                    hasFollow && "hover:bg-red-500"
-                  }`}
+                  className={`h-12 w-28 rounded-md bg-primary px-4 py-2 font-bold text-white active:bg-blue-600 ${hasFollow && "hover:bg-red-500"
+                    }`}
                   disabled={followLoading || unfollowLoading}
                 >
                   {followLoading || unfollowLoading ? (
