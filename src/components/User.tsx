@@ -28,11 +28,11 @@ export default function User({
             sizes="100vw"
             className="h-12 w-12 rounded-full"
           />
-          <div className="px-2">
-            <span className="font-bold">@{user.name}</span>
-            <div className="flex gap-3 py-2">
+          <div className="w-screen px-2 md:flex md:flex-col md:items-center">
+            <span className="px-2 font-bold md:self-start">@{user.name}</span>
+            <div className="flex gap-3 py-2 md:gap-10">
               <div className="flex flex-col items-center">
-                <span className="text-sm font-semibold">
+                <span className="text-sm font-semibold md:text-base">
                   {user._count.followers}
                 </span>
                 <span className="text-xs text-gray-600 md:text-lg">
@@ -40,7 +40,7 @@ export default function User({
                 </span>
               </div>
               <div className="flex flex-col items-center">
-                <span className="text-sm font-semibold">
+                <span className="text-sm font-semibold md:text-base">
                   {user._count.follows}
                 </span>
                 <span className="text-xs text-gray-600 md:text-lg">
@@ -48,13 +48,16 @@ export default function User({
                 </span>
               </div>
               <div className="flex flex-col items-center">
-                <span className="text-sm font-semibold"> {countTweets}</span>
+                <span className="text-sm font-semibold md:text-base">
+                  {" "}
+                  {countTweets}
+                </span>
                 <span className="text-xs text-gray-600 md:text-lg">
                   {countTweets === 1 ? "Tweet" : "Tweets"}
                 </span>
               </div>
               <div className="flex flex-col items-center">
-                <span className="text-sm font-semibold">
+                <span className="text-sm font-semibold md:text-base">
                   {user._count.tweet - countTweets}
                 </span>
                 <span className="text-xs text-gray-600 md:text-lg">
@@ -64,7 +67,7 @@ export default function User({
                 </span>
               </div>
               <div className="flex flex-col items-center">
-                <span className="text-sm font-semibold">
+                <span className="text-sm font-semibold md:text-base">
                   {user._count.likes}
                 </span>
                 <span className="text-xs text-gray-600 md:text-lg">
