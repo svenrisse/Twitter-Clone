@@ -287,7 +287,7 @@ export default function UserPage() {
               )}
               {active === "comments" && (
                 <>
-                  {countComments && countComments > 1 ? (
+                  {countComments && countComments >= 1 ? (
                     <div className="mt-12 mb-20 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400 lg:w-1/2 2xl:w-5/12">
                       {comments}
                     </div>
@@ -300,7 +300,7 @@ export default function UserPage() {
               )}
               {active === "likes" && (
                 <>
-                  {userData._count.likes > 1 ? (
+                  {userData._count.likes >= 1 ? (
                     <div className="mt-12 mb-20 h-max w-11/12 rounded-xl border-l-2 border-r-2 border-t-2 border-slate-400 lg:w-1/2 2xl:w-5/12">
                       {likedTweets}
                     </div>
